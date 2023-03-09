@@ -1,0 +1,147 @@
+<body ng-controller="superCtrl">
+    <div class="superContainer">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="dashboard.superAdminPortal">
+                        <span class="icon">
+                            <i class="fa fa-utensils"></i>
+                        </span>
+                        <span class="title" style="font-size: 25px">Admin Portal</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.superAdminPortal">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Home</span>
+
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.viewAllCustomers">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">All Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.viewAllBrands">
+                        <span class="icon"><ion-icon name="business-outline"></ion-icon>
+                        </span>
+                        <span class="title">All Brands</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#createModal" ng-click="openModal(brandUser)">
+                        <span class="icon"><ion-icon name="add-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add Brand</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.superAdminPortal">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.superAdminPortal">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.superAdminPortal">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="superMain">
+            <div ui-view></div>
+        </div>
+        <!--Create Modal -->
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Brand</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Brand Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Name</span>
+                                <input type="text" ng-model="brandUser.brandName" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Logo</span>
+                                <input type="text" ng-model="brandUser.brandLogo" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Description</span>
+                                <input type="text" ng-model="brandUser.brandDescription" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Email</span>
+                                <input type="text" ng-model="brandUser.brandEmail" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Phone</span>
+                                <input type="text" ng-model="brandUser.brandPhone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Handles</span>
+                                <input type="text" ng-model="brandUser.brandHandles" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Website</span>
+                                <input type="text" ng-model="brandUser.brandWebsite" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <h5>Brand Owner Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner
+                                    Username</span>
+                                <input type="text" ng-model="brandUser.username" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner
+                                    Password</span>
+                                <input type="text" ng-model="brandUser.password" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner Phone</span>
+                                <input type="text" ng-model="brandUser.phone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner Email</span>
+                                <input type="text" ng-model="brandUser.email" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

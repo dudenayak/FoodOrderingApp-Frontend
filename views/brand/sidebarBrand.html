@@ -1,0 +1,221 @@
+<body ng-controller="brandCtrl">
+    <div class="superContainer">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="panel.brandPortal">
+                        <span class="icon">
+                            <i class="fa fa-utensils"></i>
+                        </span>
+                        <span class="title" style="font-size: 25px;">{{brandData.brandName}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="panel.brandPortal">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Home</span>
+
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="panel.brandOutlets">
+                        <span class="icon"><ion-icon name="business-outline"></ion-icon>
+                        </span>
+                        <span class="title">All Outlets</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="panel.brandOutletManagers">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Outlet Managers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#outletModal" ng-click="openModal()">
+                        <span class="icon"><ion-icon name="add-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add Outlet</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#productModal" ng-click="openModal()">
+                        <span class="icon"><ion-icon name="pizza-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#adminModal" ng-click="openModal()">
+                        <span class="icon"><ion-icon name="person-add-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add New Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="panel.brandPortal">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="login">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title" ng-click="logout($event)">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="superMain">
+            <div ui-view></div>
+        </div>
+        <!--Add Outlet Modal -->
+        <div class="modal fade" id="outletModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Outlet</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Outelt Manager Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
+                                    Username</span>
+                                <input type="text" ng-model="outletManager.username" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
+                                    Password</span>
+                                <input type="text" ng-model="outletManager.password" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
+                                    Phone</span>
+                                <input type="text" ng-model="outletManager.phone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
+                                    Email</span>
+                                <input type="text" ng-model="outletManager.email" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <h5>Outlet Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Branch Name</span>
+                                <input type="text" ng-model="outletManager.outletName" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Address</span>
+                                <input type="text" ng-model="outletManager.outletAddress" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Phone</span>
+                                <input type="text" ng-model="outletManager.outletPhone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveOutlet($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Add Product Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Product Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Product Name</span>
+                                <input type="text" ng-model="brandUser.brandName" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Product Image</span>
+                                <input type="text" ng-model="brandUser.brandLogo" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Product Price</span>
+                                <input type="text" ng-model="brandUser.brandPhone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Add Brand Admin Modal -->
+        <div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Admin Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
+                                    Username</span>
+                                <input type="text" ng-model="brandUser.username" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <!-- <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
+                                    Password</span>
+                                <input type="text" ng-model="brandUser.password" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div> -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
+                                    Phone</span>
+                                <input type="text" ng-model="brandUser.phone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
+                                    Email</span>
+                                <input type="text" ng-model="brandUser.email" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

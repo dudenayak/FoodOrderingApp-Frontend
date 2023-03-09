@@ -1,0 +1,185 @@
+<body ng-controller="superCtrl">
+    <div class="superContainer">
+        <!-- content start -->
+        <div class="superMain">
+            <div class="superTopbar">
+                <div class="superToggle" ng-click="toggle()">
+                    <!-- <ion-icon name="menu-outline"></ion-icon> -->
+                </div>
+                <div class="superSearch">
+                    <label>
+                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
+                    </label>
+                </div>
+                <div class="superUser">
+                    <img src="../img/user.png">
+                </div>
+            </div>
+
+            <!-- cards -->
+            <div class="superCardBox">
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">1504</div>
+                        <div class="cardName">Daily Views</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">{{allBrands.length}}</div>
+                        <div class="cardName">Powered Brands</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">1504</div>
+                        <div class="cardName">Total Outlets</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">$7842</div>
+                        <div class="cardName">Earnings</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- order data list -->
+            <div class="superDetails">
+                <div class="superRecentOrders">
+                    <div class="superCardHeader">
+                        <h2> All Brands</h2>
+                        <a ui-sref="dashboard.viewAllBrands" class="superButton">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Name</td>
+                                <td>Status</td>
+                                <td>Active Toggle(On/Off)</td>
+                                <td>Edit</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="brand in allBrands |  limitTo : -9:0 | filter:search |orderBy:reverse:true">
+                                <td>{{brand._id}}</td>
+                                <td>{{brand.brandName}}</td>
+                                <td><span
+                                        ng-class="brand.isActive ? 'status delivered' : 'status return'">{{brand.isActive
+                                        ?
+                                        "Active" : "InActive"
+                                        }}</span></td>
+                                <td ng-click="handleToggle(brand.isActive, brand._id)"><label class="switchOn"
+                                        ng-class="brand.isActive ? 'switchOn' : 'switchOff'">
+                                        {{brand.isActive ? "On" :
+                                        "Off"}}
+                                        <input type="checkbox" ng-checked="false">
+                                        <span class="slider round"
+                                            ng-class="brand.isActive ? 'sliderOn' : 'sliderOff'"></span>
+                                    </label></td>
+                                <td>
+                                    <span class="icon" style="font-size: 1.75em; cursor: pointer;"
+                                        data-bs-toggle="modal" data-bs-target="#editModal"
+                                        ng-click="openModalEdit(brand)"><ion-icon
+                                            name="create-outline"></ion-icon></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- new joiners -->
+
+                <div class="superRecentCustomers">
+                    <div class="superCardHeader">
+                        <h2> Recent Customers</h2>
+                    </div>
+                    <table>
+                        <tr ng-repeat="owner in allOwners | limitTo : -8:0 | orderBy:reverse:true">
+                            <td width="60px">
+                                <div class="imgBox"><img src="../img/user.png"></div>
+                            </td>
+                            <td>
+                                <h4>{{owner.username}}<br><span>{{owner.brand.brandName}} - {{owner.userType}}</span>
+                                </h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Edit -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Brand</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="updateForm" novalidate autocomplete="off">
+                            <h5> Brand Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Name</span>
+                                <input type="text" ng-model="brand.brandName" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Logo</span>
+                                <input type="text" ng-model="brand.brandLogo" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Description</span>
+                                <input type="text" ng-model="brand.brandDescription" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Email</span>
+                                <input type="text" ng-model="brand.brandEmail" class=" form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Phone</span>
+                                <input type="text" ng-model="brand.brandPhone" class=" form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Handles</span>
+                                <input type="text" ng-model="brand.brandHandles" class=" form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Brand Website</span>
+                                <input type="text" ng-model="brand.brandWebsite" class=" form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="superButton" ng-click="saveData($event)">Save
+                                    changes</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

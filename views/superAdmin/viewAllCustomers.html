@@ -1,0 +1,155 @@
+<body ng-controller="superCtrl">
+    <div class="superContainer">
+        <!-- content start -->
+        <div class="superMain">
+            <div class="superTopbar">
+                <div class="superToggle" ng-click="toggle()">
+                </div>
+                <div class="superSearch">
+                    <label>
+                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
+                    </label>
+                </div>
+                <div class="superUser">
+                    <img src="../img/user.png">
+                </div>
+            </div>
+
+            <div class="superDetails">
+                <div class="superRecentOrdersView">
+                    <div class="viewAllTable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Owner Name</td>
+                                    <td>Brand Name</td>
+                                    <td>User Type</td>
+                                    <!-- <td>Id</td> -->
+                                    <td>Edit</td>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <tr ng-repeat="owner in allOwners | filter:search | orderBy:reverse:true">
+                                    <td>{{owner.username}}</td>
+                                    <td>{{owner.brand.brandName}}</td>
+                                    <td>{{owner.userType}}</td>
+                                    <td>
+                                        <span class="icon" style="font-size: 1.75em; cursor: pointer;"
+                                            data-bs-toggle="modal" data-bs-target="#editModalOwner"
+                                            ng-click="openModalEditOwner(owner)"><ion-icon
+                                                name="create-outline"></ion-icon></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Brand</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="updateForm" novalidate autocomplete="off">
+                                <h5> Brand Information</h5>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Name</span>
+                                    <input type="text" ng-model="brand.brandName" class="form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Logo</span>
+                                    <input type="text" ng-model="brand.brandLogo" class="form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand
+                                        Description</span>
+                                    <input type="text" ng-model="brand.brandDescription" class="form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Email</span>
+                                    <input type="text" ng-model="brand.brandEmail" class=" form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Phone</span>
+                                    <input type="text" ng-model="brand.brandPhone" class=" form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Handles</span>
+                                    <input type="text" ng-model="brand.brandHandles" class=" form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Brand Website</span>
+                                    <input type="text" ng-model="brand.brandWebsite" class=" form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="superButtonClose"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="superButton" ng-click="saveData($event)">Save
+                                        changes</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit Owner-->
+            <div class="modal fade" id="editModalOwner" tabindex="-1" aria-labelledby="editModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Owner</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="updateForm" novalidate autocomplete="off">
+                                <h5> Owner Information</h5>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Owner Name</span>
+                                    <input type="text" ng-model="owner.username" class="form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Owner Brand</span>
+                                    <span ng-model="owner.brandName" class="form-control" aria-label="Sizing edit input"
+                                        aria-describedby="inputGroup-sizing-default">{{owner.brandName}}</span>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Owner
+                                        Phone</span>
+                                    <input type="text" ng-model="owner.phone" class="form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Owner Email</span>
+                                    <input type="text" ng-model="owner.email" class=" form-control"
+                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="superButtonClose"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="superButton" ng-click="saveOwnerData($event)">Save
+                                        changes</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>

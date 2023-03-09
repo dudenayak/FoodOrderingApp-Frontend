@@ -1,0 +1,857 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+:root{
+    --red: rgb(235, 66, 66);
+    --white: #fff;
+    --black1:#222;
+    --black2: #999;
+    --light-color:#666;    
+}
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* LOGIN PAGE */
+
+.loginView {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.loginBody {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(../../img/Background/background.jpg);    
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition:0.5s;
+}
+
+/* body.active{
+    background-image: url(../../img/Background/background.jpg);
+} */
+.containerLogin{
+    align-items: center;
+    position:relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px;
+    background: none;
+  
+}
+.loginbg{
+    position:absolute;
+    top:40px;
+    width:100%;
+    height:420px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgb(235, 66, 66);
+    box-shadow: 0 5px 45px rgb(77, 76, 76);
+}
+.loginbg .box{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+.loginbg .box h2{
+    color:white;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: bottom 10px;
+}
+.loginbg .box button{
+    cursor: pointer;
+    padding: 10px 20px;
+    background:white;
+    color:grey;
+    font-size: 16px;
+    font-weight: 500;
+    border:none;
+}
+.formbx{
+    position:absolute;
+    top:0;
+    left:0;
+    width:50%;  
+    height:100%;
+    background:white;
+    z-index: 1000;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    box-shadow: 0 5px 45px rgb(63, 61, 61);
+    transition:0.5s ease-in-out;
+    overflow: hidden;
+}
+.formbx.active{
+    left:50%;
+}
+
+.formbx .form{
+    position:absolute;
+    left:0;
+    width:100%;
+    padding:50px;
+    transition:0.5s;
+}
+.formbx .signinform{
+    transition-delay: 0.25s;
+}
+.formbx.active .signinform{
+    left:-100%;
+    transition-delay: 0s
+}
+.formbx .signupform{
+    left:100%;
+}
+.formbx.active .signupform{
+    left:0;
+}
+.formbx .form form{
+    width:100%;
+    display: flex;
+    flex-direction:column;
+}
+.formbx .form form h2{
+    font-size:30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.formbx .form form h3{
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 6px;
+    font-weight: 500;
+
+}
+.formbx .form form input{
+    width: 100%;
+    margin-bottom:20px;
+    padding: 10px;
+    outline:none;
+    font-size:16px;
+    border:1px solid #333;
+}
+.formbx .form form input[type="button"]{
+    background:rgb(223, 62, 62);
+    border:none;
+    color:white;
+    max-width: 100px;
+    cursor:pointer;
+}
+.formbx .form form input[type="submit"]{
+    
+    background: rgb(223, 62, 62);
+    border:none;
+    color:white;
+    max-width: 100px;
+    cursor: pointer;
+}
+/* .h-screen
+{
+    height: 100vh;
+} */
+.formbx .form form .forgot{
+    color:#333;
+    text-decoration: none;
+}
+
+/* SUPERADMIN PORTAL */
+.superContainer {
+    position: relative;
+    /* width: 100%; */
+    display: flex;
+    /* margin-left: 20px; */
+    
+}
+
+.superContainer .navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--red);
+    border-left: 10px solid var(--red);
+    transition: 0.5s;
+    overflow: hidden;
+    border-top: 30px solid var(--red);
+}
+
+.superContainer .navigation.active{
+    width: 80px;
+}
+
+.superContainer .navigation ul {
+    position: absolute;
+    top: 0px;
+    left: -30px;
+    list-style:none;
+}
+
+.superContainer .navigation ul li {
+    position: relative;
+    width: 200%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.superContainer .navigation ul li:hover {
+    background: var(--white);
+    /* height: 50px; */
+}   
+
+.superContainer .navigation ul li:nth-child(1){
+    margin-bottom: 40px;
+    pointer-events: none;
+    font-size: 30px;
+}
+
+.superContainer .navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.superContainer .navigation ul li:hover a{
+    color: var(--red);
+}
+
+.superContainer .navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    /* line-height: 10px; */
+    top: 15px;
+    text-align: center;
+}
+
+.superContainer .navigation ul li a .icon ion-icon{
+    font-size: 1.75em;
+}
+
+.superContainer .navigation ul li a .title {    
+    position: relative;   
+    display: block;
+    top: 15px;
+    padding: 0 10px;
+    height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.superContainer .navigation ul li:hover a::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    /* right: -40px; */
+    left: 240px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+    pointer-events: none;
+}
+
+.superContainer .navigation ul li:hover a::after {
+    content: '';
+    position: absolute;
+    top: 60px;
+    width: 50px;
+    height: 50px;
+    /* right: 74px; */
+    left: 240px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none;
+} 
+
+/* content */
+.superMain {
+    /* position: absolute; */
+    width: 100%;
+    /* margin-left: 300px; */
+    min-height: 100vh;
+    background: var(--white);
+    transition: 0.5s;
+    margin-left: 150px;
+}
+
+.superMain.active{
+    width: calc(100% - 300px);
+}
+
+.superTopbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.superToggle {
+    position: relative;
+    /* top: 0; */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+.superSearch {
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+
+
+.superSearch label {
+    position: relative;
+    width: 100%;
+}
+
+.superSearch label input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-left: 35px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid var(--black2);
+}
+
+.superSearch label ion-icon {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 1.2em;
+}
+
+.superUserName{
+    display: flex;
+    flex-direction: row-reverse;
+    /* margin-top: 80px; */
+}
+
+/* .superUserName h8 {
+    margin-top: 40px;
+} */
+
+.superUser {
+    /* display: flex; */
+    /* flex-direction: column; */
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.superUser img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} 
+
+/* card */
+
+.superCardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 30px;
+}
+
+.superCardBox .superCard {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.superCardBox .superCard .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 2em;
+    color: var(--red);
+}
+
+.superCardBox .superCard .cardName {
+    color: var(--black2);
+    font-size: 1.1em;
+    margin-top: 5px;
+}
+
+.superCardBox .superCard .iconBox {
+    font-size: 3em;
+    color: var(--black2);
+}
+
+.superCardBox .superCard:hover {
+    background: var(--red);
+}
+
+.superCardBox .superCard:hover .numbers,
+.superCardBox .superCard:hover .cardName,
+.superCardBox .superCard:hover .iconBox {
+    color: var(--white);
+}
+
+.superDetails {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
+    margin-top: 10px;
+}
+
+.superDetails .superRecentOrders {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.superDetails .superRecentOrders .superCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.superDetails .superRecentOrders .superCardHeader h2{ 
+    font-weight: 600;
+    color: var(--red);
+}
+
+.superButton, .superButton:hover {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--red);
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+    border-style: none;
+}
+
+.superButtonClose {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--black2);
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+    border-style: none;
+}
+
+.superDetails table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.superDetails table thead td {
+    font-weight: 600;    
+}
+
+/* .superDetails .superRecentOrders table {
+     margin-top: -100px;
+} */
+
+.superDetails .superRecentOrders table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.superDetails .superRecentOrders table tr :last-child{
+    border-bottom: none;
+}
+
+/* .superDetails .superRecentOrders table tbody tr:hover {
+    background: var(--red);
+    color: var(--white);
+} */
+
+.superDetails .superRecentOrders table tr td {
+    padding: 10px;
+}
+
+.superDetails .superRecentOrders table tr td:last-child {
+    text-align: center;
+    /* color: var(--black2); */
+}
+
+.superDetails .superRecentOrders table tr td:nth-child(2) {
+    text-align: center;
+}
+
+.superDetails .superRecentOrders table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.superDetails .superRecentOrders table tr td:nth-child(4) {
+    text-align: center;
+}
+
+/* view */
+.superDetails .superRecentOrdersView table tr td:last-child {
+    text-align: center;
+}
+
+/* .superDetails .superRecentOrdersView table tr td:nth-child(2) {
+    text-align: center;
+} */
+
+.superDetails .superRecentOrdersView table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.superDetails .superRecentOrdersView table tr td:nth-child(4) {
+    text-align: center;
+}
+
+.superDetails .superRecentOrders .viewAllTable {
+    margin-top: 10px;
+    line-height: 10px;
+}
+
+.superDetails .superRecentOrdersView {
+    /* margin-top: 10px; */
+    position: relative;
+    display: grid;
+    min-height: 600px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    min-width: 1150px;
+}
+
+.superDetails .superRecentOrdersView table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* margin-top: 10px; */
+}
+
+.status.delivered{
+    padding: 2px 4px;
+    background: #8de02c;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.pending{
+    padding: 2px 4px;
+    background: #f9ca3f;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.return{
+    padding: 2px 4px;
+    background: #f00;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.inprogress{
+    padding: 2px 4px;
+    background: #1795ce;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.superRecentCustomers{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.superRecentCustomers .imgBox {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.superRecentCustomers .imgBox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* 
+.superRecentCustomers table tr td {
+    padding: 1px 0px;
+} */
+
+.superRecentCustomers table tr td h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2em;
+}
+
+.superRecentCustomers table tr td h4 span {
+    font-size: 14px;
+    color:var(--black2);
+}
+
+.superRecentCustomers table tr:hover {
+    background: var(--red);
+    color: var(--white);
+}
+
+.superRecentCustomers table tr:hover td h4 span {
+    color: var(--white);
+}
+
+/* TOGGLE SWITCH */
+/* The switch - the box around the slider */
+.switchOff {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switchOff input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--red);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--red);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /*  */
+
+  /* #switchOn{} */
+  .switchOn {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switchOn input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .sliderOn {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--red);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .sliderOn:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 26px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .sliderOn {
+    background-color: #ccc;
+  }
+  
+  input:focus + .sliderOn {
+    box-shadow: 0 0 1px #ccc;
+  }
+  
+  input:checked + .sliderOn:before {
+    -webkit-transform: translateX(-22px);
+    -ms-transform: translateX(-22px);
+    transform: translateX(-22px);
+  }
+  
+  /* Rounded sliders */
+  .sliderOn.round {
+    border-radius: 34px;
+  }
+  
+  .sliderOn.round:before {
+    border-radius: 50%;
+  }
+
+/* USER PAGE */
+
+
+
+/* @media (max-width: 991px){
+    .superContainer .navigation{
+        left: -300px;
+    }
+
+    .superContainer .navigation.active{
+        width: 300px;
+        left: 0;
+    }
+    .superMain {
+        width: 100%;
+        left: 0;
+    }
+    .superMain.active{
+        left: 300px;
+    }
+    .superCardBox{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width: 768px){
+    .superDetails{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .superRecentOrders{
+        overflow-x: auto;
+    }
+    .status.inprogress{
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px){
+    .superCardBox{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .superCardHeader h2 {
+        font-size: 20px;
+    }
+    .superUser{
+        min-width: 40px;
+    }
+    .superContainer .navigation{
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+    .superContainer .navigation.active{
+        width: 100%;
+        left: 0;
+    }
+    .superToggle{
+        z-index: 10001;
+    }
+    .superMain.active .superToggle{
+        position: fixed;
+        right: 0;
+        left: initial;
+        color: var(--white);
+    }
+} */

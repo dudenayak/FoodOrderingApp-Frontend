@@ -1,0 +1,173 @@
+<body ng-controller="brandCtrl">
+    <div class="superContainer">
+        <!-- content start -->
+        <div class="superMain">
+            <div class="superTopbar">
+                <div class="superToggle" ng-click="toggle()">
+                    <!-- <ion-icon name="menu-outline"></ion-icon> -->
+                </div>
+                <div class="superSearch">
+                    <label>
+                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
+                    </label>
+                </div>
+                <div class="superUserName">
+                    <div class="superUser">
+                        <img src="../img/user.png">
+                    </div>
+                    <h4 style="margin-top: 25px;">Hey, {{brandUsername}}</h4>
+                </div>
+            </div>
+
+            <!-- cards -->
+            <div class="superCardBox">
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">1</div>
+                        <div class="cardName"> Admins</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">80</div>
+                        <div class="cardName">Total Products</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="fast-food-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">{{allOutlets.length}}</div>
+                        <div class="cardName">Total Outlets</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="business-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">$7842</div>
+                        <div class="cardName">Revenue</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- order data list -->
+            <div class="superDetails">
+                <div class="superRecentOrders">
+                    <div class="superCardHeader">
+                        <h2> All Outlets</h2>
+                        <a ui-sref="panel.brandOutlets" class="superButton">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Status</td>
+                                <td>Active Toggle(On/Off)</td>
+                                <td>Edit</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                ng-repeat="outlet in allOutlets |  limitTo : -9:0 | filter:search |orderBy:reverse:true">
+                                <td>{{outlet.outletName}}</td>
+                                <td><span
+                                        ng-class="outlet.isActive ? 'status delivered' : 'status return'">{{outlet.isActive
+                                        ?
+                                        "Active" : "InActive"
+                                        }}</span></td>
+                                <td ng-click="handleToggle(outlet.isActive, outlet._id)"><label class="switchOn"
+                                        ng-class="outlet.isActive ? 'switchOn' : 'switchOff'">
+                                        {{outlet.isActive ? "On" :
+                                        "Off"}}
+                                        <input type="checkbox" ng-checked="false">
+                                        <span class="slider round"
+                                            ng-class="outlet.isActive ? 'sliderOn' : 'sliderOff'"></span>
+                                    </label></td>
+                                <td>
+                                    <span class="icon" style="font-size: 1.75em; cursor: pointer;"
+                                        data-bs-toggle="modal" data-bs-target="#editOutletModal"
+                                        ng-click="openOutletModal(outlet)"><ion-icon
+                                            name="create-outline"></ion-icon></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- new joiners -->
+
+                <div class="superRecentCustomers">
+                    <div class="superCardHeader">
+                        <h2> Outlet Managers</h2>
+                    </div>
+                    <table>
+                        <tr ng-repeat="outlet in allOutlets | limitTo : -8:0 | orderBy:reverse:true">
+                            <td width="60px">
+                                <div class="imgBox"><img src="../img/user.png"></div>
+                            </td>
+                            <td>
+                                <h4>{{outlet.outletManager.managerName}}<br><span>{{outlet.outletBrand.brandName}}
+                                        -
+                                        {{outlet.outletName}} </span></h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Edit -->
+        <div class="modal fade" id="editOutletModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Brand</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="updateForm" novalidate autocomplete="off">
+                            <h5> Outlet Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Name</span>
+                                <input type="text" ng-model="outlet.outletName" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Address</span>
+                                <input type="text" ng-model="outlet.outletAddress" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Phone</span>
+                                <input type="text" ng-model="outlet.outletPhone" class="form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager</span>
+                                <input type="text" ng-model="outlet.outletManager.managerName" class=" form-control"
+                                    aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="superButton" ng-click="saveOutletData($event)">Save
+                                    changes</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
