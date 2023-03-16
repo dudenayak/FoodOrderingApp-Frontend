@@ -46,7 +46,10 @@ app.controller('myCtrl', [
             $location.path('/panel/brandPortal');
           }
           if (res.data.userType == 'outletManager') {
-            $location.path('/home');
+            $location.path('/outlet/outletPortal');
+          }
+          if (res.data.userType == 'outletEmployee') {
+            $location.path('/outletEmployee/outletEmployeePortal');
           }
         })
         .catch(function (err) {

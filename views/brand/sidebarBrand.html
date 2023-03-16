@@ -10,7 +10,7 @@
                         <span class="title" style="font-size: 25px;">{{brandData.brandName}}</span>
                     </a>
                 </li>
-                <li>
+                <li style="margin-top: -20px;">
                     <a ui-sref="panel.brandPortal">
                         <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                         <span class="title">Home</span>
@@ -39,10 +39,24 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#productModal" ng-click="openModal()">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#superModal" ng-click="openModal()">
                         <span class="icon"><ion-icon name="pizza-outline"></ion-icon>
                         </span>
-                        <span class="title">Add Product</span>
+                        <span class="title">Add Super Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#subModal" ng-click="openModal()">
+                        <span class="icon"><ion-icon name="pizza-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add Sub Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#foodModal" ng-click="openModal()">
+                        <span class="icon"><ion-icon name="pizza-outline"></ion-icon>
+                        </span>
+                        <span class="title">Add Food Item</span>
                     </a>
                 </li>
                 <li>
@@ -136,37 +150,145 @@
             </div>
         </div>
 
-        <!--Add Product Modal -->
-        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!--Add Super Modal -->
+        <div class="modal fade" id="superModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Super Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form name="createForm" novalidate autocomplete="off">
-                            <h5>Product Information</h5>
+                            <h5>Super Category Information</h5>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Product Name</span>
-                                <input type="text" ng-model="brandUser.brandName" class="form-control"
+                                <span class="input-group-text" id="inputGroup-sizing-default">Category Name</span>
+                                <input type="text" ng-model="superFood.superCategoryName" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Product Image</span>
-                                <input type="text" ng-model="brandUser.brandLogo" class="form-control"
+                                <span class="input-group-text" id="inputGroup-sizing-default">Category Image</span>
+                                <input type="file" file-model="superFood.superCategoryImage" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <!-- <button ng-click="imageTest()">image</button> -->
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Product Price</span>
-                                <input type="text" ng-model="brandUser.brandPhone" class="form-control"
+                                <span class="input-group-text" id="inputGroup-sizing-default">Category
+                                    Description</span>
+                                <input type="text" ng-model="superFood.superCategoryDescription" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                        <button type="button" class="superButton" ng-click="saveSuper($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Add Sub Modal -->
+        <div class="modal fade" id="subModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Sub Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Product Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Super-Category</span>
+                                <!-- <div class="dropdown" style="margin-left: 20px;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select
+                                    </button>
+                                    <select class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <option class="dropdown-item" ng-repeat="super in allSuper">
+                                            {{super.superCategoryName}}</option>
+                                    </select>
+                                </div> -->
+                                <div class="dropdown">
+                                    <!-- <label for="message-text" class="col-form-label">Super Categories:</label> -->
+                                    <select class="form-select" aria-label="Default select example"
+                                        ng-model="selectedSuperCategory" ng-click="test()">
+                                        <!-- <option>Select</option> -->
+                                        <!-- <option selected>Select</option> -->
+                                        <option ng-value="super" ng-repeat="super in allSuper">
+                                            {{super.superCategoryName}}
+                                        </option>
+                                    </select>
+                                    <!-- <button ng-click="test()">Test</button> -->
+                                </div>
+                                <!-- <input type="text" ng-model="brandUser.brandPhone" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category Name</span>
+                                <input type="text" ng-model="subFood.subCategoryName" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category Image</span>
+                                <input type="text" ng-model="subFood.subCategoryImage" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveSub($event)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Add Food Modal -->
+        <div class="modal fade" id="foodModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Food Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="createForm" novalidate autocomplete="off">
+                            <h5>Product Information</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category</span>
+                                <div class="dropdown">
+                                    <select class="form-select" aria-label="Default select example"
+                                        ng-model="selectedSubCategory" ng-click="testSub()">
+                                        <option ng-value="sub" ng-repeat="sub in allSub">
+                                            {{sub.subCategoryName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Item Name</span>
+                                <input type="text" ng-model="foodItem.foodItemName" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Item Image</span>
+                                <input type="text" ng-model="foodItem.foodItemImage" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Item Price</span>
+                                <input type="text" ng-model="foodItem.foodItemPrice" class="form-control"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="superButton" ng-click="saveFood($event)">Save changes</button>
                     </div>
                 </div>
             </div>

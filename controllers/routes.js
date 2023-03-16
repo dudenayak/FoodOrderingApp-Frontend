@@ -67,6 +67,31 @@ app.config([
         templateUrl: '../views/brand/brandOutletManagers.html',
         controller: 'brandCtrl',
       })
+      .state('outlet', {
+        url: '/outlet',
+        templateUrl: '../views/outlet/sidebarOutlet.html',
+        controller: 'outletCtrl',
+      })
+      .state('outlet.outletPortal', {
+        url: '/outletPortal',
+        templateUrl: '../views/outlet/outletPortal.html',
+        controller: 'outletCtrl',
+      })
+      .state('outlet.outletItem', {
+        url: '/outletItem',
+        templateUrl: '../views/outlet/outletItem.html',
+        controller: 'outletCtrl',
+      })
+      .state('outletEmployee', {
+        url: '/outletEmployee',
+        templateUrl: '../views/outletEmployee/sidebarOutletEmployee.html',
+        controller: 'outletEmployeeCtrl',
+      })
+      .state('outletEmployee.outletEmployeePortal', {
+        url: '/outletEmployeePortal',
+        templateUrl: '../views/outletEmployee/outletEmployeePortal.html',
+        controller: 'outletEmployeeCtrl',
+      })
       // .state('viewAllBrands', {
       //   url: '/viewAllBrands',
       //   templateUrl: '../views/superAdmin/viewAllBrands.html',
