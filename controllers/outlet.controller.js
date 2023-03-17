@@ -30,6 +30,7 @@ app.controller('outletCtrl', [
         $rootScope.outletId = res.data.outlet[0]._id;
         localStorage.setItem('outletInfo', JSON.stringify(res.data.outlet));
         // console.log($rootScope.outletInfo);
+
         // LOADING FOOD ITEMS OF OUTLET
         var data = JSON.parse(localStorage.getItem('outletInfo'));
         console.log(data);

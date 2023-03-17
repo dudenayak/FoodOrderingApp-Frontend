@@ -92,6 +92,16 @@ app.config([
         templateUrl: '../views/outletEmployee/outletEmployeePortal.html',
         controller: 'outletEmployeeCtrl',
       })
+      .state('outletEmployee.dineIn', {
+        url: '/dineIn',
+        templateUrl: '../views/outletEmployee/dineIn.html',
+        controller: 'outletEmployeeCtrl',
+      })
+      .state('outletEmployee.takeAway', {
+        url: '/takeAway',
+        templateUrl: '../views/outletEmployee/takeAway.html',
+        controller: 'outletEmployeeCtrl',
+      })
       // .state('viewAllBrands', {
       //   url: '/viewAllBrands',
       //   templateUrl: '../views/superAdmin/viewAllBrands.html',

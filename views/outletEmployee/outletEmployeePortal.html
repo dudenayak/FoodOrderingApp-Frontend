@@ -4,7 +4,7 @@
         <div class="superMain">
             <div class="superTopbar">
                 <div class="superToggle" ng-click="toggle()">
-                    <h4 style="font-size: 25px;">{{brandName}}</h4>
+                    <h4 style="font-size: 25px;">{{brandName}} | Order</h4>
                 </div>
                 <div class="superUserName">
                     <div class="superUser">
@@ -13,5 +13,57 @@
                     <h4 style="margin-top: 25px;">Hey Employee, {{brandUsername}}</h4>
                 </div>
             </div>
+            <!-- card -->
+            <div class="superCardBoxEmployee">
+                <a ui-sref="outletEmployee.dineIn">
+                    <div class="superCard">
+                        <div class="iconBox">
+                            <!-- <lord-icon src="https://cdn.lordicon.com/ememvspi.json" trigger="hover"
+                            style="width:250px;height:250px">
+                        </lord-icon> -->
+                            <lord-icon src="https://cdn.lordicon.com/prxpxnbf.json" trigger="hover"
+                                style="width:250px;height:250px">
+                            </lord-icon>
+                        </div>
+                        <div>
+                            <div class="cardName">Dine In</div>
+                        </div>
+                    </div>
+                </a>
+                <a ui-sref="outletEmployee.takeAway">
+                    <div class="superCard">
+                        <div class="iconBox">
+                            <lord-icon src="https://cdn.lordicon.com/fevpdbjk.json" trigger="hover"
+                                colors="primary:#121331,secondary:#3a3347,tertiary:#646e78,quaternary:#ffc738,quinary:#e86830,senary:#f9c9c0,septenary:#f24c00,octonary:#ebe6ef"
+                                style="width:250px;height:250px">
+                            </lord-icon>
+                        </div>
+                        <div>
+                            <div class="cardName">Take Away</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- <div class="superCard">
+                    <div>
+                        <div class="numbers">1504</div>
+                        <div class="cardName">Total Outlets</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div> -->
+                <!-- <div class="superCard">
+                    <div>
+                        <div class="numbers">$7842</div>
+                        <div class="cardName">Earnings</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div> -->
+            </div>
+
         </div>
+    </div>
+
 </body>

@@ -5,7 +5,7 @@
             <div class="superTopbar">
                 <div class="superToggle" ng-click="toggle()">
                     <!-- <ion-icon name="menu-outline"></ion-icon> -->
-                    <h4 style="font-size: 25px;">{{brandName}}</h4>
+                    <h4 style="font-size: 25px;">{{brandName}} | Branch Page</h4>
                 </div>
                 <div class="superSearch">
                     <label>
@@ -24,7 +24,8 @@
             <!-- cards -->
             <h4 style="margin-left: 20px; color: var(--red);">Super Categories</h4>
             <div class="superCardBoxOutlet">
-                <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper" ng-click="superTest(super._id)">
+                <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper"
+                    ng-click="superTest(super._id)">
                     <!-- <div ng-class="superCard" ng-repeat="super in allSuper" ng-click="superTest(super._id)"></div> -->
                     <div>
                         <div class="numbers"> {{super.superCategoryName}} </div>
@@ -52,15 +53,16 @@
             </div>
 
             <h4 style="margin-left: 20px; color: var(--red);">Food Items</h4>
-            <div class="superCardBox">
+            <div class="superCardBoxOutlet">
                 <div class="superCard" ng-repeat="item in allItem" ng-click="foodTest(item)">
                     <div>
-                        <div class="numbers"> {{item.foodItemName}} </div>
-                        <div class="cardName"> ₹ {{item.foodItemPrice}}</div>
+                        <div class="numbers" style="font-size: 18px;"> {{item.foodItemName}} </div>
+                        <div class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div>
                     </div>
                     <div class="iconBox">
-                        <ion-icon name="fast-food-outline"></ion-icon>
-                        {{item.foodItemImage}}
+                        <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
+                        <img ng-src="{{item.foodItemImage}}" alt="img">
+
                     </div>
                     <!-- <div class="modal-footer">
                         <button type="button" class="superButton" ng-click="saveOutletData($event)">Add

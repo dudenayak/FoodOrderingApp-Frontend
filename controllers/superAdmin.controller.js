@@ -101,6 +101,14 @@ app.controller('superCtrl', [
       // $http.get('#editModal').modal('show');
     };
 
+    // LOGOUT
+    $scope.logout = function ($event) {
+      $event.preventDefault();
+      localStorage.removeItem('user');
+      localStorage.removeItem('outletInfo');
+      $state.go('login');
+    };
+
     // UPDATE BRAND DATA
     $scope.saveData = function ($event) {
       $event.preventDefault();

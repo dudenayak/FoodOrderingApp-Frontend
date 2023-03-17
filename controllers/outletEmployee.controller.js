@@ -23,26 +23,28 @@ app.controller('outletEmployeeCtrl', [
       .then(function (res) {
         // console.log(res)        
         $rootScope.outletInfo = res.data.outlet;
-        console.log($rootScope.outletInfo)
-        $rootScope.outletName = data.outlet.outletName;
-        $rootScope.outletId = data.outlet.outletId;
+        // console.log($rootScope.outletInfo)
+        $rootScope.outletName = res.data.outlet.outletName;
+        $rootScope.outletId = res.data.outlet._id;
+        // console.log($rootScope.outletId)
         localStorage.setItem('outletInfo', JSON.stringify(res.data.outlet));
         // console.log($rootScope.outletInfo);
+
         // LOADING FOOD ITEMS OF OUTLET
-        // var data = JSON.parse(localStorage.getItem('outletInfo'));
+        var data = JSON.parse(localStorage.getItem('outletInfo'));
         // console.log(data);
-        // $scope.allItemOutlet = [];
-        // // console.log(data[0]._id)
-        // outletService
-        //   .getOutletItems(data[0]._id)
-        //   .then(function (res) {
-        //     // console.log(res);
-        //     $scope.allItemOutlet = res.data.foodItem;
-        //     // console.log($scope.allItemOutlet);
-        //   })
-        //   .catch(function (err) {
-        //     console.log(err);
-        //   });
+        $scope.allItemOutlet = [];
+        // console.log(data[0]._id)
+        outletService
+          .getOutletItems(data._id)
+          .then(function (res) {
+            // console.log(res);
+            $scope.allItemOutlet = res.data.foodItem;
+            // console.log($scope.allItemOutlet);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
       })
       .catch(function (err) {
         console.log(err);

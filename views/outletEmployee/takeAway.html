@@ -1,0 +1,56 @@
+<body ng-controller="outletEmployeeCtrl">
+    <div class="superContainer">
+        <!-- content start -->
+        <div class="superMain">
+            <div class="superTopbar">
+                <div class="superToggle" ng-click="toggle()">
+                    <h4 style="font-size: 25px;">{{brandName}} | Take Away</h4>
+                </div>
+                <div class="superSearch">
+                    <label>
+                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
+                    </label>
+                </div>
+                <div class="superUserName">
+                    <div class="superUser">
+                        <img src="../img/user.png">
+                    </div>
+                    <h4 style="margin-top: 25px;">Hey, {{brandUsername}}</h4>
+                </div>
+            </div>
+            <!-- cards -->
+            <div class="superCardStyle">
+                <div class="superCardBoxDineIn">
+                    <div class="superCard"
+                        ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true">
+                        <div>
+                            <!-- <img class="foodImg" src="../../img/amritsari-naan.jpeg" alt="img"/> -->
+                            <img class="foodImg" ng-src="{{itemOutlet.foodCategory.foodItemImage}}" alt="img">
+                            <div class="numbers">{{itemOutlet.foodCategory.foodItemName}}</div>
+                            <div class="cardName"><span style="color: var(--black1);">Price :</span> ₹{{itemOutlet.foodCategory.foodItemPrice}}</div>
+                            <div class="cardName"><span style="color: var(--black1);">Category :</span>
+                                {{itemOutlet.superCategory.superName}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bill -->
+                <div class="superRecentCustomersDineIn">
+                    <div class="superCardHeader">
+                        <h2> Order</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBox"><img src="../img/user.png"></div>
+                            </td>
+                            <td>
+                                <h4>username<br><span>brandname</span>
+                                </h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+</body>

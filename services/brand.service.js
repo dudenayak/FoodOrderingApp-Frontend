@@ -50,9 +50,9 @@ app.service('brandService', [
         url = 'http://localhost:5000/subCategory/' + id;
         return $http.get(url);
       },
-      createFood: function (foodItem) {
+      createFood: function (foodItem, headers) {
         url = 'http://localhost:5000/foodItem/create';
-        return $http.post(url, foodItem);
+        return $http.post(url, foodItem, headers);
       },
       getFood: function (id) {
         url = 'http://localhost:5000/foodItem/info/' + id;

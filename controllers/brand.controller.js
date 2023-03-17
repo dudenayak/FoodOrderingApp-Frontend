@@ -39,6 +39,9 @@ app.controller('brandCtrl', [
     $scope.imageTest = function () {
       console.log($scope.superFood.superCategoryImage);
     };
+    $scope.imageTestnew = function () {
+      console.log($scope.foodItem.foodItemImage);
+    };
     // TEST
     $scope.test = function () {
       // console.log("object")
@@ -62,7 +65,7 @@ app.controller('brandCtrl', [
     // ADD OUTLET INFO AND OUTLET MANAGER INFO
     var data = JSON.parse(localStorage.getItem('user'));
     // console.log(data.brandId);
-    console.log(data);
+    // console.log(data);
     $scope.brandData = data;
     $scope.brandUsername = data.username;
     // console.log(data.username);
@@ -88,7 +91,6 @@ app.controller('brandCtrl', [
 
     // formData.append('image2', file2);
     var data = JSON.parse(localStorage.getItem('user'));
-
     $scope.saveSuper = function ($event) {
       var formData = new FormData();
       formData.append('superCategoryName', $scope.superFood.superCategoryName);
@@ -116,10 +118,10 @@ app.controller('brandCtrl', [
         })
         .then(function (res) {
           console.log(res);
-          $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);
+          $window.location.reload();
         });
     };
 
@@ -145,7 +147,14 @@ app.controller('brandCtrl', [
     };
 
     // ADD FOOD CATEGORY
+    var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveFood = function ($event) {
+      console.log($scope.foodItem);
+      var formDataFood = new FormData();
+      formDataFood.append('foodItemName', $scope.foodItem.foodItemName);
+      formDataFood.append('file', $scope.foodItem.foodItemImage);
+      formDataFood.append('foodItemPrice', $scope.foodItem.foodItemPrice);
+
       $event.preventDefault();
       $scope.foodItem.brandId = $scope.selectedSubCategory.brand.brandId;
       $scope.foodItem.brandName = $scope.selectedSubCategory.brand.brandName;
@@ -155,10 +164,19 @@ app.controller('brandCtrl', [
         $scope.selectedSubCategory.superCategory.superName;
       $scope.foodItem.subId = $scope.selectedSubCategory._id;
       $scope.foodItem.subName = $scope.selectedSubCategory.subCategoryName;
+      formDataFood.append('brandId', $scope.foodItem.brandId);
+      formDataFood.append('brandName', $scope.foodItem.brandName);
+      formDataFood.append('superId', $scope.foodItem.superId);
+      formDataFood.append('superName', $scope.foodItem.superName);
+      formDataFood.append('subId', $scope.foodItem.subId);
+      formDataFood.append('subName', $scope.foodItem.subName);
       // console.log(data.id);
       // console.log(data.brandName);
       brandService
-        .createFood($scope.foodItem)
+        .createFood(formDataFood, {
+          transformRequest: angular.identity,
+          headers: { 'Content-Type': undefined },
+        })
         .then(function (res) {
           console.log(res);
           $window.location.reload();
