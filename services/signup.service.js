@@ -6,7 +6,7 @@ app.service('signupService', [
     var url = '';
     return {
       loginUser: function (user) {
-        url = 'http://localhost:5000/auth/login';
+        url = 'http://localhost:5000/api/auth/login';
         return $http.post(url, user);
       },
     };

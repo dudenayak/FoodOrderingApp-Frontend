@@ -257,7 +257,7 @@ app.controller('brandCtrl', [
           // console.log($scope.outlet);
           $http
             .put(
-              'http://localhost:5000/outlet/' + _id + '/false',
+              'http://localhost:5000/api/outlet/' + _id + '/false',
               $scope.outlet
             )
             // superAdminService
@@ -276,7 +276,7 @@ app.controller('brandCtrl', [
           // superAdminService;
           // .updateFalse($scope.outlet._id, $scope.outlet)
           $http
-            .put('http://localhost:5000/outlet/' + _id + '/true', $scope.outlet)
+            .put('http://localhost:5000/api/outlet/' + _id + '/true', $scope.outlet)
             .then(function (res) {
               // console.log(res);
               $window.location.reload();
