@@ -8,7 +8,16 @@ app.controller('outletCtrl', [
   'outletService',
   '$state',
   '$rootScope',
-  function ($scope, $location, $http, outletService, $state, $rootScope) {
+  '$window',
+  function (
+    $scope,
+    $location,
+    $http,
+    outletService,
+    $state,
+    $rootScope,
+    $window,
+  ) {
     // LOADING OUTLET INFORMATION
     var data = JSON.parse(localStorage.getItem('user'));
     console.log(data);
@@ -164,8 +173,10 @@ app.controller('outletCtrl', [
 
     // ADD FOOD ITEM PER OUTLET
     $scope.saveItem = function ($event) {
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
       $event.preventDefault();
+      var data = JSON.parse(localStorage.getItem('outletInfo'));
+      // alert('Item added successfully!');
+      // $window.location.reload();
       $scope.outletId = data[0]._id;
       $scope.outletName = data[0].outletName;
       $scope.newName.outletId = $scope.outletId;
@@ -177,8 +188,9 @@ app.controller('outletCtrl', [
       outletService
         .createOutletItem($scope.newName)
         .then(function (res) {
+          alert('Item added successfully!');
+          $window.location.reload();
           console.log(res);
-          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);

@@ -149,13 +149,15 @@ app.controller('brandCtrl', [
     // ADD FOOD CATEGORY
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveFood = function ($event) {
+      alert('Item added successfully!');
+      $window.location.reload();
       console.log($scope.foodItem);
       var formDataFood = new FormData();
       formDataFood.append('foodItemName', $scope.foodItem.foodItemName);
       formDataFood.append('file', $scope.foodItem.foodItemImage);
       formDataFood.append('foodItemPrice', $scope.foodItem.foodItemPrice);
 
-      $event.preventDefault();
+      // $event.preventDefault();
       $scope.foodItem.brandId = $scope.selectedSubCategory.brand.brandId;
       $scope.foodItem.brandName = $scope.selectedSubCategory.brand.brandName;
       $scope.foodItem.superId =
@@ -179,6 +181,7 @@ app.controller('brandCtrl', [
         })
         .then(function (res) {
           console.log(res);
+          alert('Item added successfully!');
           $window.location.reload();
         })
         .catch(function (err) {

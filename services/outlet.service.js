@@ -11,11 +11,11 @@ app.service('outletService', [
         return $http.get(url);
       },
 
-        // GET OUTLET INFO
-        outletInfoEmp: function (id) {
-          url = 'http://localhost:5000/outlet/employee/' + id;
-          return $http.get(url);
-        },
+      // GET OUTLET INFO
+      outletInfoEmp: function (id) {
+        url = 'http://localhost:5000/outlet/employee/' + id;
+        return $http.get(url);
+      },
 
       // GET OUTLET DATA
       outletData: function (id) {

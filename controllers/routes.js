@@ -37,6 +37,11 @@ app.config([
         templateUrl: '../views/superAdmin/viewAllBrands.html',
         controller: 'superCtrl',
       })
+      .state('dashboard.analytics', {
+        url: '/analytics',
+        templateUrl: '../views/superAdmin/analytics.html',
+        controller: 'superCtrl',
+      })
       // .state('viewAllCustomers', {
       //   url: '/viewAllCustomers',
       //   templateUrl: '../views/superAdmin/viewAllCustomers.html',
