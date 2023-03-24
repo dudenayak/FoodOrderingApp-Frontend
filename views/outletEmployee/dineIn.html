@@ -44,7 +44,7 @@
                     <!-- <div> -->
                     <div class="superRecentCustomersDineInTable  p-3 d-flex justify-content-start">
                         <table>
-                            <tr ng-show="IsVisible" ng-repeat="food in foodList">
+                            <tr ng-show="IsVisible" ng-repeat="food in foodList" ng-model="orderDineIn.orderItems">
                                 <!-- <td>
                                     <div class="imgBox">
                                         <img ng-src="{{foodItemImage}}">
@@ -73,14 +73,50 @@
                     <!-- </div> -->
                     <div class="newNew">
                         <!-- <div> -->
-                        <div class="" style="font-size: 15px;">Sub Total :</div>
-                        <div class="">CGST : 2.5% Tax</div>
-                        <div class="">SGST : 2.5% Tax</div>
+                        <div
+                            style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
+                            Sub Total
+                            : <div id="price1">
+                                {{getTotal()}}
+
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
+                            CGST 2.5% Tax : <div id="price2">
+                                <!-- {{((getTotal() / 100) * (2.5)
+                                )
+                                .toFixed(2)}} -->
+                                {{getCGST()}}
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
+                            SGST 2.5% Tax : <div id="price3">
+                                <!-- {{((getTotal() / 100) * (2.5)
+                                )
+                                .toFixed(2)}} -->
+                                {{getCGST()}}
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
+                            Total Tax : <div id="price4" ng-model="orderDineIn.orderTax">
+                                {{getTax()}}
+                            </div>
+                        </div>
                         <!-- <div class="" style="font-size: 20px;" ng-init="totalPrice=0">Total :<span>{{totalPrice}}</span> -->
-                        <div class="">Total : </div>
+                        <div class=""
+                            style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
+                            Outlet Total :
+                            <div ng-model="orderDineIn.orderTotal">{{getSum()}}</div>
+                            <!-- <button ng-click="hello()">Click Me</button> -->
+                        </div>
                         <!-- <p ng-bind="totalPrice()"></p> -->
                     </div>
                     <!-- </div> -->
+                    <button type="button" class="superButton" style="margin-top: 10px;"
+                        ng-click="createOrder($event)">Create Order</button>
                 </div>
             </div>
         </div>

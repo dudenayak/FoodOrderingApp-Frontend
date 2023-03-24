@@ -1,0 +1,60 @@
+<body ng-controller="outletCtrl">
+    <div class="superContainer">
+        <!-- content start -->
+        <div class="superMain">
+            <div class="superTopbar">
+                <div class="superToggle" ng-click="toggle()">
+                    <h4 style="font-size: 25px;">{{brandName}} | History</h4>
+                </div>
+                <div class="superSearch">
+                    <!-- <label>
+                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
+                    </label> -->
+                </div>
+                <div class="superUserName">
+                    <div class="superUser">
+                        <img src="../img/user.png">
+                    </div>
+                    <h4 style="margin-top: 25px;">Hey, {{brandUsername}}</h4>
+                </div>
+            </div>
+            <div
+                style="display: flex; justify-content: end; gap: 15px; margin-top: 15px; margin-right: 50px; margin-bottom: -20px;">
+                <button type="button" class="superButton" ng-click="allOutletOrders(order)">All
+                    Orders</button>
+                <button type="button" class="superButton" ng-click="dineInOrders(order)">Dine In
+                    Orders</button>
+                <button type="button" class="superButton" ng-click="takeAwayOrders(order)">Take Away
+                    Orders</button>
+            </div>
+            <div class="superDetails">
+                <div class="superRecentOrderView">
+                    <div class="viewAllTable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Order Number</td>
+                                    <td>Order Status</td>
+                                    <td>Order Type</td>
+                                    <td>Order Tax</td>
+                                    <td>Order Items</td>
+                                    <td>Order Total</td>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="order in allOrders">
+                                <tr>
+                                    <td>{{order._id}}</td>
+                                    <td>{{order.orderStatus}}</td>
+                                    <td>{{order.orderType}}</td>
+                                    <td>{{order.orderTax}}</td>
+                                    <td>{{order.orderItems.length}}</td>
+                                    <td>{{order.orderTotal}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>

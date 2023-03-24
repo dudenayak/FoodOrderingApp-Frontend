@@ -16,7 +16,7 @@ app.service('superAdminService', [
         return $http.get(url);
       },
       getBrandOwners: function () {
-        url = 'http://localhost:5000/api/user/';
+        url = 'http://localhost:5000/api/user/brandOwner';
         return $http.get(url);
       },
       editBrand: function (id) {

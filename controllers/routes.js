@@ -107,6 +107,16 @@ app.config([
         templateUrl: '../views/outletEmployee/takeAway.html',
         controller: 'outletEmployeeCtrl',
       })
+      .state('outletEmployee.status', {
+        url: '/status',
+        templateUrl: '../views/outletEmployee/orderStatus.html',
+        controller: 'outletEmployeeCtrl',
+      })
+      .state('outletEmployee.history', {
+        url: '/history',
+        templateUrl: '../views/outletEmployee/orderHistory.html',
+        controller: 'outletEmployeeCtrl',
+      })
       // .state('viewAllBrands', {
       //   url: '/viewAllBrands',
       //   templateUrl: '../views/superAdmin/viewAllBrands.html',

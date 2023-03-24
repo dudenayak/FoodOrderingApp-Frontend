@@ -28,13 +28,6 @@ app.controller('brandCtrl', [
   'brandService',
   '$state',
   function ($scope, $window, $http, brandService, $state) {
-    // $('.superCardBoxOutlet .superCard').on('click', function () {
-    //   $('.superCardBoxOutlet .superCard').removeClass('.superCardBoxOutlet .superCard:active');
-    //   $(this).addClass('.superCardBoxOutlet .superCard:active')
-    // });
-
-    // $scope.sample = "superCardBoxOutlet"
-
     // IMAGE TEST
     $scope.imageTest = function () {
       console.log($scope.superFood.superCategoryImage);
@@ -276,7 +269,10 @@ app.controller('brandCtrl', [
           // superAdminService;
           // .updateFalse($scope.outlet._id, $scope.outlet)
           $http
-            .put('http://localhost:5000/api/outlet/' + _id + '/true', $scope.outlet)
+            .put(
+              'http://localhost:5000/api/outlet/' + _id + '/true',
+              $scope.outlet
+            )
             .then(function (res) {
               // console.log(res);
               $window.location.reload();
@@ -296,7 +292,7 @@ app.controller('brandCtrl', [
         .then(function (res) {
           // console.log(res);
           // console.log(outletData);
-          $scope.outlet = outletData;
+          $scope.outlet = outletData; 
           console.log($scope.outlet);
         })
         .catch(function (err) {

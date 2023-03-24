@@ -435,6 +435,17 @@
     
 }
 
+.superCardBoxStatus {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 30px;
+    margin-top: 10px;
+    
+}
+
 .superCardBoxOutlet .active {
     background-color: #FFC107;
     color: #fff;
@@ -492,6 +503,30 @@
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
+.superCardBoxStatus .superCard {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+    /* cursor: pointer; */
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.superCardBoxStatus .superCard .buttonStyle {
+    display: flex;   
+    justify-content: space-between;
+}
+
+.superCardBoxStatus .superCard h7{
+    font-size: 12px;
+    text-align: right;
+    margin-top: -20px;
+}
+
 .superCardBoxOutlet .superCardNew {
     position: relative;
     background: var(--white);
@@ -543,6 +578,13 @@
     color: var(--red);
 }
 
+.superCardBoxStatus .superCard .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 1em;
+    color: var(--red);
+}
+
 .superCardBox .superCard .cardName {
     color: var(--black2);
     font-size: 1.1em;
@@ -562,6 +604,12 @@
 }
 
 .superCardBoxOutlet .superCard .cardNameOutlet {
+    color: var(--black2);
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.superCardBoxStatus .superCard .cardNameOutlet {
     color: var(--black2);
     font-size: 1em;
     margin-top: 5px;
@@ -791,6 +839,24 @@
     text-align: center;
 }
 
+/* item order */
+.superDetails .superRecentOrderView table tr td:nth-child(1) {
+    text-align:left
+}
+
+.superDetails .superRecentOrderView table tr td:nth-child(2) {
+    text-align: center;
+}
+.superDetails .superRecentOrderView table tr td:nth-child(3) {
+    text-align: center;
+}
+.superDetails .superRecentOrderView table tr td:nth-child(4) {
+    text-align: center;
+}
+.superDetails .superRecentOrderView table tr td:nth-child(5) {
+    text-align: right;
+}
+
 .superDetails .superRecentOrders .viewAllTable {
     margin-top: 10px;
     line-height: 10px;
@@ -820,6 +886,18 @@
     min-width: 1150px;
 }
 
+.superDetails .superRecentOrderView {
+    /* margin-top: 10px; */
+    position: relative;
+    display: grid;
+    min-height: 600px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    min-width: 1150px;
+}
+
 .superDetails .superRecentOrdersView table tr{
     color: var(--black1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -827,6 +905,12 @@
 }
 
 .superDetails .superRecentItemView table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* margin-top: 10px; */
+}
+
+.superDetails .superRecentOrderView table tr{
     color: var(--black1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     /* margin-top: 10px; */

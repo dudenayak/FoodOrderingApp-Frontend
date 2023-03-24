@@ -2,12 +2,12 @@
 
 app.controller('outletEmployeeCtrl', [
   '$scope',
+  '$window',
   '$location',
-  '$http',
   'outletService',
   '$state',
   '$rootScope',
-  function ($scope, $location, $http, outletService, $state, $rootScope) {
+  function ($scope, $window, $location, outletService, $state, $rootScope) {
     // LOADING OUTLET INFORMATION
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.brandData = data;
@@ -54,12 +54,16 @@ app.controller('outletEmployeeCtrl', [
 
     // CARD CLICK
     $scope.testDine = function (res) {
-      console.log(res);
+      // console.log(res);
+
       $scope.add = function (food) {
         food.foodCategory.foodItemQuantity++;
       };
       $scope.subtract = function (food) {
         food.foodCategory.foodItemQuantity--;
+        if (food.foodCategory.foodItemQuantity < 1) {
+          $scope.foodList.splice($scope.foodList.indexOf(food), 1);
+        }
       };
       $scope.getData = res;
       if ($scope.foodList.indexOf(res) === -1) {
@@ -68,54 +72,268 @@ app.controller('outletEmployeeCtrl', [
         $scope.foodList.splice($scope.foodList.indexOf(res), 1);
       }
       console.log($scope.foodList);
-      $scope.foodItemImage = $scope.getData.foodCategory.foodItemImage;
       $scope.IsVisible = true;
 
-      // // TOTAL
-      // $scope.totalPrice = function () {
-      //   var sum = 0;
-      //   angular.forEach($scope.foodList, function (item, index) {
-      //     sum += parseInt(
-      //       food.foodCategory.foodItemQuantity *
-      //         food.foodCategory.foodItemPrice,
-      //       10
-      //     );
-      //   });
-      //   return sum;
-      // };
-    //   for (var i = 0; i < $scope.foodList.length; i++) {
-    //     // $scope.count = $scope.foodList[i].foodCategory.foodItemQuantity;
-    //     $scope.totalPrice =
-    //       parseInt($scope.totalPrice) +
-    //       parseInt($scope.foodList[i].foodCategory.foodItemPrice);
-    //   }
-    //   console.log($scope.totalPrice);
-    };
+      // TOTAL
+      $scope.total;
+      $scope.cgst;
+      $scope.getTotal = function () {
+        $scope.total = 0;
 
-         // TOTAL
-      $scope.totalPrice = function () {
-        var sum = 0;
-        angular.forEach($scope.foodList, function (item, index) {
-          sum += parseInt(
-            food.foodCategory.foodItemQuantity *
-              food.foodCategory.foodItemPrice,
-            10
-          );
-        });
-        return sum;
+        for (var i = 0; i < $scope.foodList.length; i++) {
+          var food = $scope.foodList[i];
+          $scope.total +=
+            food.foodCategory.foodItemPrice *
+            food.foodCategory.foodItemQuantity;
+        }
+        $scope.cgst = parseInt(($scope.total / 100) * 2.5);
+        $scope.gst = $scope.cgst + $scope.cgst;
+        return $scope.total;
+      };
+      $scope.getCGST = function () {
+        return $scope.cgst;
       };
 
-    // $scope.total =
-    //   food.foodCategory.foodItemPrice * food.foodCategory.foodItemQuantity;
-    //   console.log($scope.total)
+      $scope.getTax = function () {
+        return ($scope.finalTax = $scope.gst);
+      };
 
+      $scope.getSum = function () {
+        return ($scope.finalSum = $scope.total + $scope.gst);
+      };
 
-    // $scope.sum = function () {
-    //   var total = 0;
-    //   angular.forEach($scope.foodList, function (key, value) {
-    //     total += $scope.foodList.foodCategory.foodItemPrice;
-    //   });
-    //   return total;
-    // };
+      // CREATE ORDER
+      $scope.orderDineIn = {
+        orderItems: $scope.foodList,
+        orderTotal: $scope.finalSum,
+        orderTax: $scope.finalTax,
+      };
+
+      $scope.createOrder = function ($event) {
+        $event.preventDefault();
+        // if (angular.equals($scope.orderDineIn, {})) {
+        // alert('Please add items!');
+        // } else {
+        // console.log($scope.orderDineIn);
+        var finalObj = {
+          orderItems: $scope.foodList,
+          orderTotal: $scope.finalSum,
+          orderTax: $scope.finalTax,
+        };
+        console.log(finalObj);
+        outletService
+          .createOrderDineIn(finalObj)
+          .then(function (res) {
+            console.log(res);
+            alert('Item added successfully!');
+            $window.location.reload();
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      };
+    };
+
+    // TAKE AWAY
+    $scope.testTake = function (res) {
+      // console.log(res);
+
+      $scope.add = function (food) {
+        food.foodCategory.foodItemQuantity++;
+      };
+      $scope.subtract = function (food) {
+        food.foodCategory.foodItemQuantity--;
+        if (food.foodCategory.foodItemQuantity < 1) {
+          $scope.foodList.splice($scope.foodList.indexOf(food), 1);
+        }
+      };
+      $scope.getData = res;
+      if ($scope.foodList.indexOf(res) === -1) {
+        $scope.foodList.push(res);
+      } else {
+        $scope.foodList.splice($scope.foodList.indexOf(res), 1);
+      }
+      console.log($scope.foodList);
+      $scope.IsVisible = true;
+
+      // TOTAL
+      $scope.total;
+      $scope.cgst;
+      $scope.getTotal = function () {
+        $scope.total = 0;
+
+        for (var i = 0; i < $scope.foodList.length; i++) {
+          var food = $scope.foodList[i];
+          $scope.total +=
+            food.foodCategory.foodItemPrice *
+            food.foodCategory.foodItemQuantity;
+        }
+        $scope.cgst = parseInt(($scope.total / 100) * 2.5);
+        $scope.gst = $scope.cgst + $scope.cgst;
+        return $scope.total;
+      };
+      $scope.getCGST = function () {
+        return $scope.cgst;
+      };
+
+      $scope.getTax = function () {
+        return ($scope.finalTax = $scope.gst);
+      };
+
+      $scope.getSum = function () {
+        return ($scope.finalSum = $scope.total + $scope.gst);
+      };
+
+      // CREATE ORDER
+      $scope.orderDineIn = {
+        orderItems: $scope.foodList,
+        orderTotal: $scope.finalSum,
+        orderTax: $scope.finalTax,
+      };
+
+      $scope.createOrder = function ($event) {
+        $event.preventDefault();
+        // if (angular.equals($scope.orderDineIn, {})) {
+        // alert('Please add items!');
+        // } else {
+        // console.log($scope.orderDineIn);
+        var finalObj = {
+          orderItems: $scope.foodList,
+          orderTotal: $scope.finalSum,
+          orderTax: $scope.finalTax,
+        };
+        console.log(finalObj);
+        outletService
+          .createOrderTakeAway(finalObj)
+          .then(function (res) {
+            console.log(res);
+            alert('Item added successfully!');
+            $window.location.reload();
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      };
+    };
+
+    // LOADING ORDERS OF OUTLET
+    var data = JSON.parse(localStorage.getItem('outletInfo'));
+    $scope.allOrders = [];
+    outletService
+      .getOrders(data._id)
+      .then(function (res) {
+        $scope.allOrders = res.data.order;
+        console.log($scope.allOrders);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+    // LOADING PREPARING ORDERS
+    // var data = JSON.parse(localStorage.getItem('outletInfo'));
+    $scope.allPrepare = [];
+    outletService
+      .getPreparingStatusOrders(data._id)
+      .then(function (res) {
+        $scope.allPrepare = res.data.statusPreparing;
+        console.log($scope.allPrepare);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    $scope.preparingOrders = function () {
+      outletService
+        .getPreparingStatusOrders(data._id)
+        .then(function (res) {
+          $scope.allPrepare = res.data.statusPreparing;
+          console.log($scope.allPrepare);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    // LOADING READY ORDERS
+    $scope.readyOrders = function () {
+      outletService
+        .getReadyStatusOrders(data._id)
+        .then(function (res) {
+          $scope.allPrepare = res.data.statusReady;
+          console.log($scope.allPrepare);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    $scope.allOutletOrders = function () {
+      // console.log(data);
+      outletService
+        .getOrders(data._id)
+        .then(function (res) {
+          $scope.allOrders = res.data.order;
+          console.log($scope.allOrders);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    // DINE IN ORDERS
+    $scope.dineInOrders = function () {
+      outletService
+        .getDineInOrders(data._id)
+        .then(function (res) {
+          $scope.allOrders = res.data.dineIn;
+          console.log($scope.allOrders);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    // TAKE AWAY ORDERS
+    $scope.takeAwayOrders = function () {
+      outletService
+        .getTakeAwayOrders(data._id)
+        .then(function (res) {
+          $scope.allOrders = res.data.takeAway;
+          console.log($scope.allOrders);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    // UPDATE ORDER STATUS TO READY
+    $scope.statusReadyButton = function (id, orderStatus) {
+      console.log(id, orderStatus);
+      var status = orderStatus == 'Preparing' ? 'Ready' : 'Served';
+      console.log(status);
+      outletService
+        .updateStatus(id, status)
+        .then(function (res) {
+          console.log(res);
+          $window.location.reload();
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
+
+    // UPDATE ORDER STATUS TO CANCELLED
+    $scope.order = [];
+    $scope.statusCancelledButton = function (id, order) {
+      console.log(id, order);
+      outletService
+        .updateCancelledStatus(id)
+        .then(function (res) {
+          console.log(res);
+          $window.location.reload();
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    };
   },
 ]);

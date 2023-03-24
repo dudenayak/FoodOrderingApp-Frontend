@@ -7,6 +7,10 @@ app.controller('superCtrl', [
   '$window',
   'superAdminService',
   function ($scope, $http, $window, superAdminService) {
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.brandData = data;
+    $scope.brandUsername = data.username;
+
     // ADD BRAND INFO AND ADMIN INFO
     $scope.openModal = function () {
       // $http('#createModal').modal('show');
@@ -131,7 +135,10 @@ app.controller('superCtrl', [
       if (res == true) {
         if (confirm('Are you sure you want to toggle off?')) {
           $http
-            .put('http://localhost:5000/api/brand/' + _id + '/false', $scope.brand)
+            .put(
+              'http://localhost:5000/api/brand/' + _id + '/false',
+              $scope.brand
+            )
             // superAdminService
             // .updateTrue($scope.brand.id, $scope.brand)
             .then(function (res) {
@@ -148,7 +155,10 @@ app.controller('superCtrl', [
           // superAdminService;
           // .updateFalse($scope.brand._id, $scope.brand)
           $http
-            .put('http://localhost:5000/api/brand/' + _id + '/true', $scope.brand)
+            .put(
+              'http://localhost:5000/api/brand/' + _id + '/true',
+              $scope.brand
+            )
             .then(function (res) {
               // console.log(res);
               $window.location.reload();
