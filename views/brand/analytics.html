@@ -1,4 +1,4 @@
-<body ng-controller="superCtrl">
+<body ng-controller="brandCtrl">
     <div class="superContainer">
         <!-- content start -->
         <div class="superMain">
@@ -21,7 +21,7 @@
             <div class="superCardBoxAnalytics">
                 <div class="superCard">
                     <div>
-                        <div class="numbers">{{totalOrders}}</div>
+                        <div class="numbers">{{orderCreatedBrand.count}}</div>
                         <div class="cardName">Orders Created</div>
                     </div>
                     <div class="iconBox">
@@ -30,8 +30,17 @@
                 </div>
                 <div class="superCard">
                     <div>
-                        <div class="numbers">{{allBrands.length}}</div>
-                        <div class="cardName">Powered Brands</div>
+                        <div class="numbers">{{allFood.length}}</div>
+                        <div class="cardName">Total Products</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="fast-food-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">{{allOutlets.length}}</div>
+                        <div class="cardName">Total Outlets</div>
                     </div>
                     <div class="iconBox">
                         <ion-icon name="business-outline"></ion-icon>
@@ -39,17 +48,8 @@
                 </div>
                 <div class="superCard">
                     <div>
-                        <div class="numbers">{{allOutlets.count}}</div>
-                        <div class="cardName">Total Outlets</div>
-                    </div>
-                    <div class="iconBox">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="superCard">
-                    <div>
-                        <div class="numbers">₹{{orderSum.totalOrderAmount}}</div>
-                        <div class="cardName">Brand Earnings</div>
+                        <div class="numbers">₹{{allBrandTotal.totalOrderAmount}}</div>
+                        <div class="cardName">Revenue</div>
                     </div>
                     <div class="iconBox">
                         <ion-icon name="cash-outline"></ion-icon>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="superCard">
                     <div>
-                        <div class="numbers">₹{{orderSum.totalTaxAmount}}</div>
+                        <div class="numbers">₹{{allBrandTotal.totalTaxAmount}}</div>
                         <div class="cardName">Tax Earnings</div>
                     </div>
                     <div class="iconBox">
@@ -67,23 +67,23 @@
                 <div class="superCard">
                     <div>
                         <div style="font-size: 1em;" class="numbers">
-                            {{profitableOutlet.outletName}} -
-                            ₹{{profitableOutlet.totalAmount}}</div>
+                            {{profitableOutletBrand.outletName}} -
+                            ₹{{profitableOutletBrand.totalAmount}}</div>
                         <div class="cardName">Top Outlet</div>
                     </div>
                     <div class="iconBox">
                         <ion-icon name="flash-outline"></ion-icon>
                     </div>
                 </div>
-                <div class="superCard">
+                <!-- <div class="superCard">
                     <div>
-                        <div class="numbers">{{profitableOutlet.brandName}}</div>
+                        <div class="numbers">{{bestBrand.brandName}}</div>
                         <div class="cardName">Top Brand</div>
                     </div>
                     <div class="iconBox">
                         <ion-icon name="flame-outline"></ion-icon>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- <div> -->

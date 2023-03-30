@@ -58,6 +58,23 @@ app.service('brandService', [
         url = 'http://localhost:5000/api/foodItem/info/' + id;
         return $http.get(url);
       },
+
+      getFoodBrand: function (id) {
+        url = 'http://localhost:5000/api/foodItem/brand/' + id;
+        return $http.get(url);
+      },
+      getOrderSumBrand: function (id) {
+        url = 'http://localhost:5000/api/order/brandRevenue/' + id;
+        return $http.get(url);
+      },
+      getProfitableOutletBrand: function (id) {
+        url = 'http://localhost:5000/api/order/profitableOutletBrand/' + id;
+        return $http.get(url);
+      },
+      getOrderCreatedBrand: function (id) {
+        url = 'http://localhost:5000/api/order/orderCreatedBrand/' + id;
+        return $http.get(url);
+      },
     };
   },
 ]);

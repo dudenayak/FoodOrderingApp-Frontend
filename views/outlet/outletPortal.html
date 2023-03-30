@@ -5,7 +5,7 @@
             <div class="superTopbar">
                 <div class="superToggle" ng-click="toggle()">
                     <!-- <ion-icon name="menu-outline"></ion-icon> -->
-                    <h4 style="font-size: 25px;">{{brandName}} | Branch Page</h4>
+                    <h4 style="font-size: 17px;">{{brandName}} | Branch Page</h4>
                 </div>
                 <div class="superSearch">
                     <label>
@@ -23,13 +23,13 @@
 
             <!-- cards -->
             <h4 style="margin-left: 20px; color: var(--red);">Super Categories</h4>
-            <div class="superCardBoxOutlet">
-                <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper"
+            <div class="superCardBoxOutlet" >
+                <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper" ng-class="addClass(super._id)"
                     ng-click="superTest(super._id)">
                     <!-- <div ng-class="superCard" ng-repeat="super in allSuper" ng-click="superTest(super._id)"></div> -->
                     <div>
-                        <div class="numbers"> {{super.superCategoryName}} </div>
-                        <div class="cardNameOutlet"> {{super.superCategoryDescription}}</div>
+                        <div style="font-size: 1em;" class="numbers"> {{super.superCategoryName}} </div>
+                        <div style="font-size: 0.9em;" class="cardNameOutlet"> {{super.superCategoryDescription}}</div>
                     </div>
                     <div class="iconBox">
                         <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
@@ -40,9 +40,9 @@
 
             <h4 style="margin-left: 20px; color: var(--red);">Sub Categories</h4>
             <div class="superCardBox">
-                <div class="superCard" ng-repeat="sub in allSub" ng-click="subTest(sub._id)">
+                <div class="superCard" ng-repeat="sub in allSub" ng-class="addSubClass(sub._id)" ng-click="subTest(sub._id)">
                     <div>
-                        <div class="numbers" style="margin-top: 20px;"> {{sub.subCategoryName}} </div>
+                        <div class="numbers" style="color: var(--black1);"> {{sub.subCategoryName}} </div>
                         <!-- <div class="cardName"> {{sub.subCategoryDescription}}</div> -->
                     </div>
                     <div class="iconBox">
@@ -54,10 +54,11 @@
 
             <h4 style="margin-left: 20px; color: var(--red);">Food Items</h4>
             <div class="superCardBoxOutlet">
-                <div class="superCard" ng-repeat="item in allItem" ng-click="foodTest(item)">
+                <div class="superCard" ng-repeat="item in allItem" ng-class="addFoodClass(item._id)" ng-click="foodTest(item)">
                     <div>
-                        <div class="numbers" style="font-size: 18px;"> {{item.foodItemName}} </div>
-                        <div class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div>
+                        <div style="font-size: 0.9em;" class="numbers" style="font-size: 18px;"> {{item.foodItemName}}
+                        </div>
+                        <div style="font-size: 0.9em;" class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div>
                     </div>
                     <div class="iconBox">
                         <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
@@ -74,55 +75,5 @@
                 <button type="button" class="superButton" ng-click="saveItem($event)">Add
                     Food Item</button>
             </div>
-
-            <!-- <div class="modal-footer">                
-                <button type="button" class="superButton" ng-click="saveOutletData($event)">Save
-                    Food Item</button>
-            </div> -->
-
-            <!-- Modal Edit -->
-            <!-- <div class="modal fade" id="editOutletModal" tabindex="-1" aria-labelledby="editModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Brand</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form name="updateForm" novalidate autocomplete="off">
-                                <h5> Outlet Information</h5>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Outlet Name</span>
-                                    <input type="text" ng-model="outlet.outletName" class="form-control"
-                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Outlet Address</span>
-                                    <input type="text" ng-model="outlet.outletAddress" class="form-control"
-                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Outlet Phone</span>
-                                    <input type="text" ng-model="outlet.outletPhone" class="form-control"
-                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager</span>
-                                    <input type="text" ng-model="outlet.outletManager.managerName" class=" form-control"
-                                        aria-label="Sizing edit input" aria-describedby="inputGroup-sizing-default">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="superButtonClose"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="superButton" ng-click="saveOutletData($event)">Save
-                                        changes</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
 </body>

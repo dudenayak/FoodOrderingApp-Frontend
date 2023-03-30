@@ -38,21 +38,21 @@ app.controller('brandCtrl', [
     // TEST
     $scope.test = function () {
       // console.log("object")
-      console.log($scope.selectedSuperCategory);
-      console.log($scope.selectedSuperCategory.brand.brandName);
-      console.log($scope.selectedSuperCategory.brand.brandId);
-      console.log($scope.selectedSuperCategory.superCategoryName);
-      console.log($scope.selectedSuperCategory._id);
+      // console.log($scope.selectedSuperCategory);
+      // console.log($scope.selectedSuperCategory.brand.brandName);
+      // console.log($scope.selectedSuperCategory.brand.brandId);
+      // console.log($scope.selectedSuperCategory.superCategoryName);
+      // console.log($scope.selectedSuperCategory._id);
     };
 
     $scope.testSub = function () {
-      console.log($scope.selectedSubCategory);
-      console.log($scope.selectedSubCategory._id);
-      console.log($scope.selectedSubCategory.subCategoryName);
-      console.log($scope.selectedSubCategory.superCategory.superId);
-      console.log($scope.selectedSubCategory.superCategory.superName);
-      console.log($scope.selectedSubCategory.brand.brandId);
-      console.log($scope.selectedSubCategory.brand.brandName);
+      // console.log($scope.selectedSubCategory);
+      // console.log($scope.selectedSubCategory._id);
+      // console.log($scope.selectedSubCategory.subCategoryName);
+      // console.log($scope.selectedSubCategory.superCategory.superId);
+      // console.log($scope.selectedSubCategory.superCategory.superName);
+      // console.log($scope.selectedSubCategory.brand.brandId);
+      // console.log($scope.selectedSubCategory.brand.brandName);
     };
 
     // ADD OUTLET INFO AND OUTLET MANAGER INFO
@@ -85,6 +85,7 @@ app.controller('brandCtrl', [
     // formData.append('image2', file2);
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveSuper = function ($event) {
+      $window.location.reload();
       var formData = new FormData();
       formData.append('superCategoryName', $scope.superFood.superCategoryName);
       formData.append('file', $scope.superFood.superCategoryImage);
@@ -94,8 +95,8 @@ app.controller('brandCtrl', [
         $scope.superFood.superCategoryDescription
       );
       formData.append('brandName', data.brandName);
-      console.log(data.brandName);
-      console.log(data.brandId);
+      // console.log(data.brandName);
+      // console.log(data.brandId);
       formData.append('brandId', data.brandId);
 
       $event.preventDefault();
@@ -111,15 +112,16 @@ app.controller('brandCtrl', [
         })
         .then(function (res) {
           console.log(res);
+          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);
-          $window.location.reload();
         });
     };
 
     // ADD SUB CATEGORY
     $scope.saveSub = function ($event) {
+      $window.location.reload();
       $event.preventDefault();
       console.log($scope.selectedSuperCategory);
       $scope.subFood.brandName = $scope.selectedSuperCategory.brand.brandName;
@@ -210,6 +212,60 @@ app.controller('brandCtrl', [
         console.log(err);
       });
 
+    // LOADING NUMBER OF FOOD ITEMS
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.allFood = [];
+    brandService
+      .getFoodBrand(data.brandId)
+      .then(function (res) {
+        // console.log(res.data.superFood[0].brand.brandId);
+        $scope.allFood = res.data.foodItemBrand;
+        // console.log($scope.allFood);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+    // LOADING SUM PER BRAND
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.allBrandTotal = [];
+    brandService
+      .getOrderSumBrand(data.brandId)
+      .then(function (res) {
+        // console.log(res.data.superFood[0].brand.brandId);
+        $scope.allBrandTotal = res.data.brandRevenue[0];
+        // console.log($scope.allBrandTotal);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+    // LOADING BEST OUTLET PER BRAND
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.profitableOutletBrand = [];
+    brandService
+      .getProfitableOutletBrand(data.brandId)
+      .then(function (res) {
+        $scope.profitableOutletBrand = res.data.profitableOutletBrand[0];
+        // console.log($scope.profitableOutletBrand);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+       // LOADING ORDER CREATED PER BRAND
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.orderCreatedBrand = [];
+    brandService
+      .getOrderCreatedBrand(data.brandId)
+      .then(function (res) {
+        $scope.orderCreatedBrand = res.data.orderCreatedBrand[0];
+        console.log($scope.orderCreatedBrand);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
     // LOGOUT
     $scope.logout = function ($event) {
       $event.preventDefault();
@@ -292,7 +348,7 @@ app.controller('brandCtrl', [
         .then(function (res) {
           // console.log(res);
           // console.log(outletData);
-          $scope.outlet = outletData; 
+          $scope.outlet = outletData;
           console.log($scope.outlet);
         })
         .catch(function (err) {

@@ -38,6 +38,7 @@
 /* body.active{
     background-image: url(../../img/Background/background.jpg);
 } */
+
 .containerLogin{
     align-items: center;
     position:relative;
@@ -398,6 +399,15 @@
     grid-gap: 30px;
 }
 
+.superCardBoxAnalytics {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 30px;
+}
+
 .superCardBoxDineIn {
     position: relative;
     width: 100%;
@@ -421,6 +431,17 @@
     margin-top: 60px;    
 }
 
+.superCardBoxStats {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    min-height: 600px;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 30px;
+    /* margin-top: 60px;     */
+}
+
 .superCardBoxEmployee a{
     text-decoration: none;
 }
@@ -432,6 +453,7 @@
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap: 30px;
+    /* flex-direction: row; */
     
 }
 
@@ -458,6 +480,19 @@
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.superCardBoxAnalytics .superCard {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
@@ -491,6 +526,19 @@
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
+.superCardBoxStats .superCard {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
 .superCardBoxOutlet .superCard {
     position: relative;
     background: var(--white);
@@ -499,6 +547,7 @@
     display: flex;
     height: 150px;
     justify-content: space-between;
+    align-items: center;
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
@@ -545,6 +594,13 @@
     color: var(--red);
 }
 
+.superCardBoxAnalytics .superCard .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 1.3em;
+    color: var(--red);
+}
+
 .superCardBoxDineIn .superCard .foodImg{
     /* position: relative; */
     /* font-weight: 500; */
@@ -571,11 +627,18 @@
     color: var(--red);
 }
 
-.superCardBoxOutlet .superCard .numbers{
+.superCardBoxStats .superCard .numbers{
     position: relative;
     font-weight: 500;
     font-size: 1.3em;
     color: var(--red);
+}
+
+.superCardBoxOutlet .superCard .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 1.3em;
+    color: var(--black1);
 }
 
 .superCardBoxStatus .superCard .numbers{
@@ -591,6 +654,12 @@
     margin-top: 5px;
 }
 
+.superCardBoxAnalytics .superCard .cardName {
+    color: var(--black2);
+    font-size: 1.1em;
+    margin-top: 5px;
+}
+
 .superCardBoxDineIn .superCard .cardName {
     color: var(--black2);
     font-size: 0.7em;
@@ -598,6 +667,12 @@
 }
 
 .superCardBoxEmployee .superCard .cardName {
+    color: var(--black2);
+    font-size: 3em;
+    /* margin-top: 5px; */
+}
+
+.superCardBoxStats .superCard .cardName {
     color: var(--black2);
     font-size: 3em;
     /* margin-top: 5px; */
@@ -620,12 +695,23 @@
     color: var(--black2);
 }
 
+.superCardBoxAnalytics .superCard .iconBox {
+    font-size: 3em;
+    color: var(--black2);
+}
+
 .superCardBoxDineIn .superCard .iconBox {
     font-size: 3em;
     color: var(--black2);
 }
 
 .superCardBoxEmployee .superCard .iconBox {
+    font-size: 3em;
+    color: var(--black2);
+    margin-top:50px;
+}
+
+.superCardBoxStats .superCard .iconBox {
     font-size: 3em;
     color: var(--black2);
     margin-top:50px;
@@ -652,6 +738,10 @@
     background: var(--red);
 }
 
+.superCardBoxAnalytics .superCard:hover {
+    background: var(--red);
+}
+
 .superCardBoxDineIn .superCard:hover {
     background: var(--red);
 }
@@ -667,6 +757,12 @@
 .superCardBox .superCard:hover .numbers,
 .superCardBox .superCard:hover .cardName,
 .superCardBox .superCard:hover .iconBox {
+    color: var(--white);
+}
+
+.superCardBoxAnalytics .superCard:hover .numbers,
+.superCardBoxAnalytics .superCard:hover .cardName,
+.superCardBoxAnalytics .superCard:hover .iconBox {
     color: var(--white);
 }
 
@@ -706,6 +802,18 @@
     margin-top: 10px;
 }
 
+.superAnalyticsDetails {
+    position: relative;
+    /* width: 100%; */
+    min-height: 500px;
+    min-width: 500px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
+    margin-top: 10px;
+}
+
 .superDetails .superRecentOrders {
     position: relative;
     display: flex;
@@ -724,6 +832,27 @@
 }
 
 .superDetails .superRecentOrders .superCardHeader h2{ 
+    font-weight: 600;
+    color: var(--red);
+}
+
+.superAnalyticsDetails .superRecentOrders {
+    position: relative;
+    min-height: 500px;
+    min-width: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;    
+}
+
+.superAnalyticsDetails .superRecentOrders .superCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.superAnalyticsDetails .superRecentOrders .superCardHeader h2{ 
     font-weight: 600;
     color: var(--red);
 }
@@ -854,7 +983,11 @@
     text-align: center;
 }
 .superDetails .superRecentOrderView table tr td:nth-child(5) {
-    text-align: right;
+    text-align: center;
+}
+
+.superDetails .superRecentOrderView table tr td:nth-child(6) {
+    text-align: center;
 }
 
 .superDetails .superRecentOrders .viewAllTable {
@@ -980,7 +1113,7 @@
     margin-top: 20px;
 }
 .superRecentCustomersDineInTable{
-    height: 500px;
+    height: 800px;
 }
 .superRecentCustomersDineIn .newNew{
     display: flex;
@@ -1557,9 +1690,9 @@ section .restaurants table td img:hover {
     transform: scale(1.2);
 }
 
-section {
+/* section {
     padding-bottom: 80px;
-}
+} */
 
 .container {
     width: 1500px;
@@ -2584,6 +2717,8 @@ button:hover {
 
     }
 }
+
+/* RED */
 
 
 /* @media (max-width: 991px){

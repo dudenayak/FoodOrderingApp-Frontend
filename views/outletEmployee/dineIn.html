@@ -4,7 +4,7 @@
         <div class="superMain">
             <div class="superTopbar">
                 <div class="superToggle" ng-click="toggle()">
-                    <h4 style="font-size: 25px;">{{brandName}} | Dine In</h4>
+                    <h4 style="font-size: 20px;">{{brandName}} | Dine In</h4>
                 </div>
                 <div class="superSearch">
                     <label>
@@ -70,32 +70,23 @@
                             </tr>
                         </table>
                     </div>
-                    <!-- </div> -->
                     <div class="newNew">
-                        <!-- <div> -->
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
                             Sub Total
                             : <div id="price1">
                                 {{getTotal()}}
-
                             </div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
                             CGST 2.5% Tax : <div id="price2">
-                                <!-- {{((getTotal() / 100) * (2.5)
-                                )
-                                .toFixed(2)}} -->
                                 {{getCGST()}}
                             </div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
                             SGST 2.5% Tax : <div id="price3">
-                                <!-- {{((getTotal() / 100) * (2.5)
-                                )
-                                .toFixed(2)}} -->
                                 {{getCGST()}}
                             </div>
                         </div>
@@ -105,16 +96,22 @@
                                 {{getTax()}}
                             </div>
                         </div>
-                        <!-- <div class="" style="font-size: 20px;" ng-init="totalPrice=0">Total :<span>{{totalPrice}}</span> -->
                         <div class=""
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
                             Outlet Total :
                             <div ng-model="orderDineIn.orderTotal">{{getSum()}}</div>
-                            <!-- <button ng-click="hello()">Click Me</button> -->
                         </div>
-                        <!-- <p ng-bind="totalPrice()"></p> -->
                     </div>
-                    <!-- </div> -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                        <input type="text" ng-model="customerName" class="form-control"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                        <input type="text" ng-model="customerPhone" class="form-control"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
                     <button type="button" class="superButton" style="margin-top: 10px;"
                         ng-click="createOrder($event)">Create Order</button>
                 </div>

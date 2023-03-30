@@ -4,7 +4,7 @@
         <div class="superMain">
             <div class="superTopbar">
                 <div class="superToggle" ng-click="toggle()">
-                    <h4 style="font-size: 25px;">{{brandName}} | Status</h4>
+                    <h4 style="font-size: 20px;">{{brandName}} | Status</h4>
                 </div>
                 <div class="superSearch">
                     <label>
@@ -41,13 +41,13 @@
 
                     </div>
                     <div class="buttonStyle">
-                        <button type="button"
-                        class="superButton" style="background-color: #8de02c;"
-                            ng-click="statusReadyButton(prepare._id, prepare.orderStatus)">{{prepare.orderStatus == 'Preparing' ? 'Ready' : 'Served'}}</button>
+                        <button type="button" class="superButton" style="background-color: #8de02c;"
+                            ng-click="statusReadyButton(prepare._id, prepare.orderStatus)">{{prepare.orderStatus ==
+                            'Preparing' ? 'Ready' : 'Served'}}</button>
                         <button type="button" class="superButton"
                             ng-click="statusCancelledButton(prepare._id)">Cancelled</button>
                     </div>
                 </div>
             </div>
-        <!-- </div>ng-class="{'Ready': prepare.orderStatus === 'Ready', 'Served': prepare.orderStatus === 'Served' , 'Preparing' : prepare.orderStatus === 'Preparing'}" -->
+            <!-- </div>ng-class="{'Ready': prepare.orderStatus === 'Ready', 'Served': prepare.orderStatus === 'Served' , 'Preparing' : prepare.orderStatus === 'Preparing'}" -->
 </body>

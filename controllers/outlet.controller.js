@@ -16,7 +16,7 @@ app.controller('outletCtrl', [
     outletService,
     $state,
     $rootScope,
-    $window,
+    $window
   ) {
     // LOADING OUTLET INFORMATION
     var data = JSON.parse(localStorage.getItem('user'));
@@ -48,9 +48,9 @@ app.controller('outletCtrl', [
         outletService
           .getOutletItems(data[0]._id)
           .then(function (res) {
-            // console.log(res);
+            console.log(res.data);
             $scope.allItemOutlet = res.data.foodItem;
-            // console.log($scope.allItemOutlet);
+            console.log(res.data);
           })
           .catch(function (err) {
             console.log(err);
@@ -97,8 +97,28 @@ app.controller('outletCtrl', [
         console.log(err);
       });
 
+    // addClass
+    $scope.addClass = function (id) {
+      if ($scope.foodId == id) {
+        return 'bg-danger';
+      }
+    };
+
+    $scope.addSubClass = function (id) {
+      if ($scope.subId == id) {
+        return 'bg-danger';
+      }
+    };
+
+    $scope.addFoodClass = function (id) {
+      if ($scope.foodItemId == id) {
+        return 'bg-danger';
+      }
+    };
+
     // LOADING SUB
     $scope.superTest = function (id) {
+      $scope.foodId = id;
       // console.log($scope.selectedSuperCategory);
       // console.log(id);
       // var data = JSON.parse(localStorage.getItem('user'));
@@ -124,6 +144,7 @@ app.controller('outletCtrl', [
 
     // LOADING FOOD ITEMS
     $scope.subTest = function (id) {
+      $scope.subId = id;
       // console.log(id);
       // var data = JSON.parse(localStorage.getItem('user'));
       $scope.allItem = {};
@@ -142,34 +163,11 @@ app.controller('outletCtrl', [
 
     // LOADING FOOD ITEM DATA
     $scope.foodTest = function (res) {
-      // var data = JSON.parse(localStorage.getItem('outletInfo'));
-      // $event.preventDefault();
-      // $scope.outletId = data[0]._id;
-      // $scope.outletName = data[0].outletName;
+      $scope.foodItemId = res._id;
+      console.log($scope.foodItemId)
       $scope.newName = res;
       console.log($scope.newName);
-      // console.log(res._id);
-      // console.log(res.foodItemName);
-      // console.log(res.foodItemPrice);
-      // res.outletId = $scope.outletId;
-      // res.outletName = $scope.outletName;
-      // console.log(res);
-      // outletService
-      //   .createOutletItem(res)
-      //   .then(function (res) {
-      //     console.log(res);
-      //     $window.location.reload();
-      //   })
-      //   .catch(function (err) {
-      //     console.log(err);
-      //   });
     };
-
-    // var data = JSON.parse(localStorage.getItem('outletInfo'));
-    // console.log(data[0].outletName);
-    // console.log(data[0]._id);
-    // console.log($rootScope.outletName)
-    // console.log(res.data.outlet[0].outletName);
 
     // ADD FOOD ITEM PER OUTLET
     $scope.saveItem = function ($event) {

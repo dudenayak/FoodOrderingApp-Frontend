@@ -24,11 +24,11 @@
             <div class="superCardBox">
                 <div class="superCard">
                     <div>
-                        <div class="numbers">1504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="numbers">{{totalOrders}}</div>
+                        <div class="cardName">Orders Created</div>
                     </div>
                     <div class="iconBox">
-                        <ion-icon name="eye-outline"></ion-icon>
+                        <ion-icon name="cart-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="superCard">
@@ -37,12 +37,12 @@
                         <div class="cardName">Powered Brands</div>
                     </div>
                     <div class="iconBox">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="business-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="superCard">
                     <div>
-                        <div class="numbers">1504</div>
+                        <div class="numbers">{{allOutlets.count}}</div>
                         <div class="cardName">Total Outlets</div>
                     </div>
                     <div class="iconBox">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="superCard">
                     <div>
-                        <div class="numbers">$7842</div>
+                        <div class="numbers">₹{{orderSum.totalOrderAmount}}</div>
                         <div class="cardName">Earnings</div>
                     </div>
                     <div class="iconBox">

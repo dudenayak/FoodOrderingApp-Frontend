@@ -4,20 +4,9 @@
 app.controller('myCtrl', [
   '$scope',
   '$location',
-  '$http',
   '$window',
-  'getLocalStorage',
-  '$rootScope',
   'signupService',
-  function (
-    $scope,
-    $location,
-    $http,
-    $window,
-    getLocalStorage,
-    $rootScope,
-    signupService
-  ) {
+  function ($scope, $location, $window, signupService) {
     $scope.check = function () {
       return $scope.password == $scope.cpassword;
     };
@@ -35,7 +24,7 @@ app.controller('myCtrl', [
       signupService
         .loginUser(userData)
         .then(function (res) {
-          console.log(res);
+          // console.log(res);
           localStorage.setItem('user', JSON.stringify(res.data));
           // $window.location.reload();
           if (res.data.userType == 'admin') {

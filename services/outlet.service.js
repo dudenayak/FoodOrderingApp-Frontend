@@ -47,7 +47,7 @@ app.service('outletService', [
       },
 
       createOutletItem: function (foodItem) {
-        url = 'http://localhost:5000/api/foodItemOutlet/create';
+        url = 'http://localhost:5000/api/foodItemOutlet/createOrder';
         return $http.post(url, foodItem);
       },
 
@@ -58,7 +58,7 @@ app.service('outletService', [
 
       // GET FOOD ITEMS PER OUTLET
       getOutletItems: function (id) {
-        url = 'http://localhost:5000/api/foodItemOutlet/' + id;
+        url = 'http://localhost:5000/api/foodItemOutlet/outlet/' + id;
         return $http.get(url);
       },
 

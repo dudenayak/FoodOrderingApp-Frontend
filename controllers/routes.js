@@ -17,11 +17,6 @@ app.config([
         templateUrl: '../views/superAdmin/sidebar.html',
         controller: 'superCtrl',
       })
-      // .state('superAdminPortal', {
-      //   url: '/superAdminPortal',
-      //   templateUrl: '../views/superAdmin/superAdminPortal.html',
-      //   controller: 'superCtrl',
-      // })
       .state('dashboard.superAdminPortal', {
         url: '/superAdminPortal',
         templateUrl: '../views/superAdmin/superAdminPortal.html',
@@ -42,21 +37,16 @@ app.config([
         templateUrl: '../views/superAdmin/analytics.html',
         controller: 'superCtrl',
       })
-      // .state('viewAllCustomers', {
-      //   url: '/viewAllCustomers',
-      //   templateUrl: '../views/superAdmin/viewAllCustomers.html',
-      //   controller: 'superCtrl',
-      // })
       .state('panel', {
         url: '/panel',
         templateUrl: '../views/brand/sidebarBrand.html',
         controller: 'brandCtrl',
       })
-      // .state('brandPortal', {
-      //   url: '/brandPortal',
-      //   templateUrl: '../views/brand/brandPortal.html',
-      //   controller: 'brandCtrl',
-      // })
+      .state('panel.analytics', {
+        url: '/analytics',
+        templateUrl: '../views/brand/analytics.html',
+        controller: 'brandCtrl',
+      })
       .state('panel.brandPortal', {
         url: '/brandPortal',
         templateUrl: '../views/brand/brandPortal.html',
@@ -117,19 +107,10 @@ app.config([
         templateUrl: '../views/outletEmployee/orderHistory.html',
         controller: 'outletEmployeeCtrl',
       })
-      // .state('viewAllBrands', {
-      //   url: '/viewAllBrands',
-      //   templateUrl: '../views/superAdmin/viewAllBrands.html',
-      //   controller: 'brandCtrl',
-      // })
-
       .state('login', {
         url: '/',
         templateUrl: '../views/login.html',
         controller: 'myCtrl',
       });
   },
-  // .constant('globalConfig', {
-  //   apiAddress: 'http://localhost:5000',
-  // }),
 ]);

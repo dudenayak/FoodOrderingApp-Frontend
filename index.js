@@ -5,6 +5,7 @@
 /// <reference path= "http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.3.0.min.js"/>
 /// <reference path= "https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.min.js"/>
 /// <reference path= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
+/// <reference path= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"/>
 
 // const app = angular.module('myApp', ['ngRoute']);
 const app = angular.module('myApp', [
