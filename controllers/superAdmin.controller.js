@@ -293,7 +293,7 @@ app.controller('superCtrl', [
             },
             title: {
               display: true,
-              text: 'User Createion Date',
+              text: 'User Creation Date',
               position: 'bottom',
             },
           },

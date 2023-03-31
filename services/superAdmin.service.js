@@ -51,10 +51,10 @@ app.service('superAdminService', [
         url = 'http://localhost:5000/api/order/profitableOutlet';
         return $http.get(url);
       },
-      getBestBrand: function () {
-        url = 'http://localhost:5000/api/order/bestBrand';
-        return $http.get(url);
-      },
+      // getBestBrand: function () {
+      //   url = 'http://localhost:5000/api/order/bestBrand';
+      //   return $http.get(url);
+      // },
       getBrandOwners: function () {
         url = 'http://localhost:5000/api/user/brandOwner';
         return $http.get(url);

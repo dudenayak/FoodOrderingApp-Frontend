@@ -75,36 +75,76 @@
                         <ion-icon name="flash-outline"></ion-icon>
                     </div>
                 </div>
-                <!-- <div class="superCard">
+                <div class="superCard">
                     <div>
-                        <div class="numbers">{{bestBrand.brandName}}</div>
-                        <div class="cardName">Top Brand</div>
+                        <div class="numbers">Item Name</div>
+                        <div class="cardName">Most ordered item</div>
                     </div>
                     <div class="iconBox">
                         <ion-icon name="flame-outline"></ion-icon>
                     </div>
-                </div> -->
+                </div>
+                <div class="superCard">
+                    <div>
+                        <div class="numbers">Count</div>
+                        <div class="cardName">Total Employees</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="flame-outline"></ion-icon>
+                    </div>
+                </div>
             </div>
 
             <!-- <div> -->
             <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
 
             <!-- </div> -->
+            <div style="margin-left: 25px; margin-top: 10px;" class="input-group mb-3">
+                <span style="margin: 10px;">Select <b>OUTLET NAME</b> to display analytics</span>
+                <!-- <span class="input-group-text" id="inputGroup-sizing-default">Outlet Name</span> -->
+
+                <div class="dropdown">
+                    <select class="form-select" aria-label="Default select example" ng-model="selectedOutlet"
+                        ng-click="testOutlet()">
+
+                        <option ng-value="outlet" ng-repeat="outlet in allOutlets">
+                            {{outlet.outletName}}
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
             <div class="superCardBoxStats">
                 <div class="superCard">
+                    <!-- <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Outlet Name</span>
+
+                        <div class="dropdown">
+                            <select class="form-select" aria-label="Default select example"
+                                ng-model="selectedOutlet" ng-click="testOutlet()">
+
+                                <option ng-value="outlet" ng-repeat="outlet in allOutlets">
+                                    {{outlet.outletName}}
+                                </option>
+                            </select>
+
+                        </div>
+
+                    </div> -->
                     <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
                 <div class="superCard">
                     <canvas id="myChart1" width="400" height="200"></canvas>
                 </div>
-                <div class="superCard">
+                <!-- <div class="superCard">
                     <canvas id="myChart2" width="400" height="200"></canvas>
                 </div>
                 <div class="superCard">
                     <canvas id="myChart3" width="400" height="200"></canvas>
-                </div>
+                </div> -->
                 <div class="superCard">
-                    <canvas id="myChart4" width="200" height="300"></canvas>
+                    <canvas id="myChart2" width="200" height="100"></canvas>
                 </div>
             </div>
         </div>

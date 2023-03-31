@@ -75,6 +75,22 @@ app.service('brandService', [
         url = 'http://localhost:5000/api/order/orderCreatedBrand/' + id;
         return $http.get(url);
       },
+      getSalesPerOutlet: function (brandId, outletId) {
+        url =
+          'http://localhost:5000/api/order/salesPerOutlet/' +
+          brandId +
+          '/' +
+          outletId;
+        return $http.get(url);
+      },
+      getRatioPerOutlet: function (brandId, outletId) {
+        url =
+          'http://localhost:5000/api/order/ratioPerOutlet/' +
+          brandId +
+          '/' +
+          outletId;
+        return $http.get(url);
+      },
     };
   },
 ]);
