@@ -6,7 +6,7 @@
                 <div class="superToggle" ng-click="toggle()">
                     <h4 style="font-size: 20px;">{{brandName}} | History</h4>
                 </div>
-                <div class="superSearch">                
+                <div class="superSearch">
                 </div>
                 <div class="superUserName">
                     <div class="superUser">
@@ -23,6 +23,12 @@
                     Orders</button>
                 <button type="button" class="superButton" ng-click="takeAwayOrders(order)">Take Away
                     Orders</button>
+            </div>
+            <div class="loadingio-spinner-ripple-vjxd5jrokur" ng-show="loading">
+                <div class="ldio-qo2rjgdiigq">
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
             <div class="superDetails">
                 <div class="superRecentOrderView">
@@ -52,5 +58,13 @@
                     </div>
                 </div>
             </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a style="cursor: pointer;" class="page-link"
+                            ng-click="previous()">Previous</a></li>
+                    <li class="page-item"><a style="cursor: pointer;" class="page-link" ng-click="next()">Next</a></li>
+                </ul>
+
+            </nav>
         </div>
 </body>

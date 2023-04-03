@@ -276,28 +276,67 @@ app.controller('brandCtrl', [
 
     // LOADING OUTLETS
     var data = JSON.parse(localStorage.getItem('user'));
+    $scope.pageno = 0;
+    $scope.next = function () {
+      $scope.loading = true;
+      $scope.allOutlets = [];
+      brandService
+        .getOutlets(data.brandId, ++$scope.pageno)
+        .then(function (res) {
+          $scope.allOutlets = res.data.outlet;
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
+    $scope.previous = function () {
+      $scope.loading = true;
+      $scope.allOutlets = [];
+      brandService
+        .getOutlets(data.brandId, --$scope.pageno)
+        .then(function (res) {
+          $scope.allOutlets = res.data.outlet;
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
+
+    var data = JSON.parse(localStorage.getItem('user'));
+    // console.log(data.brandId)
+    $scope.loading = true;
     $scope.allOutlets = [];
     brandService
-      .getOutlets(data.brandId)
+      .getOutlets(data.brandId, 0)
       .then(function (res) {
         // console.log(res);
         $scope.allOutlets = res.data.outlet;
+        $scope.loading = false;
         // console.log($scope.allOutlets);
       })
       .catch(function (err) {
         console.log(err);
+        $scope.loading = false;
       });
 
     // LOADING OUTLET MANAGER
+    var data = JSON.parse(localStorage.getItem('user'));
+    $scope.loading = true;
     $scope.allManagers = [];
     brandService
-      .getOutletManagers(data.brandId)
+      .getOutletManagers(data.brandId, $scope.pageno)
       .then(function (res) {
         $scope.allManagers = res.data.userData;
         // console.log($scope.allManagers);
+        $scope.loading = false;
       })
       .catch(function (err) {
         console.log(err);
+        $scope.loading = false;
       });
 
     // UPDATE OUTLET STATE
@@ -310,11 +349,7 @@ app.controller('brandCtrl', [
               'http://localhost:5000/api/outlet/' + _id + '/false',
               $scope.outlet
             )
-            // superAdminService
-            // .updateTrue($scope.outlet.id, $scope.outlet)
             .then(function (res) {
-              // console.log($scope.outlet._id);
-              // console.log(res);
               $window.location.reload();
             })
             .catch(function (err) {
@@ -389,7 +424,7 @@ app.controller('brandCtrl', [
         .getSalesPerOutlet(data.brandId, $scope.dataId)
         .then(function (res) {
           $scope.salesPerOutlet = res.data.salesPerOutlet;
-          console.log($scope.salesPerOutlet);
+          // console.log($scope.salesPerOutlet);
           for (var i = 0; i < $scope.salesPerOutlet.length; i++) {
             dateOutletLabel.push($scope.salesPerOutlet[i]._id.date);
             countOutletDataset.push($scope.salesPerOutlet[i].totalOrders);
@@ -478,7 +513,7 @@ app.controller('brandCtrl', [
                 statusCountDataset.push($scope.ratioPerOutlet[i].count);
               }
               chart = new Chart('myChart2', {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                   labels: statusTypeLabel,
                   datasets: [
@@ -487,23 +522,11 @@ app.controller('brandCtrl', [
                       data: statusCountDataset,
                       backgroundColor: [
                         'rgba(50, 205, 50, 0.2)',
-                        'rgba(255, 99, 132, 0.2)', 
-                        // 'rgba(255, 206, 86, 0.2)',
-                        // 'rgba(75, 192, 192, 0.2)',
-                        // 'rgba(153, 102, 255, 0.2)',
-                        // 'rgba(255, 159, 64, 0.2)',
-                        // 'rgba(125, 19, 4, 0.2)',
-                        // 'rgba(55, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
                       ],
                       borderColor: [
                         'rgba(50, 205, 50, 1)',
                         'rgba(255, 99, 132, 1)',
-                        // 'rgba(255, 206, 86, 1)',
-                        // 'rgba(75, 192, 192, 1)',
-                        // 'rgba(153, 102, 255, 1)',
-                        // 'rgba(255, 159, 64, 1)',
-                        // 'rgba(125, 19, 4, 1)',
-                        // 'rgba(55, 159, 64, 1)',
                       ],
                       borderWidth: 1,
                     },
@@ -511,16 +534,6 @@ app.controller('brandCtrl', [
                 },
                 options: {
                   responsive: true,
-                  scales: {
-                    yAxes: [
-                      {
-                        ticks: {
-                          beginAtZero: true,
-                          // max: 10000,
-                        },
-                      },
-                    ],
-                  },
                   title: {
                     display: true,
                     text: 'Revenue per Outlet',
@@ -529,57 +542,6 @@ app.controller('brandCtrl', [
                 },
               });
             });
-          // chart = new Chart('myChart2', {
-          //   type: 'pie',
-          //   data: {
-          //     labels: dateOutletLabel,
-          //     datasets: [
-          //       {
-          //         label: 'Revenue of Orders',
-          //         data: revenueOutletDataset,
-          //         backgroundColor: [
-          //           'rgba(255, 99, 132, 0.2)',
-          //           'rgba(54, 162, 235, 0.2)',
-          //           'rgba(255, 206, 86, 0.2)',
-          //           'rgba(75, 192, 192, 0.2)',
-          //           'rgba(153, 102, 255, 0.2)',
-          //           'rgba(255, 159, 64, 0.2)',
-          //           'rgba(125, 19, 4, 0.2)',
-          //           'rgba(55, 159, 64, 0.2)',
-          //         ],
-          //         borderColor: [
-          //           'rgba(255, 99, 132, 1)',
-          //           'rgba(54, 162, 235, 1)',
-          //           'rgba(255, 206, 86, 1)',
-          //           'rgba(75, 192, 192, 1)',
-          //           'rgba(153, 102, 255, 1)',
-          //           'rgba(255, 159, 64, 1)',
-          //           'rgba(125, 19, 4, 1)',
-          //           'rgba(55, 159, 64, 1)',
-          //         ],
-          //         borderWidth: 1,
-          //       },
-          //     ],
-          //   },
-          //   options: {
-          //     responsive: true,
-          //     scales: {
-          //       yAxes: [
-          //         {
-          //           ticks: {
-          //             beginAtZero: true,
-          //             // max: 10000,
-          //           },
-          //         },
-          //       ],
-          //     },
-          //     title: {
-          //       display: true,
-          //       text: 'Revenue per Outlet',
-          //       position: 'bottom',
-          //     },
-          //   },
-          // });
         })
         .catch(function (err) {
           console.log(err);

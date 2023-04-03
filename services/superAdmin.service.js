@@ -55,8 +55,8 @@ app.service('superAdminService', [
       //   url = 'http://localhost:5000/api/order/bestBrand';
       //   return $http.get(url);
       // },
-      getBrandOwners: function () {
-        url = 'http://localhost:5000/api/user/brandOwner';
+      getBrandOwners: function (pageno) {
+        url = 'http://localhost:5000/api/user/brandOwner/10/' + pageno;
         return $http.get(url);
       },
       editBrand: function (id) {

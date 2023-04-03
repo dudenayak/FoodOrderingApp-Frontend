@@ -10,14 +10,22 @@ app.service('brandService', [
         url = 'http://localhost:5000/api/outlet/registerOutlet';
         return $http.post(url, outletManager);
       },
-      getOutletManagers: function (id) {
-        url = 'http://localhost:5000/api/user/outletManager/' + id;
+      getOutletManagers: function (id, pageno) {
+        url = 'http://localhost:5000/api/user/outletManager/' + id + '/10/' + pageno;
         return $http.get(url);
       },
-      getOutlets: function (id) {
-        url = 'http://localhost:5000/api/outlet/' + id;
+      getOutlets: function (id, pageno) {
+        url = 'http://localhost:5000/api/outlet/' + id + '/10/' + pageno;
         return $http.get(url);
       },
+      // getOutletManagers: function (id) {
+      //   url = 'http://localhost:5000/api/user/outletManager/' + id;
+      //   return $http.get(url);
+      // },
+      // getOutlets: function (id) {
+      //   url = 'http://localhost:5000/api/outlet/' + id;
+      //   return $http.get(url);
+      // },
       editOutlet: function (id) {
         url = 'http://localhost:5000/api/outlet/' + id;
         return $http.get(url);

@@ -11,5 +11,6 @@
 const app = angular.module('myApp', [
   'ui.router',
   'ui.bootstrap',
+  // 'angular-loading-bar'
   // 'ngFileUpload',
 ]);

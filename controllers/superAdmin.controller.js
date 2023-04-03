@@ -1,5 +1,18 @@
 ///<reference path="../index.js"/>
 
+// SUPER ADMIN DIRECTIVE
+
+// app.directive('loader', function () {
+//   return {
+//     restrict: 'E',
+//     replace: true,
+//     template: '<img src="/loader.gif" />',
+//     link: function (scope, element, attrs) {
+//       // You can add any additional logic here if needed
+//     },
+//   };
+// });
+
 // SUPER ADMIN CONTROLLER
 app.controller('superCtrl', [
   '$scope',
@@ -34,6 +47,7 @@ app.controller('superCtrl', [
 
     // Loading brand data from DB
     $scope.allBrands = [];
+    $scope.loading = true;
     superAdminService
       .getBrands()
       .then(function (res) {
@@ -44,9 +58,11 @@ app.controller('superCtrl', [
           ...res.data.brandData
         );
         // console.log($scope.allBrands.length);
+        $scope.loading = false;
       })
       .catch(function (err) {
         console.log(err);
+        $scope.loading = false;
       });
 
     // all outlets
@@ -98,15 +114,52 @@ app.controller('superCtrl', [
     //   });
 
     // Loading owner data from DB
+    $scope.pageno = 0;
+    $scope.next = function () {
+      $scope.loading = true;
+      // cfpLoadingBar.start();
+      $scope.allOwners = [];
+      superAdminService
+        .getBrandOwners(++$scope.pageno)
+        .then(function (res) {
+          $scope.allOwners = res.data.userData;
+          // cfpLoadingBar.complete();
+          $scope.loading = false;
+          // console.log($scope.allOwners);
+        })
+        .catch(function (err) {
+          console.log(err);
+          // cfpLoadingBar.complete();
+          $scope.loading = false;
+        });
+    };
+    $scope.previous = function () {
+      $scope.loading = true;
+      $scope.allOwners = [];
+      superAdminService
+        .getBrandOwners(--$scope.pageno)
+        .then(function (res) {
+          $scope.allOwners = res.data.userData;
+          // console.log($scope.allOwners);
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
     $scope.allOwners = [];
+    $scope.loading = true;
     superAdminService
-      .getBrandOwners()
+      .getBrandOwners(0)
       .then(function (res) {
         $scope.allOwners = res.data.userData;
+        $scope.loading = false;
         // console.log($scope.allOwners);
       })
       .catch(function (err) {
         console.log(err);
+        $scope.loading = false;
       });
 
     // OPEN EDIT MODAL OWNER
@@ -476,7 +529,7 @@ app.controller('superCtrl', [
         }
 
         new Chart('myChart4', {
-          type: 'pie',
+          type: 'doughnut',
           data: {
             labels: userTypeLabel,
             datasets: [
@@ -510,16 +563,16 @@ app.controller('superCtrl', [
           options: {
             maintainAspectRatio: false,
             responsive: true,
-            scales: {
-              // yAxes: [
-              //   {
-              //     ticks: {
-              //       beginAtZero: true,
-              //       max: 20,
-              //     },
-              //   },
-              // ],
-            },
+            // scales: {
+            // yAxes: [
+            //   {
+            //     ticks: {
+            //       beginAtZero: true,
+            //       max: 20,
+            //     },
+            //   },
+            // ],
+            // },
             title: {
               display: true,
               text: 'Types of Users',

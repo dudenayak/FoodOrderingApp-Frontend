@@ -13,7 +13,6 @@ app.controller('outletEmployeeCtrl', [
     $scope.brandUsername = data.username;
     $scope.brandName = data.brandName;
     $scope.brandId = data.brandId;
-    // console.log($scope.brandId);
     $scope.outletInfo = [];
     outletService
       .outletInfoEmp(data.outlet.outletId)
@@ -25,21 +24,52 @@ app.controller('outletEmployeeCtrl', [
 
         // LOADING FOOD ITEMS OF OUTLET
         var data = JSON.parse(localStorage.getItem('outletInfo'));
-        // console.log(data);
+        $scope.loading = true;
         $scope.allItemOutlet = [];
         outletService
           .getOutletItems(data._id)
           .then(function (res) {
             $scope.allItemOutlet = res.data.foodItem;
+            $scope.loading = false;
           })
           .catch(function (err) {
             console.log(err);
+            $scope.loading = false;
           });
 
         // LOADING ORDERS OF OUTLET
+        $scope.pageno = 0;
+        $scope.next = function () {
+          $scope.loading = true;
+          $scope.allOrders = [];
+          outletService
+            .getOrders(data._id, ++$scope.pageno)
+            .then(function (res) {
+              $scope.allOrders = res.data.order;
+              $scope.loading = false;
+            })
+            .catch(function (err) {
+              console.log(err);
+              $scope.loading = false;
+            });
+        };
+        $scope.previous = function () {
+          $scope.loading = true;
+          $scope.allOrders = [];
+          outletService
+            .getOrders(data._id, --$scope.pageno)
+            .then(function (res) {
+              $scope.allOrders = res.data.order;
+              $scope.loading = false;
+            })
+            .catch(function (err) {
+              console.log(err);
+              $scope.loading = false;
+            });
+        };
         $scope.allOrders = [];
         outletService
-          .getOrders(data._id)
+          .getOrders(data._id, 0)
           .then(function (res) {
             $scope.allOrders = res.data.order;
           })
@@ -269,7 +299,8 @@ app.controller('outletEmployeeCtrl', [
         .getReadyStatusOrders(data._id)
         .then(function (res) {
           $scope.allPrepare = res.data.statusReady;
-          console.log($scope.allPrepare);
+
+          // console.log($scope.allPrepare);
         })
         .catch(function (err) {
           console.log(err);
@@ -277,45 +308,54 @@ app.controller('outletEmployeeCtrl', [
     };
 
     $scope.allOutletOrders = function () {
+      $scope.loading = true;
       var data = JSON.parse(localStorage.getItem('outletInfo'));
       console.log(data);
       outletService
         .getOrders(data._id)
         .then(function (res) {
           $scope.allOrders = res.data.order;
-          console.log($scope.allOrders);
+          // console.log($scope.allOrders);
+          $scope.loading = false;
         })
         .catch(function (err) {
           console.log(err);
+          $scope.loading = false;
         });
     };
 
     // DINE IN ORDERS
     $scope.dineInOrders = function () {
       var data = JSON.parse(localStorage.getItem('outletInfo'));
+      $scope.loading = true;
       // console.log(data)
       outletService
         .getDineInOrders(data._id)
         .then(function (res) {
           $scope.allOrders = res.data.dineIn;
+          $scope.loading = false;
           // console.log($scope.allOrders);
         })
         .catch(function (err) {
           console.log(err);
+          $scope.loading = false;
         });
     };
 
     // TAKE AWAY ORDERS
     $scope.takeAwayOrders = function () {
+      $scope.loading = true;
       var data = JSON.parse(localStorage.getItem('outletInfo'));
       outletService
         .getTakeAwayOrders(data._id)
         .then(function (res) {
           $scope.allOrders = res.data.takeAway;
-          console.log($scope.allOrders);
+          // console.log($scope.allOrders);
+          $scope.loading = false;
         })
         .catch(function (err) {
           console.log(err);
+          $scope.loading = false;
         });
     };
 
@@ -327,7 +367,12 @@ app.controller('outletEmployeeCtrl', [
       outletService
         .updateStatus(id, status)
         .then(function (res) {
-          console.log(res);
+          // console.log(res);
+          if (orderStatus == 'Preparing') {
+            alert('Item ready to serve! Click on READY ORDERS!');
+          } else if ((orderStatus = 'Ready')) {
+            alert('Item served!');
+          }
           $window.location.reload();
         })
         .catch(function (err) {
@@ -342,7 +387,8 @@ app.controller('outletEmployeeCtrl', [
       outletService
         .updateCancelledStatus(id)
         .then(function (res) {
-          console.log(res);
+          // console.log(res);
+          alert('Item cancelled!');
           $window.location.reload();
         })
         .catch(function (err) {

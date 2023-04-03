@@ -57,8 +57,12 @@ app.service('outletService', [
       },
 
       // GET FOOD ITEMS PER OUTLET
-      getOutletItems: function (id) {
-        url = 'http://localhost:5000/api/foodItemOutlet/outlet/' + id;
+      getOutletItems: function (id, pageno) {
+        url =
+          'http://localhost:5000/api/foodItemOutlet/outlet/' +
+          id +
+          '/10/' +
+          pageno;
         return $http.get(url);
       },
 
@@ -86,8 +90,8 @@ app.service('outletService', [
       },
 
       // GET ALL ORDERS PER OUTLET
-      getOrders: function (id) {
-        url = 'http://localhost:5000/api/order/' + id;
+      getOrders: function (id, pageno) {
+        url = 'http://localhost:5000/api/order/' + id + '/10/' + pageno;
         return $http.get(url);
       },
 

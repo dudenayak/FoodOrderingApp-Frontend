@@ -42,23 +42,83 @@ app.controller('outletCtrl', [
 
         // LOADING FOOD ITEMS OF OUTLET
         var data = JSON.parse(localStorage.getItem('outletInfo'));
-        console.log(data);
+        // $scope.pageno = 0;
+        // $scope.next = function () {
+        //   $scope.loading = true;
+        //   $scope.allOutlets = [];
+        //   outletService
+        //     .getOutletItems(data[0]._id, $scope.pageno)
+        //     .then(function (res) {
+        //       $scope.allItemOutlet = res.data.foodItem;
+        //       $scope.loading = false;
+        //     })
+        //     .catch(function (err) {
+        //       console.log(err);
+        //       $scope.loading = false;
+        //     });
+        // };
+        // $scope.previous = function () {
+        //   $scope.loading = true;
+        //   $scope.allOutlets = [];
+        //   outletService
+        //     .getOutletItems(data[0]._id, $scope.pageno)
+        //     .then(function (res) {
+        //       $scope.allItemOutlet = res.data.foodItem;
+        //       $scope.loading = false;
+        //     })
+        //     .catch(function (err) {
+        //       console.log(err);
+        //       $scope.loading = false;
+        //     });
+        // };
         $scope.allItemOutlet = [];
-        // console.log(data[0]._id)
+        $scope.loading = true;
         outletService
-          .getOutletItems(data[0]._id)
+          .getOutletItems(data[0]._id, 0)
           .then(function (res) {
-            console.log(res.data);
             $scope.allItemOutlet = res.data.foodItem;
-            console.log(res.data);
+            $scope.loading = false;
           })
           .catch(function (err) {
             console.log(err);
+            $scope.loading = false;
           });
       })
       .catch(function (err) {
         console.log(err);
       });
+
+    var data = JSON.parse(localStorage.getItem('outletInfo'));
+    $scope.pageno = 0;
+    $scope.next = function () {
+      $scope.loading = true;
+      $scope.allOutlets = [];
+      outletService
+        .getOutletItems(data[0]._id, ++$scope.pageno)
+        .then(function (res) {
+          $scope.allItemOutlet = res.data.foodItem;
+          console.log($scope.allItemOutlet)
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
+    $scope.previous = function () {
+      $scope.loading = true;
+      $scope.allOutlets = [];
+      outletService
+        .getOutletItems(data[0]._id, --$scope.pageno)
+        .then(function (res) {
+          $scope.allItemOutlet = res.data.foodItem;
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
 
     // LOGOUT
     $scope.logout = function ($event) {
@@ -85,6 +145,7 @@ app.controller('outletCtrl', [
 
     // LOADING SUPER
     var data = JSON.parse(localStorage.getItem('user'));
+    $scope.loading = true;
     $scope.allSuper = [];
     outletService
       .getSuper(data.brandId)
@@ -92,9 +153,11 @@ app.controller('outletCtrl', [
         // console.log(res.data);
         $scope.allSuper = res.data.superFood;
         // console.log($scope.allSuper);
+        $scope.loading = false;
       })
       .catch(function (err) {
         console.log(err);
+        $scope.loading = false;
       });
 
     // addClass
@@ -129,21 +192,25 @@ app.controller('outletCtrl', [
       // console.log($scope.selectedSuperCategory.superCategoryName);
       // console.log($scope.selectedSuperCategory._id);
       $scope.allSub = [];
+      $scope.loading = true;
       outletService
         .fetchSub(id)
         .then(function (res) {
           // console.log(res);
           $scope.allSub = res.data.subFood;
           // $scope.sample = 'superCard1';
-          console.log($scope.allSub);
+          // console.log($scope.allSub);
+          $scope.loading = false;
         })
         .catch(function (err) {
           console.log(err);
+          $scope.loading = false;
         });
     };
 
     // LOADING FOOD ITEMS
     $scope.subTest = function (id) {
+      $scope.loading = true;
       $scope.subId = id;
       // console.log(id);
       // var data = JSON.parse(localStorage.getItem('user'));
@@ -155,16 +222,18 @@ app.controller('outletCtrl', [
           // console.log(res);
           $scope.allItem = res.data.Food;
           console.log($scope.allItem);
+          $scope.loading = false;
         })
         .catch(function (err) {
           console.log(err);
+          $scope.loading = false;
         });
     };
 
     // LOADING FOOD ITEM DATA
     $scope.foodTest = function (res) {
       $scope.foodItemId = res._id;
-      console.log($scope.foodItemId)
+      console.log($scope.foodItemId);
       $scope.newName = res;
       console.log($scope.newName);
     };

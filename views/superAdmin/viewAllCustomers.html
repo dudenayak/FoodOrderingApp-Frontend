@@ -15,10 +15,16 @@
                     <img src="../img/user.png">
                 </div>
             </div>
-
+            <div class="loadingio-spinner-ripple-vjxd5jrokur" ng-show="loading">
+                <div class="ldio-qo2rjgdiigq">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
             <div class="superDetails">
                 <div class="superRecentOrdersView">
                     <div class="viewAllTable">
+                        <!-- <loader ng-show="isLoading"></loader> -->
                         <table>
                             <thead>
                                 <tr>
@@ -29,7 +35,7 @@
                                     <td>Edit</td>
                                 </tr>
                             </thead>
-                            <tbody> 
+                            <tbody>
                                 <tr ng-repeat="owner in allOwners | filter:search | orderBy:reverse:true">
                                     <td>{{owner.username}}</td>
                                     <td>{{owner.brand.brandName}}</td>
@@ -46,6 +52,15 @@
                     </div>
                 </div>
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a style="cursor: pointer;" class="page-link"
+                            ng-click="previous()">Previous</a></li>
+                    <li class="page-item"><a style="cursor: pointer;" class="page-link" ng-click="next()">Next</a></li>
+                </ul>
+
+            </nav>
             <!-- Modal Edit -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
