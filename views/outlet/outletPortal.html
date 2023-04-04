@@ -9,7 +9,7 @@
                 </div>
                 <div class="superSearch">
                     <label>
-                        <input ng-model="search" type="text" name="search" placeholder="Search here">
+                        <input ng-model="search" ng-model-options="{ debounce: 800 }" type="text" name="search" placeholder="Search here">
                         <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
                     </label>
                 </div>

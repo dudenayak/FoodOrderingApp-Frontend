@@ -1,25 +1,13 @@
 ///<reference path="../index.js"/>
 
-// SUPER ADMIN DIRECTIVE
-
-// app.directive('loader', function () {
-//   return {
-//     restrict: 'E',
-//     replace: true,
-//     template: '<img src="/loader.gif" />',
-//     link: function (scope, element, attrs) {
-//       // You can add any additional logic here if needed
-//     },
-//   };
-// });
-
 // SUPER ADMIN CONTROLLER
 app.controller('superCtrl', [
   '$scope',
+  '$element',
   '$http',
   '$window',
   'superAdminService',
-  function ($scope, $http, $window, superAdminService) {
+  function ($scope, $element, $http, $window, superAdminService) {
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.brandData = data;
     $scope.brandUsername = data.username;
@@ -28,6 +16,26 @@ app.controller('superCtrl', [
     $scope.openModal = function () {
       // $http('#createModal').modal('show');
     };
+
+    $scope.brandUser = {
+      brandName: '',
+      brandLogo: '',
+      brandDescription: '',
+      brandEmail: '',
+      brandPhone: '',
+      brandHandles: '',
+      brandWebsite: '',
+      username: '',
+      password: '',
+      phone: '',
+      email: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.brandUser = {};
+      });
+    });
 
     $scope.registerBrand = [];
 
@@ -308,27 +316,6 @@ app.controller('superCtrl', [
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
-                // backgroundColor: [
-                //   'rgba(255, 99, 132, 0.2)',
-                //   'rgba(54, 162, 235, 0.2)',
-                //   'rgba(255, 206, 86, 0.2)',
-                //   'rgba(75, 192, 192, 0.2)',
-                //   'rgba(153, 102, 255, 0.2)',
-                //   'rgba(255, 159, 64, 0.2)',
-                //   'rgba(125, 19, 4, 0.2)',
-                //   'rgba(55, 159, 64, 0.2)',
-                // ],
-                // borderColor: [
-                //   'rgba(255, 99, 132, 1)',
-                //   'rgba(54, 162, 235, 1)',
-                //   'rgba(255, 206, 86, 1)',
-                //   'rgba(75, 192, 192, 1)',
-                //   'rgba(153, 102, 255, 1)',
-                //   'rgba(255, 159, 64, 1)',
-                //   'rgba(125, 19, 4, 1)',
-                //   'rgba(55, 159, 64, 1)',
-                // ],
-                // borderWidth: 1,
               },
             ],
           },
@@ -540,21 +527,11 @@ app.controller('superCtrl', [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
                   'rgba(255, 206, 86, 0.2)',
-                  // 'rgba(75, 192, 192, 0.2)',
-                  // 'rgba(153, 102, 255, 0.2)',
-                  // 'rgba(255, 159, 64, 0.2)',
-                  // 'rgba(125, 19, 4, 0.2)',
-                  // 'rgba(55, 159, 64, 0.2)',
                 ],
                 borderColor: [
                   'rgba(255, 99, 132, 1)',
                   'rgba(54, 162, 235, 1)',
                   'rgba(255, 206, 86, 1)',
-                  // 'rgba(75, 192, 192, 1)',
-                  // 'rgba(153, 102, 255, 1)',
-                  // 'rgba(255, 159, 64, 1)',
-                  // 'rgba(125, 19, 4, 1)',
-                  // 'rgba(55, 159, 64, 1)',
                 ],
                 borderWidth: 1,
               },
@@ -563,16 +540,6 @@ app.controller('superCtrl', [
           options: {
             maintainAspectRatio: false,
             responsive: true,
-            // scales: {
-            // yAxes: [
-            //   {
-            //     ticks: {
-            //       beginAtZero: true,
-            //       max: 20,
-            //     },
-            //   },
-            // ],
-            // },
             title: {
               display: true,
               text: 'Types of Users',

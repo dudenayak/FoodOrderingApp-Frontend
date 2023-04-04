@@ -23,11 +23,12 @@ app.directive('fileModel', [
 // BRAND CONTROLLER
 app.controller('brandCtrl', [
   '$scope',
+  '$element',
   '$window',
   '$http',
   'brandService',
   '$state',
-  function ($scope, $window, $http, brandService, $state) {
+  function ($scope, $element, $window, $http, brandService, $state) {
     var chart;
     // IMAGE TEST
     $scope.imageTest = function () {
@@ -36,6 +37,60 @@ app.controller('brandCtrl', [
     $scope.imageTestnew = function () {
       console.log($scope.foodItem.foodItemImage);
     };
+
+    // FORM DATA EMPTY
+    $scope.outletManager = {
+      username: '',
+      password: '',
+      phone: '',
+      email: '',
+      outletName: '',
+      outletAddress: '',
+      outletPhone: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.outletManager = {};
+      });
+    });
+
+    $scope.superFood = {
+      superCategoryName: '',
+      superCategoryImage: '',
+      superCategoryDescription: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.superFood = {};
+      });
+    });
+
+    $scope.foodItem = {
+      foodItemName: '',
+      foodItemImage: '',
+      foodItemPrice: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.foodItem = {};
+      });
+    });
+
+    $scope.brandUser = {
+      username: '',
+      phone: '',
+      email: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.brandUser = {};
+      });
+    });
+
     // TEST
     $scope.test = function () {
       // console.log("object")

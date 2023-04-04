@@ -3,21 +3,12 @@
 // OUTLET CONTROLLER
 app.controller('outletCtrl', [
   '$scope',
-  '$location',
-  '$http',
+  '$element',
   'outletService',
   '$state',
   '$rootScope',
   '$window',
-  function (
-    $scope,
-    $location,
-    $http,
-    outletService,
-    $state,
-    $rootScope,
-    $window
-  ) {
+  function ($scope, $element, outletService, $state, $rootScope, $window) {
     // LOADING OUTLET INFORMATION
     var data = JSON.parse(localStorage.getItem('user'));
     console.log(data);
@@ -42,35 +33,6 @@ app.controller('outletCtrl', [
 
         // LOADING FOOD ITEMS OF OUTLET
         var data = JSON.parse(localStorage.getItem('outletInfo'));
-        // $scope.pageno = 0;
-        // $scope.next = function () {
-        //   $scope.loading = true;
-        //   $scope.allOutlets = [];
-        //   outletService
-        //     .getOutletItems(data[0]._id, $scope.pageno)
-        //     .then(function (res) {
-        //       $scope.allItemOutlet = res.data.foodItem;
-        //       $scope.loading = false;
-        //     })
-        //     .catch(function (err) {
-        //       console.log(err);
-        //       $scope.loading = false;
-        //     });
-        // };
-        // $scope.previous = function () {
-        //   $scope.loading = true;
-        //   $scope.allOutlets = [];
-        //   outletService
-        //     .getOutletItems(data[0]._id, $scope.pageno)
-        //     .then(function (res) {
-        //       $scope.allItemOutlet = res.data.foodItem;
-        //       $scope.loading = false;
-        //     })
-        //     .catch(function (err) {
-        //       console.log(err);
-        //       $scope.loading = false;
-        //     });
-        // };
         $scope.allItemOutlet = [];
         $scope.loading = true;
         outletService
@@ -88,6 +50,20 @@ app.controller('outletCtrl', [
         console.log(err);
       });
 
+    // FORM EMPTY
+    $scope.brandUser = {
+      username: '',
+      password: '',
+      phone: '',
+      email: '',
+    };
+
+    $element.on('hidden.bs.modal', function () {
+      $scope.$apply(function () {
+        $scope.brandUser = {};
+      });
+    });
+
     var data = JSON.parse(localStorage.getItem('outletInfo'));
     $scope.pageno = 0;
     $scope.next = function () {
@@ -97,7 +73,7 @@ app.controller('outletCtrl', [
         .getOutletItems(data[0]._id, ++$scope.pageno)
         .then(function (res) {
           $scope.allItemOutlet = res.data.foodItem;
-          console.log($scope.allItemOutlet)
+          console.log($scope.allItemOutlet);
           $scope.loading = false;
         })
         .catch(function (err) {

@@ -208,42 +208,20 @@
                             <h5>Product Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Super-Category</span>
-                                <!-- <div class="dropdown" style="margin-left: 20px;">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select
-                                    </button>
-                                    <select class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <option class="dropdown-item" ng-repeat="super in allSuper">
-                                            {{super.superCategoryName}}</option>
-                                    </select>
-                                </div> -->
                                 <div class="dropdown">
-                                    <!-- <label for="message-text" class="col-form-label">Super Categories:</label> -->
                                     <select class="form-select" aria-label="Default select example"
                                         ng-model="selectedSuperCategory" ng-click="test()">
-                                        <!-- <option>Select</option> -->
-                                        <!-- <option selected>Select</option> -->
                                         <option ng-value="super" ng-repeat="super in allSuper">
                                             {{super.superCategoryName}}
                                         </option>
                                     </select>
-                                    <!-- <button ng-click="test()">Test</button> -->
                                 </div>
-                                <!-- <input type="text" ng-model="brandUser.brandPhone" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category Name</span>
                                 <input type="text" ng-model="subFood.subCategoryName" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
-                            <!-- <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category Image</span>
-                                <input type="text" ng-model="subFood.subCategoryImage" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div> -->
-
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -284,8 +262,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Item Image</span>
                                 <input type="file" file-model="foodItem.foodItemImage" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                <!-- <button ng-click="imageTestnew()">image</button> -->
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">                              
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Item Price</span>
@@ -318,13 +295,7 @@
                                     Username</span>
                                 <input type="text" ng-model="brandUser.username" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            <!-- <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
-                                    Password</span>
-                                <input type="text" ng-model="brandUser.password" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div> -->
+                            </div>                           
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Admin
                                     Phone</span>
@@ -338,7 +309,6 @@
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
