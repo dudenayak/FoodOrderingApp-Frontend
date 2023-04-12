@@ -66,6 +66,12 @@ app.service('outletService', [
         return $http.get(url);
       },
 
+      // GET FOOD ITEMS PER OUTLET
+      showOutletItems: function (id) {
+        url = 'http://localhost:5000/api/foodItemOutlet/outlet/' + id;
+        return $http.get(url);
+      },
+
       // CREATE OUTLET EMPLOYEE
       createOutletEmployee: function (outletEmployee) {
         outletEmployee.userType = 'outletEmployee';

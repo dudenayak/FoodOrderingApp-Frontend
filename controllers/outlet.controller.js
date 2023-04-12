@@ -11,7 +11,7 @@ app.controller('outletCtrl', [
   function ($scope, $element, outletService, $state, $rootScope, $window) {
     // LOADING OUTLET INFORMATION
     var data = JSON.parse(localStorage.getItem('user'));
-    console.log(data);
+    // console.log(data);
     // $scope.outletName = data.outlet[0].outletName;
     // console.log($scope.outletInfo)
     $scope.brandData = data;

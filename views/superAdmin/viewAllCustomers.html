@@ -37,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="owner in allOwners | filter:search | orderBy:reverse:true">
+                                <tr ng-repeat="owner in allOwners | filter:search ">
                                     <td>{{owner.username}}</td>
                                     <td>{{owner.brand.brandName}}</td>
                                     <td>{{owner.userType}}</td>

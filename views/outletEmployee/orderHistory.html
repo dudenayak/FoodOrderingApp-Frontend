@@ -36,9 +36,9 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <td>Order Number</td>
-                                    <td>Order Status</td>
+                                    <!-- <td>Order Number</td> -->
                                     <td>Order Type</td>
+                                    <td>Order Status</td>
                                     <td>Order Tax</td>
                                     <td>Order Items</td>
                                     <td>Order Total</td>
@@ -46,9 +46,9 @@
                             </thead>
                             <tbody ng-repeat="order in allOrders|orderBy:reverse:true">
                                 <tr>
-                                    <td>{{order._id}}</td>
-                                    <td>{{order.orderStatus}}</td>
+                                    <!-- <td>{{order._id}}</td> -->
                                     <td>{{order.orderType}}</td>
+                                    <td>{{order.orderStatus}}</td>
                                     <td>₹{{order.orderTax}}</td>
                                     <td>{{order.orderItems.length}}</td>
                                     <td>₹{{order.orderTotal}}</td>

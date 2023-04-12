@@ -27,9 +27,11 @@ app.controller('outletEmployeeCtrl', [
         $scope.loading = true;
         $scope.allItemOutlet = [];
         outletService
-          .getOutletItems(data._id)
+          .showOutletItems(data._id)
+          // console.log(data._id)
           .then(function (res) {
-            $scope.allItemOutlet = res.data.foodItem;
+            // console.log($scope.allItemOutlet);
+            $scope.allItemOutlet = res.data.showFoodItem;
             $scope.loading = false;
           })
           .catch(function (err) {

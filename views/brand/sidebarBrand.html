@@ -214,12 +214,11 @@
                                 <input type="text" ng-model="superFood.superCategoryName" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Category Image</span>
                                 <input type="file" file-model="superFood.superCategoryImage" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                <!-- <button ng-click="imageTest()">image</button> -->
-                            </div>
+                            </div> -->
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Category
                                     Description</span>
@@ -246,7 +245,7 @@
                     </div>
                     <div class="modal-body">
                         <form name="createForm" novalidate autocomplete="off">
-                            <h5>Product Information</h5>
+                            <h5>Sub Category Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Super-Category</span>
                                 <div class="dropdown">
@@ -283,7 +282,7 @@
                     </div>
                     <div class="modal-body">
                         <form name="createForm" novalidate autocomplete="off">
-                            <h5>Product Information</h5>
+                            <h5>Food Item Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Sub-Category</span>
                                 <div class="dropdown">
@@ -347,14 +346,15 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Admin
                                     Password</span>
-                                <input type="{{showPassword ? 'text' : 'password'}}" name="brandAdminPassword" ng-model="brandUser.password"
+                                <input type="{{showPassword ? 'text' : 'password'}}" name="brandAdminPassword"
+                                    ng-model="brandUser.password"
                                     ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/"
                                     ng-required="true" class="form-control" aria-label="Sizing example input"
                                     aria-describedby="inputGroup-sizing-default">
-                                    <div class="input-group-addon" ng-click="showPassword = !showPassword">
-                                        <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
-                                        <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
-                                    </div>
+                                <div class="input-group-addon" ng-click="showPassword = !showPassword">
+                                    <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                    <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                </div>
                             </div>
                             <span
                                 ng-show="brandAdminForm.brandAdminPassword.$error.required && brandAdminForm.brandAdminPassword.$touched"

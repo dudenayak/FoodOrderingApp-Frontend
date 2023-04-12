@@ -30,34 +30,43 @@
             </div>
 
             <!-- cards -->
+
+            <!-- <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Super Categories</span>
+                <div class="dropdown">
+                    <select class="form-select" aria-label="Default select example"
+                        ng-model="selectedSuperCategory" ng-click="superTest(super._id)">
+                        <option ng-value="super" ng-repeat="super in allSuper">
+                            {{super.superCategoryName}}
+                        </option>
+                    </select>
+                </div>
+            </div> -->
+
             <h4 style="margin-left: 20px; color: var(--red);">Super Categories</h4>
+
             <div class="superCardBoxOutlet">
                 <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper"
-                    ng-class="addClass(super._id)" ng-click="superTest(super._id)">
-                    <!-- <div ng-class="superCard" ng-repeat="super in allSuper" ng-click="superTest(super._id)"></div> -->
+                    ng-class="addClass(super._id)" ng-click="superTest(super._id)">                    
                     <div>
                         <div style="font-size: 1em;" class="numbers"> {{super.superCategoryName}} </div>
-                        <div style="font-size: 0.9em;" class="cardNameOutlet"> {{super.superCategoryDescription}}</div>
+                        <!-- <div style="font-size: 0.9em;" class="cardNameOutlet"> {{super.superCategoryDescription}}</div> -->
                     </div>
-                    <!-- <div class="iconBox"> -->
-                        <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
-                        <!-- <img ng-src="{{super.superCategoryImage}}" alt="img"> -->
-                    <!-- </div> -->
+                    <!-- <div class="iconBox">
+                    <ion-icon name="fast-food-outline"></ion-icon>
+                    <img ng-src="{{super.superCategoryImage}}" alt="img">
+                    </div> -->
                 </div>
             </div>
 
             <h4 style="margin-left: 20px; color: var(--red);">Sub Categories</h4>
-            <div class="superCardBox">
+            <div class="superCardBoxOutlet">
                 <div class="superCard" ng-repeat="sub in allSub" ng-class="addSubClass(sub._id)"
                     ng-click="subTest(sub._id)">
                     <div>
-                        <div class="numbers" style="color: var(--black1);"> {{sub.subCategoryName}} </div>
+                        <div style="font-size: 1em;" class="numbers" style="color: var(--black1);"> {{sub.subCategoryName}} </div>
                         <!-- <div class="cardName"> {{sub.subCategoryDescription}}</div> -->
-                    </div>
-                    <div class="iconBox">
-                        <ion-icon name="fast-food-outline"></ion-icon>
-                        {{super.superCategoryImage}}
-                    </div>
+                    </div>                    
                 </div>
             </div>
 
@@ -66,13 +75,13 @@
                 <div class="superCard" ng-repeat="item in allItem" ng-class="addFoodClass(item._id)"
                     ng-click="foodTest(item)">
                     <div>
-                        <div style="font-size: 0.9em;" class="numbers" style="font-size: 18px;"> {{item.foodItemName}}
+                        <div style="font-size: 0.9em;" class="numbers" style="font-size: 18px;"> {{item.foodItemName}} : ₹ {{item.foodItemPrice}}
                         </div>
-                        <div style="font-size: 0.9em;" class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div>
+                        <!-- <div style="font-size: 0.9em;" class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div> -->
                     </div>
                     <!-- <div class="iconBox"> -->
-                        <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
-                        <!-- <img ng-src="{{item.foodItemImage}}" alt="img"> -->
+                    <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
+                    <!-- <img ng-src="{{item.foodItemImage}}" alt="img"> -->
 
                     <!-- </div> -->
                     <!-- <div class="modal-footer">

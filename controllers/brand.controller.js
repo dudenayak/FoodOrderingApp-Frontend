@@ -144,30 +144,33 @@ app.controller('brandCtrl', [
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveSuper = function ($event) {
       $window.location.reload();
-      var formData = new FormData();
-      formData.append('superCategoryName', $scope.superFood.superCategoryName);
-      formData.append('file', $scope.superFood.superCategoryImage);
-      console.log($scope.superFood.superCategoryImage);
-      formData.append(
-        'superCategoryDescription',
-        $scope.superFood.superCategoryDescription
-      );
-      formData.append('brandName', data.brandName);
+      // var formData = new FormData();
+      // $scope.superCategoryName = $scope.superFood.superCategoryName;
+      // $scope.superCategoryDescription = $scope.superFood.superCategoryDescription;
+      // $scope.brandName = $scope.superFood.brandName;
+      // $scope.superCategoryName = $scope.superFood.superCategoryName;
+      // formData.append('superCategoryName', $scope.superFood.superCategoryName);
+      // formData.append('file', $scope.superFood.superCategoryImage);
+      // console.log($scope.superFood.superCategoryImage);
+      // formData.append(
+      //   'superCategoryDescription',
+      //   $scope.superFood.superCategoryDescription
+      // );
+      // formData.append('brandName', data.brandName);
       // console.log(data.brandName);
       // console.log(data.brandId);
-      formData.append('brandId', data.brandId);
+      // formData.append('brandId', data.brandId);
 
       $event.preventDefault();
-      console.log($scope.superFood);
-      $scope.superFood.name = data.brandName;
-      $scope.superFood.id = data.brandId;
-      // console.log(data.id);
-      // console.log(data.brandName);
+      // console.log($scope.superFood);
+      // $scope.superCategoryDescription = $scope.superFood.superCategoryDescription;
+      // $scope.superItem = {};
+      $scope.superFood.brandId = data.brandId;
+      $scope.superFood.brandName = data.brandName;
+      console.log($scope.superFood.brandId);
+      console.log($scope.superFood.brandName);
       brandService
-        .createSuper(formData, {
-          transformRequest: angular.identity,
-          headers: { 'Content-Type': undefined },
-        })
+        .createSuper($scope.superFood)
         .then(function (res) {
           console.log(res);
           // $window.location.reload();

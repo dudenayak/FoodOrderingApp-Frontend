@@ -11,7 +11,11 @@ app.service('brandService', [
         return $http.post(url, outletManager);
       },
       getOutletManagers: function (id, pageno) {
-        url = 'http://localhost:5000/api/user/outletManager/' + id + '/10/' + pageno;
+        url =
+          'http://localhost:5000/api/user/outletManager/' +
+          id +
+          '/10/' +
+          pageno;
         return $http.get(url);
       },
       getOutlets: function (id, pageno) {
@@ -42,9 +46,9 @@ app.service('brandService', [
         url = 'http://localhost:5000/api/outlet/' + id + '/true';
         return $http.put(url, data);
       },
-      createSuper: function (formData, headers) {
+      createSuper: function (superFood) {
         url = 'http://localhost:5000/api/superCategory/create';
-        return $http.post(url, formData, headers);
+        return $http.post(url, superFood);
       },
       getSuper: function (id) {
         url = 'http://localhost:5000/api/superCategory/' + id;
