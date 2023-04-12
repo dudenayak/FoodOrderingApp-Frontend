@@ -57,38 +57,75 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="createForm" novalidate autocomplete="off">
+                        <form name="outletForm" novalidate autocomplete="off">
                             <h5>Employee Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Employee
                                     Username</span>
-                                <input type="text" ng-model="brandUser.username" class="form-control"
+                                <input type="text" name="employeeName" ng-model="brandUser.username"
+                                    class="form-control" ng-pattern="/^[A-Za-z][A-Za-z0-9_]{7,29}$/" required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="outletForm.employeeName.$error.required && outletForm.employeeName.$touched"
+                                class="error">Username is required.</span>
+                            <span ng-show="outletForm.employeeName.$error.pattern && outletForm.employeeName.$touched"
+                                class="error">Provide a valid username having alphanumeric values.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Employee
                                     Password</span>
-                                <input type="text" ng-model="brandUser.password" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="{{showPassword ? 'text' : 'password'}}" name="employeePassword"
+                                    ng-model="brandUser.password"
+                                    ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/"
+                                    ng-required="true" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                                <div class="input-group-addon" ng-click="showPassword = !showPassword">
+                                    <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                    <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                </div>
                             </div>
+                            <span
+                                ng-show="outletForm.employeePassword.$error.required && outletForm.employeePassword.$touched"
+                                class="error">Password
+                                is required.</span>
+                            <span
+                                ng-show="outletForm.employeePassword.$error.pattern && outletForm.employeePassword.$touched"
+                                class="error">Password
+                                must be of at least 8 characters that include at least 1 lowercase, 1 uppercase, 1
+                                special character and 1 number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Employee
                                     Phone</span>
-                                <input type="text" ng-model="brandUser.phone" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="employeePhone" ng-model="brandUser.phone" class="form-control"
+                                    ng-pattern="/^[0-9]{10}$/" ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span
+                                ng-show="outletForm.employeePhone.$error.required && outletForm.employeePhone.$touched"
+                                class="error">Phone number is required.</span>
+                            <span ng-show="outletForm.employeePhone.$error.pattern && outletForm.employeePhone.$touched"
+                                class="error">Provide a valid phone number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Employee
                                     Email</span>
-                                <input type="text" ng-model="brandUser.email" class="form-control"
+                                <input type="text" name="employeeEmail" ng-model="brandUser.email" class="form-control"
+                                    ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" ng-required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span
+                                ng-show="outletForm.employeeEmail.$error.required && outletForm.employeeEmail.$touched"
+                                class="error">Email is required.</span>
+                            <span ng-show="outletForm.employeeEmail.$error.pattern && outletForm.employeeEmail.$touched"
+                                class="error">Provide a valid email address.</span>
                         </form>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="superButton" ng-click="saveEmployee($event)">Save changes</button>
+                        <button type="button" class="superButton" ng-disabled="outletForm.$invalid"
+                            ng-click="saveEmployee($event)">Save changes</button>
+                        <div class="alert alert-danger" role="alert" ng-show="outletForm.$invalid">
+                            Please fill out all required fields.
+                        </div>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,15 @@
                             <h3>Sign In</h3>
                             <input ng-model="username" type="text" name="username" placeholder="Username or Email"
                                 required>
-                            <input ng-model="password" type="password" name="password" placeholder="Password" required>
+                            <div style="display: flex;">
+                                <input type="{{showPassword ? 'text' : 'password'}}" ng-model="password" name="password"
+                                    placeholder="Password" required>
+                                <div style="margin: 10px;" class="input-group-addon"
+                                    ng-click="showPassword = !showPassword">
+                                    <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                    <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                </div>
+                            </div>
                             <!-- <a href="../home/home.html"> -->
                             <input type="button" name="login-button" value="Login" ng-click="login($event)">
                             </a>

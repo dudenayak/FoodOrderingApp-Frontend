@@ -252,6 +252,7 @@ app.controller('outletCtrl', [
     // $scope.brandName = data[0].outletBrand.brandName;
     // $scope.brandId = data[0].outletBrand.brandId;
     $scope.saveEmployee = function ($event) {
+      $scope.showPassword = false;
       $event.preventDefault();
       $scope.outletEmployee = {};
       $scope.outletEmployee.outletId = data[0]._id;

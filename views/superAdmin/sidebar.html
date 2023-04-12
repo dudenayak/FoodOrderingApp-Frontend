@@ -74,18 +74,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="createForm" novalidate autocomplete="off">
+                        <form autocomplete="off" name="createBrand" novalidate>
                             <h5>Brand Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Name</span>
-                                <input type="text" ng-model="brandUser.brandName" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="brandName" ng-model="brandUser.brandName" class="form-control"
+                                    required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Logo</span>
                                 <input type="text" ng-model="brandUser.brandLogo" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div>
+                            </div> -->
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Description</span>
                                 <input type="text" ng-model="brandUser.brandDescription" class="form-control"
@@ -93,14 +94,29 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Email</span>
-                                <input type="text" ng-model="brandUser.brandEmail" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="brandEmail" ng-model="brandUser.brandEmail"
+                                    class="form-control" ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
+                                    ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="createBrand.brandEmail.$error.required && createBrand.brandEmail.$touched"
+                                class="error">Email is
+                                required.</span>
+                            <span ng-show="createBrand.brandEmail.$error.pattern && createBrand.brandEmail.$touched"
+                                class="error">Provide a
+                                valid email address.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Phone</span>
-                                <input type="text" ng-model="brandUser.brandPhone" class="form-control"
+                                <input type="text" name="brandPhone" ng-model="brandUser.brandPhone"
+                                    class="form-control" ng-pattern="/^[0-9]{10}$/" ng-required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="createBrand.brandPhone.$error.required && createBrand.brandPhone.$touched"
+                                class="error">Phone
+                                number is required.</span>
+                            <span ng-show="createBrand.brandPhone.$error.pattern && createBrand.brandPhone.$touched"
+                                class="error">Provide a
+                                valid phone number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Handles</span>
                                 <input type="text" ng-model="brandUser.brandHandles" class="form-control"
@@ -115,34 +131,70 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner
                                     Username</span>
-                                <input type="text" ng-model="brandUser.username" class="form-control"
+                                <input type="text" name="ownerName" ng-model="brandUser.username" class="form-control"
+                                    ng-pattern="/^[A-Za-z][A-Za-z0-9_]{7,29}$/" required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="createBrand.ownerName.$error.required && createBrand.ownerName.$touched"
+                                class="error">Username is required.</span>
+                            <span ng-show="createBrand.ownerName.$error.pattern && createBrand.ownerName.$touched"
+                                class="error">Provide a valid username having alphanumeric values.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner
                                     Password</span>
-                                <input type="text" ng-model="brandUser.password" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="{{showPassword ? 'text' : 'password'}}" name="ownerPassword"
+                                    ng-model="brandUser.password" class="form-control"
+                                    ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/"
+                                    ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                                <div class="input-group-addon" ng-click="showPassword = !showPassword">
+                                    <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                    <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                </div>
                             </div>
+                            <span
+                                ng-show="createBrand.ownerPassword.$error.required && createBrand.ownerPassword.$touched"
+                                class="error">Password
+                                is required.</span>
+                            <span
+                                ng-show="createBrand.ownerPassword.$error.pattern && createBrand.ownerPassword.$touched"
+                                class="error">Password
+                                must be of at least 8 characters that include at least 1 lowercase, 1 uppercase, 1
+                                special character and 1 number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner Phone</span>
-                                <input type="text" ng-model="brandUser.phone" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="ownerPhone" ng-model="brandUser.phone" class="form-control"
+                                    ng-pattern="/^[0-9]{10}$/" ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="createBrand.ownerPhone.$error.required && createBrand.ownerPhone.$touched"
+                                class="error">Phone number is required.</span>
+                            <span ng-show="createBrand.ownerPhone.$error.pattern && createBrand.ownerPhone.$touched"
+                                class="error">Provide a valid phone number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Brand Owner Email</span>
-                                <input type="text" ng-model="brandUser.email" class="form-control"
+                                <input type="text" name="ownerEmail" ng-model="brandUser.email" class="form-control"
+                                    ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" ng-required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="createBrand.ownerEmail.$error.required && createBrand.ownerEmail.$touched"
+                                class="error">Email is required.</span>
+                            <span ng-show="createBrand.ownerEmail.$error.pattern && createBrand.ownerEmail.$touched"
+                                class="error">Provide a valid email address.</span>
                         </form>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                        <button type="button" class="superButton" ng-disabled="createBrand.$invalid"
+                            ng-click="saveBrand($event)">Save changes</button>
+                        <div class="alert alert-danger" role="alert" ng-show="createBrand.$invalid">
+                            Please fill out all required fields.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </body>

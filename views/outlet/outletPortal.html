@@ -9,7 +9,8 @@
                 </div>
                 <div class="superSearch">
                     <label>
-                        <input ng-model="search" ng-model-options="{ debounce: 800 }" type="text" name="search" placeholder="Search here">
+                        <input ng-model="search" ng-model-options="{ debounce: 800 }" type="text" name="search"
+                            placeholder="Search here">
                         <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
                     </label>
                 </div>
@@ -38,10 +39,10 @@
                         <div style="font-size: 1em;" class="numbers"> {{super.superCategoryName}} </div>
                         <div style="font-size: 0.9em;" class="cardNameOutlet"> {{super.superCategoryDescription}}</div>
                     </div>
-                    <div class="iconBox">
+                    <!-- <div class="iconBox"> -->
                         <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
-                        <img ng-src="{{super.superCategoryImage}}" alt="img">
-                    </div>
+                        <!-- <img ng-src="{{super.superCategoryImage}}" alt="img"> -->
+                    <!-- </div> -->
                 </div>
             </div>
 
@@ -69,11 +70,11 @@
                         </div>
                         <div style="font-size: 0.9em;" class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div>
                     </div>
-                    <div class="iconBox">
+                    <!-- <div class="iconBox"> -->
                         <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
-                        <img ng-src="{{item.foodItemImage}}" alt="img">
+                        <!-- <img ng-src="{{item.foodItemImage}}" alt="img"> -->
 
-                    </div>
+                    <!-- </div> -->
                     <!-- <div class="modal-footer">
                         <button type="button" class="superButton" ng-click="saveOutletData($event)">Add
                             Food Item</button>

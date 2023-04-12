@@ -451,7 +451,7 @@
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(5,1fr);
     grid-gap: 30px;
     /* flex-direction: row; */
     
@@ -545,7 +545,7 @@
     padding: 30px;
     border-radius: 20px;
     display: flex;
-    height: 150px;
+    /* height: 150px; */
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
@@ -1228,6 +1228,8 @@
     align-items: center;
 }
 
+
+
 /* TOGGLE SWITCH */
 /* The switch - the box around the slider */
 .switchOff {
@@ -1292,7 +1294,7 @@
     border-radius: 50%;
   }
 
-  /*  */
+  /* password */
 
   /* #switchOn{} */
   .switchOn {
@@ -2716,6 +2718,23 @@ button:hover {
         color: white;
 
     }
+}
+
+.error {
+    color: var(--red);
+    font-size: 12px;
+    margin-right: 14px;
+    display: flex;
+    justify-content: end;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-right: 10px;
 }
 
 /* LOADER */

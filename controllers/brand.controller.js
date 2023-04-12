@@ -30,6 +30,7 @@ app.controller('brandCtrl', [
   '$state',
   function ($scope, $element, $window, $http, brandService, $state) {
     var chart;
+    $scope.showPassword = false;
     // IMAGE TEST
     $scope.imageTest = function () {
       console.log($scope.superFood.superCategoryImage);
@@ -119,6 +120,7 @@ app.controller('brandCtrl', [
     $scope.brandUsername = data.username;
     // console.log(data.username);
     $scope.saveOutlet = function ($event) {
+      $scope.showPassword = false;
       $event.preventDefault();
       // console.log($scope.outletManager);
       $scope.outletManager.name = data.brandName;
@@ -509,7 +511,7 @@ app.controller('brandCtrl', [
                   {
                     ticks: {
                       beginAtZero: true,
-                      max: 10,
+                      max: 20,
                     },
                   },
                 ],

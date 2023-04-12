@@ -40,15 +40,18 @@ app.controller('superCtrl', [
     $scope.registerBrand = [];
 
     $scope.saveBrand = function ($event) {
+      $scope.showPassword = false;
       $event.preventDefault();
       // $http.post('http://localhost:5000/brand/registerBrand', $scope.brandUser)
       superAdminService
         .createBrandUser($scope.brandUser)
         .then(function (res) {
           console.log(res);
+          alert('Brand and user created!');
           $window.location.reload();
         })
         .catch(function (err) {
+          alert('Enter valid data!');
           console.log(err);
         });
     };

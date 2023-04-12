@@ -66,13 +66,13 @@
                         <span class="title">Add Food Item</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="" data-bs-toggle="modal" data-bs-target="#adminModal" ng-click="openModal()">
                         <span class="icon"><ion-icon name="person-add-outline"></ion-icon>
                         </span>
                         <span class="title">Add New Admin</span>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li>
                     <a ui-sref="panel.brandPortal">
                         <span class="icon"><ion-icon name="settings-outline"></ion-icon>
@@ -103,32 +103,64 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="createForm" novalidate autocomplete="off">
+                        <form name="brandForm" novalidate autocomplete="off">
                             <h5>Outelt Manager Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
                                     Username</span>
-                                <input type="text" ng-model="outletManager.username" class="form-control"
+                                <input type="text" name="managerName" ng-model="outletManager.username"
+                                    class="form-control" ng-pattern="/^[A-Za-z][A-Za-z0-9_]{7,29}$/" required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="brandForm.managerName.$error.required && brandForm.managerName.$touched"
+                                class="error">Username is required.</span>
+                            <span ng-show="brandForm.managerName.$error.pattern && brandForm.managerName.$touched"
+                                class="error">Provide a valid username having alphanumeric values.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
                                     Password</span>
-                                <input type="text" ng-model="outletManager.password" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="{{showPassword ? 'text' : 'password'}}" name="managerPassword"
+                                    ng-model="outletManager.password" class="form-control"
+                                    ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/"
+                                    ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                                <div class="input-group-addon" ng-click="showPassword = !showPassword">
+                                    <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                    <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                </div>
                             </div>
+                            <span
+                                ng-show="brandForm.managerPassword.$error.required && brandForm.managerPassword.$touched"
+                                class="error">Password
+                                is required.</span>
+                            <span
+                                ng-show="brandForm.managerPassword.$error.pattern && brandForm.managerPassword.$touched"
+                                class="error">Password
+                                must be of at least 8 characters that include at least 1 lowercase, 1 uppercase, 1
+                                special character and 1 number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
                                     Phone</span>
-                                <input type="text" ng-model="outletManager.phone" class="form-control"
+                                <input type="text" name="managerPhone" ng-model="outletManager.phone"
+                                    class="form-control" ng-pattern="/^[0-9]{10}$/" ng-required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="brandForm.managerPhone.$error.required && brandForm.managerPhone.$touched"
+                                class="error">Phone number is required.</span>
+                            <span ng-show="brandForm.managerPhone.$error.pattern && brandForm.managerPhone.$touched"
+                                class="error">Provide a valid phone number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Manager
                                     Email</span>
-                                <input type="text" ng-model="outletManager.email" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="managerEmail" ng-model="outletManager.email"
+                                    class="form-control" ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
+                                    ng-required="true" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="brandForm.managerEmail.$error.required && brandForm.managerEmail.$touched"
+                                class="error">Email is required.</span>
+                            <span ng-show="brandForm.managerEmail.$error.pattern && brandForm.managerEmail.$touched"
+                                class="error">Provide a valid email address.</span>
                             <h5>Outlet Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Branch Name</span>
@@ -142,16 +174,25 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Outlet Phone</span>
-                                <input type="text" ng-model="outletManager.outletPhone" class="form-control"
+                                <input type="text" name="outletPhone" ng-model="outletManager.outletPhone"
+                                    class="form-control" ng-pattern="/^[0-9]{10}$/" ng-required="true"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span ng-show="brandForm.outletPhone.$error.required && brandForm.outletPhone.$touched"
+                                class="error">Phone number is required.</span>
+                            <span ng-show="brandForm.outletPhone.$error.pattern && brandForm.outletPhone.$touched"
+                                class="error">Provide a valid phone number.</span>
 
                         </form>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="superButton" ng-click="saveOutlet($event)">Save changes</button>
+                        <button type="button" class="superButton" ng-disabled="brandForm.$invalid"
+                            ng-click="saveOutlet($event)">Save changes</button>
+                        <div class="alert alert-danger" role="alert" ng-show="brandForm.$invalid">
+                            Please fill out all required fields.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,7 +303,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Item Image</span>
                                 <input type="file" file-model="foodItem.foodItemImage" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">                              
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Item Price</span>
@@ -288,31 +329,78 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="createForm" novalidate autocomplete="off">
+                        <form name="brandAdminForm" novalidate autocomplete="off">
                             <h5>Admin Information</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Admin
                                     Username</span>
-                                <input type="text" ng-model="brandUser.username" class="form-control"
+                                <input type="text" name="brandAdminName" ng-model="brandUser.username"
+                                    ng-pattern="/^[A-Za-z][A-Za-z0-9_]{7,29}$/" required="true" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div>                           
+                            </div>
+                            <span
+                                ng-show="brandAdminForm.brandAdminName.$error.required && brandAdminForm.brandAdminName.$touched"
+                                class="error">Username is required.</span>
+                            <span
+                                ng-show="brandAdminForm.brandAdminName.$error.pattern && brandAdminForm.brandAdminName.$touched"
+                                class="error">Provide a valid username having alphanumeric values.</span>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Admin
+                                    Password</span>
+                                <input type="{{showPassword ? 'text' : 'password'}}" name="brandAdminPassword" ng-model="brandUser.password"
+                                    ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/"
+                                    ng-required="true" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                                    <div class="input-group-addon" ng-click="showPassword = !showPassword">
+                                        <i style="margin-top: 10px;" class="fa fa-eye" ng-if="!showPassword"></i>
+                                        <i style="margin-top: 10px;" class="fa fa-eye-slash" ng-if="showPassword"></i>
+                                    </div>
+                            </div>
+                            <span
+                                ng-show="brandAdminForm.brandAdminPassword.$error.required && brandAdminForm.brandAdminPassword.$touched"
+                                class="error">Password
+                                is required.</span>
+                            <span
+                                ng-show="brandAdminForm.brandAdminPassword.$error.pattern && brandAdminForm.brandAdminPassword.$touched"
+                                class="error">Password
+                                must be of at least 8 characters that include at least 1 lowercase, 1 uppercase, 1
+                                special character and 1 number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Admin
                                     Phone</span>
-                                <input type="text" ng-model="brandUser.phone" class="form-control"
+                                <input type="text" name="brandAdminPhone" ng-model="brandUser.phone"
+                                    ng-pattern="/^[0-9]{10}$/" ng-required="true" class="form-control"
                                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span
+                                ng-show="brandAdminForm.brandAdminPhone.$error.required && brandAdminForm.brandAdminPhone.$touched"
+                                class="error">Phone number is required.</span>
+                            <span
+                                ng-show="brandAdminForm.brandAdminPhone.$error.pattern && brandAdminForm.brandAdminPhone.$touched"
+                                class="error">Provide a valid phone number.</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Admin
                                     Email</span>
-                                <input type="text" ng-model="brandUser.email" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="brandAdminEmail" ng-model="brandUser.email"
+                                    ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" ng-required="true"
+                                    class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                             </div>
+                            <span
+                                ng-show="brandAdminForm.brandAdminEmail.$error.required && brandAdminForm.brandAdminEmail.$touched"
+                                class="error">Email is required.</span>
+                            <span
+                                ng-show="brandAdminForm.brandAdminEmail.$error.pattern && brandAdminForm.brandAdminEmail.$touched"
+                                class="error">Provide a valid email address.</span>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="superButton" ng-click="saveBrand($event)">Save changes</button>
+                        <button type="button" class="superButton" ng-disabled="brandAdminForm.$invalid"
+                            ng-click="saveBrand($event)">Save changes</button>
+                        <div class="alert alert-danger" role="alert" ng-show="brandAdminForm.$invalid">
+                            Please fill out all required fields.
+                        </div>
                     </div>
                 </div>
             </div>
