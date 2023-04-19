@@ -7,10 +7,4 @@
 /// <reference path= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
 /// <reference path= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"/>
 
-// const app = angular.module('myApp', ['ngRoute']);
-const app = angular.module('myApp', [
-  'ui.router',
-  'ui.bootstrap',
-  // 'angular-loading-bar'
-  // 'ngFileUpload',
-]);
+const app = angular.module('myApp', ['ui.router', 'ui.bootstrap']);

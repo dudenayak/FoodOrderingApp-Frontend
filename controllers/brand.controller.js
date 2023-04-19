@@ -94,46 +94,31 @@ app.controller('brandCtrl', [
 
     // TEST
     $scope.test = function () {
-      // console.log("object")
       // console.log($scope.selectedSuperCategory);
-      // console.log($scope.selectedSuperCategory.brand.brandName);
-      // console.log($scope.selectedSuperCategory.brand.brandId);
-      // console.log($scope.selectedSuperCategory.superCategoryName);
-      // console.log($scope.selectedSuperCategory._id);
     };
 
     $scope.testSub = function () {
       // console.log($scope.selectedSubCategory);
-      // console.log($scope.selectedSubCategory._id);
-      // console.log($scope.selectedSubCategory.subCategoryName);
-      // console.log($scope.selectedSubCategory.superCategory.superId);
-      // console.log($scope.selectedSubCategory.superCategory.superName);
-      // console.log($scope.selectedSubCategory.brand.brandId);
-      // console.log($scope.selectedSubCategory.brand.brandName);
     };
 
     // ADD OUTLET INFO AND OUTLET MANAGER INFO
     var data = JSON.parse(localStorage.getItem('user'));
-    // console.log(data.brandId);
-    // console.log(data);
     $scope.brandData = data;
     $scope.brandUsername = data.username;
-    // console.log(data.username);
     $scope.saveOutlet = function ($event) {
       $scope.showPassword = false;
       $event.preventDefault();
-      // console.log($scope.outletManager);
       $scope.outletManager.name = data.brandName;
       $scope.outletManager.id = data.brandId;
-      // console.log(data.id);
-      // console.log(data.brandName);
       brandService
         .createOutletManager($scope.outletManager)
         .then(function (res) {
           console.log(res);
+          alert('Outlet and manager created!');
           $window.location.reload();
         })
         .catch(function (err) {
+          alert('Enter valid data!');
           console.log(err);
         });
     };
@@ -143,6 +128,7 @@ app.controller('brandCtrl', [
     // formData.append('image2', file2);
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveSuper = function ($event) {
+      alert('Super Category Added!')
       $window.location.reload();
       // var formData = new FormData();
       // $scope.superCategoryName = $scope.superFood.superCategoryName;
@@ -182,6 +168,7 @@ app.controller('brandCtrl', [
 
     // ADD SUB CATEGORY
     $scope.saveSub = function ($event) {
+      alert('Sub Category Added!')
       $window.location.reload();
       $event.preventDefault();
       console.log($scope.selectedSuperCategory);
@@ -206,7 +193,8 @@ app.controller('brandCtrl', [
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveFood = function ($event) {
       alert('Item added successfully!');
-      $window.location.reload();
+      // $window.location.reload();
+      // $event.preventDefault();
       console.log($scope.foodItem);
       var formDataFood = new FormData();
       formDataFood.append('foodItemName', $scope.foodItem.foodItemName);
@@ -230,6 +218,8 @@ app.controller('brandCtrl', [
       formDataFood.append('subName', $scope.foodItem.subName);
       // console.log(data.id);
       // console.log(data.brandName);
+      $event.preventDefault();
+      $window.location.reload();
       brandService
         .createFood(formDataFood, {
           transformRequest: angular.identity,
@@ -237,8 +227,8 @@ app.controller('brandCtrl', [
         })
         .then(function (res) {
           console.log(res);
-          alert('Item added successfully!');
-          $window.location.reload();
+          // alert('Item added successfully!');
+          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);
@@ -251,8 +241,8 @@ app.controller('brandCtrl', [
     brandService
       .getSub(data.brandId)
       .then(function (res) {
-        // console.log(res.data);
         $scope.allSub = res.data.subFood;
+        $scope.selectedSubCategory = $scope.allSub[0];
         // console.log($scope.allSub);
       })
       .catch(function (err) {
@@ -265,8 +255,8 @@ app.controller('brandCtrl', [
     brandService
       .getSuper(data.brandId)
       .then(function (res) {
-        // console.log(res.data.superFood[0].brand.brandId);
         $scope.allSuper = res.data.superFood;
+        $scope.selectedSuperCategory = $scope.allSuper[0];
         // console.log($scope.allSuper);
       })
       .catch(function (err) {
@@ -279,7 +269,6 @@ app.controller('brandCtrl', [
     brandService
       .getFoodBrand(data.brandId)
       .then(function (res) {
-        // console.log(res.data.superFood[0].brand.brandId);
         $scope.allFood = res.data.foodItemBrand;
         // console.log($scope.allFood);
       })
@@ -375,6 +364,7 @@ app.controller('brandCtrl', [
       .then(function (res) {
         // console.log(res);
         $scope.allOutlets = res.data.outlet;
+        // $scope.selectedOutlet = $scope.allOutlets[0];
         $scope.loading = false;
         // console.log($scope.allOutlets);
       })
@@ -473,6 +463,7 @@ app.controller('brandCtrl', [
     // GET SALES BUTTON
     $scope.testOutlet = function () {
       $scope.dataId = $scope.selectedOutlet._id;
+      // $scope.selectedOutlet = $scope.allOutlets[0];
       // console.log($scope.selectedOutlet);
 
       // GET SALES PER OUTLET
@@ -567,7 +558,7 @@ app.controller('brandCtrl', [
             .getRatioPerOutlet(data.brandId, $scope.dataId)
             .then(function (res) {
               $scope.ratioPerOutlet = res.data.ratioPerOutlet;
-              console.log($scope.ratioPerOutlet);
+              // console.log($scope.ratioPerOutlet);
               for (var i = 0; i < $scope.ratioPerOutlet.length; i++) {
                 statusTypeLabel.push($scope.ratioPerOutlet[i]._id);
                 statusCountDataset.push($scope.ratioPerOutlet[i].count);

@@ -40,7 +40,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true">
+                                <tr ng-repeat="itemOutlet in allItemOutlet | filter:search">
                                     <td>{{itemOutlet.foodCategory.foodItemName}}</td>
                                     <td>{{itemOutlet.subCategory.subName}}</td>
                                     <td>{{itemOutlet.superCategory.superName}}</td>

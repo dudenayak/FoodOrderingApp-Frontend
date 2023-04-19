@@ -28,21 +28,35 @@
             </div>
             <!-- cards -->
             <div class="superCardStyle">
-                <div class="superCardBoxDineIn">
-                    <div class="superCard"
-                        ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true"
-                        ng-click="testTake(itemOutlet)">
-                        <div>
-                            <!-- <img class="foodImg" src="../../img/amritsari-naan.jpeg" alt="img"/> -->
-                            <img class="foodImg" ng-src="{{itemOutlet.foodCategory.foodItemImage}}" alt="img">
-                            <div class="numbers">{{itemOutlet.foodCategory.foodItemName}}</div>
-                            <div class="cardName"><span style="color: var(--black1);">Price :</span>
-                                ₹{{itemOutlet.foodCategory.foodItemPrice}}</div>
-                            <div class="cardName"><span style="color: var(--black1);">Category :</span>
-                                {{itemOutlet.superCategory.superName}}</div>
+                <div style="display: flex; flex-direction:column;">
+                    <div style="margin-left: 20px; margin-top: 20px;">
+                        <h4 style="color: var(--red); ">Recommended Items</h4>
+                        <div style=" display: flex;">
+                            <div class="superCard" ng-repeat="special in allSpecial">
+                                <div style="margin:10px 10px 10px 0px; font-weight: 500; " class="numbers">
+                                    ○ {{special.foodItemName}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-left: 20px; color: var(--red);">Outlet Items</h4>
+                    <div class="superCardBoxDineIn">
+                        <div class="superCard"
+                            ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true"
+                            ng-click="testTake(itemOutlet)">
+                            <div>
+                                <!-- <img class="foodImg" src="../../img/amritsari-naan.jpeg" alt="img"/> -->
+                                <img class="foodImg" ng-src="{{itemOutlet.foodCategory.foodItemImage}}" alt="img">
+                                <div class="numbers">{{itemOutlet.foodCategory.foodItemName}}</div>
+                                <div class="cardName"><span style="color: var(--black1);">Price :</span>
+                                    ₹{{itemOutlet.foodCategory.foodItemPrice}}</div>
+                                <div class="cardName"><span style="color: var(--black1);">Category :</span>
+                                    {{itemOutlet.superCategory.superName}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- Bill -->
                 <div class="superRecentCustomersDineIn d-flex flex-column justify-content-between  ">
                     <div class="superCardHeader">

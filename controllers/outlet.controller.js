@@ -249,6 +249,7 @@ app.controller('outletCtrl', [
     var data = JSON.parse(localStorage.getItem('outletInfo'));
     // console.log(data);
     $scope.outletData = data;
+    // console.log($scope.outletData);
     // $scope.brandName = data[0].outletBrand.brandName;
     // $scope.brandId = data[0].outletBrand.brandId;
     $scope.saveEmployee = function ($event) {
@@ -268,7 +269,8 @@ app.controller('outletCtrl', [
         .createOutletEmployee($scope.outletEmployee)
         .then(function (res) {
           console.log(res);
-          $window.location.reload();
+          alert('Employee created!');
+          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);

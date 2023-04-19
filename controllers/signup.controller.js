@@ -24,8 +24,10 @@ app.controller('myCtrl', [
       signupService
         .loginUser(userData)
         .then(function (res) {
+          alert('Logged in successfully!');
           // console.log(res);
           localStorage.setItem('user', JSON.stringify(res.data));
+          localStorage.setItem('token', res.data.token);
           // $window.location.reload();
           if (res.data.userType == 'admin') {
             $location.path('/dashboard/superAdminPortal');
@@ -42,6 +44,7 @@ app.controller('myCtrl', [
           }
         })
         .catch(function (err) {
+          alert('Enter valid details!');
           console.log(err);
         });
     };

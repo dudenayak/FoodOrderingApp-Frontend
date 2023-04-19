@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="brand in allBrands | filter:search | orderBy:reverse:true">
+                                <tr ng-repeat="brand in allBrands | filter:search">
                                     <td>{{brand.brandName}}</td>
                                     <td><span
                                             ng-class="brand.isActive ? 'status delivered' : 'status return'">{{brand.isActive
@@ -66,8 +66,8 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item"><a style="cursor: pointer;" class="page-link"
-                            ng-click="previous()">Previous</a></li>
-                    <li class="page-item"><a style="cursor: pointer;" class="page-link" ng-click="next()">Next</a></li>
+                            ng-click="previousBrand()">Previous</a></li>
+                    <li class="page-item"><a style="cursor: pointer;" class="page-link" ng-click="nextBrand()">Next</a></li>
                 </ul>
 
             </nav>

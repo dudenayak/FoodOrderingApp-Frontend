@@ -76,7 +76,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>ID</td>
+                                <!-- <td>ID</td> -->
                                 <td>Name</td>
                                 <td>Status</td>
                                 <td>Active Toggle(On/Off)</td>
@@ -84,8 +84,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="brand in allBrands |  limitTo : -9:0 | filter:search |orderBy:reverse:true">
-                                <td>{{brand._id}}</td>
+                            <tr ng-repeat="brand in allBrands |  limitTo : 9:0 | filter:search">
+                                <!-- <td>{{brand._id}}</td> -->
                                 <td>{{brand.brandName}}</td>
                                 <td><span
                                         ng-class="brand.isActive ? 'status delivered' : 'status return'">{{brand.isActive
@@ -118,7 +118,7 @@
                         <h2> Recent Customers</h2>
                     </div>
                     <table>
-                        <tr ng-repeat="owner in allOwners | limitTo : -8:0 | orderBy:reverse:true">
+                        <tr ng-repeat="owner in allOwners | limitTo : 8:0 ">
                             <td width="50px">
                                 <div class="imgBox"><img src="../img/user.png"></div>
                             </td>

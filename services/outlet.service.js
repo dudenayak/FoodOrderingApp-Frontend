@@ -132,6 +132,10 @@ app.service('outletService', [
         url = 'http://localhost:5000/api/order/cancelled/' + id;
         return $http.put(url, order);
       },
+      recommendedItems: function (id) {
+        url = 'http://localhost:5000/api/order/recommendedItems/' + id;
+        return $http.get(url);
+      },
     };
   },
 ]);

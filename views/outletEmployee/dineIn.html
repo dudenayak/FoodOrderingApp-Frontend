@@ -8,7 +8,8 @@
                 </div>
                 <div class="superSearch">
                     <label>
-                        <input ng-model="search" ng-model-options="{ debounce: 800 }" type="text" name="search" placeholder="Search here">
+                        <input ng-model="search" ng-model-options="{ debounce: 800 }" type="text" name="search"
+                            placeholder="Search here">
                         <ion-icon name="search-outline" style="margin-top: 10px;"></ion-icon>
                     </label>
                 </div>
@@ -27,18 +28,30 @@
             </div>
             <!-- cards -->
             <div class="superCardStyle">
-                <div class="superCardBoxDineIn">
-                    <div class="superCard"
-                        ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true"
-                        ng-click="testDine(itemOutlet)">
-                        <div>
-                            <!-- <img class="foodImg" src="../../img/amritsari-naan.jpeg" alt="img"/> -->
-                            <img class="foodImg" ng-src="{{itemOutlet.foodCategory.foodItemImage}}" alt="img">
-                            <div class="numbers">{{itemOutlet.foodCategory.foodItemName}}</div>
-                            <div class="cardName"><span style="color: var(--black1);">Price :</span>
-                                ₹{{itemOutlet.foodCategory.foodItemPrice}}</div>
-                            <div class="cardName"><span style="color: var(--black1);">Category :</span>
-                                {{itemOutlet.superCategory.superName}}</div>
+                <div style="display: flex; flex-direction:column;">
+                    <div style="margin-left: 20px; margin-top: 20px;">
+                        <h4 style="color: var(--red); ">Recommended Items</h4>
+                        <div style=" display: flex;">
+                            <div class="superCard" ng-repeat="special in allSpecial">
+                                <div style="margin:10px 10px 10px 0px; font-weight: 500; " class="numbers">
+                                    ○ {{special.foodItemName}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-left: 20px; color: var(--red);">Outlet Items</h4>
+                    <div class="superCardBoxDineIn">
+                        <div class="superCard"
+                            ng-repeat="itemOutlet in allItemOutlet | filter:search | orderBy:reverse:true"
+                            ng-click="testDine(itemOutlet)">
+                            <div>
+                                <img class="foodImg" ng-src="{{itemOutlet.foodCategory.foodItemImage}}" alt="img">
+                                <div class="numbers">{{itemOutlet.foodCategory.foodItemName}}</div>
+                                <div class="cardName"><span style="color: var(--black1);">Price :</span>
+                                    ₹{{itemOutlet.foodCategory.foodItemPrice}}</div>
+                                <div class="cardName"><span style="color: var(--black1);">Category :</span>
+                                    {{itemOutlet.superCategory.superName}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,15 +60,10 @@
                     <div class="superCardHeader">
                         <h2> Order</h2>
                     </div>
-                    <!-- <div> -->
+
                     <div class="superRecentCustomersDineInTable  p-3 d-flex justify-content-start">
                         <table>
                             <tr ng-show="IsVisible" ng-repeat="food in foodList" ng-model="orderDineIn.orderItems">
-                                <!-- <td>
-                                    <div class="imgBox">
-                                        <img ng-src="{{foodItemImage}}">
-                                    </div>
-                                </td> -->
                                 <div>
                                     <td>
                                         <h4>{{food.foodCategory.foodItemName}} x
@@ -66,9 +74,7 @@
                                     <td>
                                         <ion-icon name="remove-circle-outline" style="cursor: pointer;"
                                             ng-click="subtract(food)"></ion-icon>
-                                        <!-- <h5 > -->
                                         {{food.foodCategory.foodItemQuantity}}
-                                        <!-- </h5> -->
                                         <ion-icon name="add-circle-outline" style="cursor: pointer;"
                                             ng-click="add(food)"></ion-icon>
                                     </td>
@@ -110,7 +116,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-                        <input type="text" ng-model="customerName"  class="form-control"
+                        <input type="text" ng-model="customerName" class="form-control"
                             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">

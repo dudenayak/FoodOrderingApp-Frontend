@@ -11,8 +11,8 @@ app.service('superAdminService', [
         url = 'http://localhost:5000/api/brand/registerBrand';
         return $http.post(url, brandUser);
       },
-      getBrands: function () {
-        url = 'http://localhost:5000/api/brand/';
+      getBrands: function (pageno) {
+        url = 'http://localhost:5000/api/brand/getBrandInfo/10/' + pageno;
         return $http.get(url);
       },
       getOutlets: function () {

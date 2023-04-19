@@ -3,7 +3,9 @@
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
+  '$httpProvider',
+  function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    // $httpProvider.interceptors.push(interceptorRequest);
     $urlRouterProvider.otherwise('/');
 
     $stateProvider

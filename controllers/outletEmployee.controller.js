@@ -39,6 +39,19 @@ app.controller('outletEmployeeCtrl', [
             $scope.loading = false;
           });
 
+        // LOADING RECOMMENENDED ITEMS
+        var data = JSON.parse(localStorage.getItem('outletInfo'));
+        $scope.allSpecial = [];
+        outletService
+          .recommendedItems(data._id)
+          .then(function (res) {
+            $scope.allSpecial = res.data.recommendedItems;
+            console.log($scope.allSpecial);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+
         // LOADING ORDERS OF OUTLET
         $scope.pageno = 0;
         $scope.next = function () {

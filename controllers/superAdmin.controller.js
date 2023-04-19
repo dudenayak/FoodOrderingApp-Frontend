@@ -8,6 +8,7 @@ app.controller('superCtrl', [
   '$window',
   'superAdminService',
   function ($scope, $element, $http, $window, superAdminService) {
+    // var token = JSON.parse(localStorage.getItem('user'));
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.brandData = data;
     $scope.brandUsername = data.username;
@@ -42,7 +43,6 @@ app.controller('superCtrl', [
     $scope.saveBrand = function ($event) {
       $scope.showPassword = false;
       $event.preventDefault();
-      // $http.post('http://localhost:5000/brand/registerBrand', $scope.brandUser)
       superAdminService
         .createBrandUser($scope.brandUser)
         .then(function (res) {
@@ -57,6 +57,35 @@ app.controller('superCtrl', [
     };
 
     // Loading brand data from DB
+    $scope.pageno = 0;
+    $scope.nextBrand = function () {
+      $scope.loading = true;
+      $scope.allBrands = [];
+      superAdminService
+        .getBrands(++$scope.pageno)
+        .then(function (res) {
+          $scope.allBrands = res.data.brandData;
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
+    $scope.previousBrand = function () {
+      $scope.loading = true;
+      $scope.allBrands = [];
+      superAdminService
+        .getBrands(--$scope.pageno)
+        .then(function (res) {
+          $scope.allBrands = res.data.brandData;
+          $scope.loading = false;
+        })
+        .catch(function (err) {
+          console.log(err);
+          $scope.loading = false;
+        });
+    };
     $scope.allBrands = [];
     $scope.loading = true;
     superAdminService
@@ -222,6 +251,7 @@ app.controller('superCtrl', [
       $event.preventDefault();
       localStorage.removeItem('user');
       localStorage.removeItem('outletInfo');
+      localStorage.removeItem('token');
       $state.go('login');
     };
 
@@ -329,7 +359,7 @@ app.controller('superCtrl', [
                 {
                   ticks: {
                     beginAtZero: true,
-                    max: 6,
+                    max: 10,
                   },
                 },
               ],
