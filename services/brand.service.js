@@ -103,6 +103,23 @@ app.service('brandService', [
           outletId;
         return $http.get(url);
       },
+      getAvgTime: function (id) {
+        url = 'http://localhost:5000/api/order/averageTime/' + id;
+        return $http.get(url);
+      },
+      getPrediction: function (id) {
+        url = 'http://localhost:5000/api/order/predictOrders/' + id;
+        return $http.get(url);
+      },
+
+      getAvgOrderValue: function (id) {
+        url = 'http://localhost:5000/api/order/avgOrderTotal/' + id;
+        return $http.get(url);
+      },
+      getOrderPerHour: function (id) {
+        url = 'http://localhost:5000/api/order/orderPerHour/' + id;
+        return $http.get(url);
+      },
     };
   },
 ]);

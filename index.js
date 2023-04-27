@@ -6,5 +6,5 @@
 /// <reference path= "https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.min.js"/>
 /// <reference path= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
 /// <reference path= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"/>
-
+/// <reference path= "https://cdn.socket.io/4.5.4/socket.io.min.js"/>
 const app = angular.module('myApp', ['ui.router', 'ui.bootstrap']);

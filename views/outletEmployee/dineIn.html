@@ -92,13 +92,14 @@
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            CGST 2.5% Tax : <div id="price2">
-                                {{getCGST()}}
+                            GST : <div id="price2">
+                                <!-- {{getCGST()}} -->
+                                {{getTotalTaxes()}}
                             </div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            SGST 2.5% Tax : <div id="price3">
+                            Service Charge : <div id="price3">
                                 {{getCGST()}}
                             </div>
                         </div>

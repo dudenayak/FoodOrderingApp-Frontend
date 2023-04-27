@@ -27,8 +27,17 @@ app.controller('brandCtrl', [
   '$window',
   '$http',
   'brandService',
+  'brandFactory',
   '$state',
-  function ($scope, $element, $window, $http, brandService, $state) {
+  function (
+    $scope,
+    $element,
+    $window,
+    $http,
+    brandService,
+    brandFactory,
+    $state
+  ) {
     var chart;
     $scope.showPassword = false;
     // IMAGE TEST
@@ -110,8 +119,8 @@ app.controller('brandCtrl', [
       $event.preventDefault();
       $scope.outletManager.name = data.brandName;
       $scope.outletManager.id = data.brandId;
-      brandService
-        .createOutletManager($scope.outletManager)
+      brandFactory
+        .outletManager($scope.outletManager)
         .then(function (res) {
           console.log(res);
           alert('Outlet and manager created!');
@@ -128,38 +137,17 @@ app.controller('brandCtrl', [
     // formData.append('image2', file2);
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveSuper = function ($event) {
-      alert('Super Category Added!')
+      alert('Super Category Added!');
       $window.location.reload();
-      // var formData = new FormData();
-      // $scope.superCategoryName = $scope.superFood.superCategoryName;
-      // $scope.superCategoryDescription = $scope.superFood.superCategoryDescription;
-      // $scope.brandName = $scope.superFood.brandName;
-      // $scope.superCategoryName = $scope.superFood.superCategoryName;
-      // formData.append('superCategoryName', $scope.superFood.superCategoryName);
-      // formData.append('file', $scope.superFood.superCategoryImage);
-      // console.log($scope.superFood.superCategoryImage);
-      // formData.append(
-      //   'superCategoryDescription',
-      //   $scope.superFood.superCategoryDescription
-      // );
-      // formData.append('brandName', data.brandName);
-      // console.log(data.brandName);
-      // console.log(data.brandId);
-      // formData.append('brandId', data.brandId);
-
       $event.preventDefault();
-      // console.log($scope.superFood);
-      // $scope.superCategoryDescription = $scope.superFood.superCategoryDescription;
-      // $scope.superItem = {};
       $scope.superFood.brandId = data.brandId;
       $scope.superFood.brandName = data.brandName;
-      console.log($scope.superFood.brandId);
-      console.log($scope.superFood.brandName);
-      brandService
+      // console.log($scope.superFood.brandId);
+      // console.log($scope.superFood.brandName);
+      brandFactory
         .createSuper($scope.superFood)
         .then(function (res) {
           console.log(res);
-          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);
@@ -168,17 +156,17 @@ app.controller('brandCtrl', [
 
     // ADD SUB CATEGORY
     $scope.saveSub = function ($event) {
-      alert('Sub Category Added!')
+      alert('Sub Category Added!');
       $window.location.reload();
       $event.preventDefault();
-      console.log($scope.selectedSuperCategory);
+      // console.log($scope.selectedSuperCategory);
       $scope.subFood.brandName = $scope.selectedSuperCategory.brand.brandName;
       $scope.subFood.brandId = $scope.selectedSuperCategory.brand.brandId;
       $scope.subFood.superName = $scope.selectedSuperCategory.superCategoryName;
       $scope.subFood.superId = $scope.selectedSuperCategory._id;
       // console.log(data.id);
       // console.log(data.brandName);
-      brandService
+      brandFactory
         .createSub($scope.subFood)
         .then(function (res) {
           console.log(res);
@@ -193,15 +181,12 @@ app.controller('brandCtrl', [
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveFood = function ($event) {
       alert('Item added successfully!');
-      // $window.location.reload();
-      // $event.preventDefault();
       console.log($scope.foodItem);
       var formDataFood = new FormData();
       formDataFood.append('foodItemName', $scope.foodItem.foodItemName);
       formDataFood.append('file', $scope.foodItem.foodItemImage);
       formDataFood.append('foodItemPrice', $scope.foodItem.foodItemPrice);
-
-      // $event.preventDefault();
+      formDataFood.append('foodItemTax', $scope.foodItem.foodItemTax);
       $scope.foodItem.brandId = $scope.selectedSubCategory.brand.brandId;
       $scope.foodItem.brandName = $scope.selectedSubCategory.brand.brandName;
       $scope.foodItem.superId =
@@ -216,8 +201,6 @@ app.controller('brandCtrl', [
       formDataFood.append('superName', $scope.foodItem.superName);
       formDataFood.append('subId', $scope.foodItem.subId);
       formDataFood.append('subName', $scope.foodItem.subName);
-      // console.log(data.id);
-      // console.log(data.brandName);
       $event.preventDefault();
       $window.location.reload();
       brandService
@@ -227,8 +210,6 @@ app.controller('brandCtrl', [
         })
         .then(function (res) {
           console.log(res);
-          // alert('Item added successfully!');
-          // $window.location.reload();
         })
         .catch(function (err) {
           console.log(err);
@@ -243,7 +224,6 @@ app.controller('brandCtrl', [
       .then(function (res) {
         $scope.allSub = res.data.subFood;
         $scope.selectedSubCategory = $scope.allSub[0];
-        // console.log($scope.allSub);
       })
       .catch(function (err) {
         console.log(err);
@@ -257,7 +237,6 @@ app.controller('brandCtrl', [
       .then(function (res) {
         $scope.allSuper = res.data.superFood;
         $scope.selectedSuperCategory = $scope.allSuper[0];
-        // console.log($scope.allSuper);
       })
       .catch(function (err) {
         console.log(err);
@@ -270,7 +249,6 @@ app.controller('brandCtrl', [
       .getFoodBrand(data.brandId)
       .then(function (res) {
         $scope.allFood = res.data.foodItemBrand;
-        // console.log($scope.allFood);
       })
       .catch(function (err) {
         console.log(err);
@@ -282,9 +260,7 @@ app.controller('brandCtrl', [
     brandService
       .getOrderSumBrand(data.brandId)
       .then(function (res) {
-        // console.log(res.data.superFood[0].brand.brandId);
         $scope.allBrandTotal = res.data.brandRevenue[0];
-        // console.log($scope.allBrandTotal);
       })
       .catch(function (err) {
         console.log(err);
@@ -297,7 +273,6 @@ app.controller('brandCtrl', [
       .getProfitableOutletBrand(data.brandId)
       .then(function (res) {
         $scope.profitableOutletBrand = res.data.profitableOutletBrand[0];
-        // console.log($scope.profitableOutletBrand);
       })
       .catch(function (err) {
         console.log(err);
@@ -310,7 +285,6 @@ app.controller('brandCtrl', [
       .getOrderCreatedBrand(data.brandId)
       .then(function (res) {
         $scope.orderCreatedBrand = res.data.orderCreatedBrand[0];
-        // console.log($scope.orderCreatedBrand);
       })
       .catch(function (err) {
         console.log(err);
@@ -320,6 +294,7 @@ app.controller('brandCtrl', [
     $scope.logout = function ($event) {
       $event.preventDefault();
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       $state.go('login');
     };
 
@@ -328,50 +303,25 @@ app.controller('brandCtrl', [
     $scope.pageno = 0;
     $scope.next = function () {
       $scope.loading = true;
-      $scope.allOutlets = [];
-      brandService
-        .getOutlets(data.brandId, ++$scope.pageno)
-        .then(function (res) {
-          $scope.allOutlets = res.data.outlet;
-          $scope.loading = false;
-        })
-        .catch(function (err) {
-          console.log(err);
-          $scope.loading = false;
-        });
+      brandFactory.outletInfo(data.brandId, ++$scope.pageno, function (res) {
+        $scope.allOutlets = res;
+      });
+      $scope.loading = false;
     };
     $scope.previous = function () {
       $scope.loading = true;
-      $scope.allOutlets = [];
-      brandService
-        .getOutlets(data.brandId, --$scope.pageno)
-        .then(function (res) {
-          $scope.allOutlets = res.data.outlet;
-          $scope.loading = false;
-        })
-        .catch(function (err) {
-          console.log(err);
-          $scope.loading = false;
-        });
+      brandFactory.outletInfo(data.brandId, --$scope.pageno, function (res) {
+        $scope.allOutlets = res;
+      });
+      $scope.loading = false;
     };
 
     var data = JSON.parse(localStorage.getItem('user'));
-    // console.log(data.brandId)
     $scope.loading = true;
     $scope.allOutlets = [];
-    brandService
-      .getOutlets(data.brandId, 0)
-      .then(function (res) {
-        // console.log(res);
-        $scope.allOutlets = res.data.outlet;
-        // $scope.selectedOutlet = $scope.allOutlets[0];
-        $scope.loading = false;
-        // console.log($scope.allOutlets);
-      })
-      .catch(function (err) {
-        console.log(err);
-        $scope.loading = false;
-      });
+    brandFactory.outletInfo(data.brandId, 0, function (res) {
+      $scope.allOutlets = res;
+    });
 
     // LOADING OUTLET MANAGER
     var data = JSON.parse(localStorage.getItem('user'));
@@ -381,7 +331,6 @@ app.controller('brandCtrl', [
       .getOutletManagers(data.brandId, $scope.pageno)
       .then(function (res) {
         $scope.allManagers = res.data.userData;
-        // console.log($scope.allManagers);
         $scope.loading = false;
       })
       .catch(function (err) {
@@ -393,7 +342,6 @@ app.controller('brandCtrl', [
     $scope.handleToggle = function (res, _id) {
       if (res == true) {
         if (confirm('Are you sure you want to toggle off?')) {
-          // console.log($scope.outlet);
           $http
             .put(
               'http://localhost:5000/api/outlet/' + _id + '/false',
@@ -408,15 +356,12 @@ app.controller('brandCtrl', [
         }
       } else if (res == false) {
         if (confirm('Are you sure you want to toggle on?')) {
-          // superAdminService;
-          // .updateFalse($scope.outlet._id, $scope.outlet)
           $http
             .put(
               'http://localhost:5000/api/outlet/' + _id + '/true',
               $scope.outlet
             )
             .then(function (res) {
-              // console.log(res);
               $window.location.reload();
             })
             .catch(function (err) {
@@ -432,15 +377,12 @@ app.controller('brandCtrl', [
       brandService
         .editOutlet(outletData._id)
         .then(function (res) {
-          // console.log(res);
-          // console.log(outletData);
           $scope.outlet = outletData;
           console.log($scope.outlet);
         })
         .catch(function (err) {
           console.log(err);
         });
-      // $http.get('#editOutletModal').modal('show');
     };
 
     // UPDATE OUTLET DATA
@@ -451,7 +393,6 @@ app.controller('brandCtrl', [
           .updateOutlet($scope.outlet._id, $scope.outlet)
           .then(function (res) {
             console.log($scope.outlet.id);
-            // console.log(res);
             $window.location.reload();
           })
           .catch(function (err) {
@@ -461,10 +402,42 @@ app.controller('brandCtrl', [
     };
 
     // GET SALES BUTTON
-    $scope.testOutlet = function () {
+    $scope.getSalesButton = function () {
       $scope.dataId = $scope.selectedOutlet._id;
-      // $scope.selectedOutlet = $scope.allOutlets[0];
-      // console.log($scope.selectedOutlet);
+
+      // LOADING AVG TIME PER OUTLET
+      $scope.avgTime = [];
+      brandService
+        .getAvgTime($scope.dataId)
+        .then(function (res) {
+          $scope.avgTime = res.data.averageTime[0];
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      // LOADING PREDICTED ORDERS PER OUTLET
+      $scope.predictedOrders = [];
+      brandService
+        .getPrediction($scope.dataId)
+        .then(function (res) {
+          $scope.predictedOrders = res.data.predictOrders[0].predictedOrders[0];
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      // LOADING AVG ORDER TOTAL PER OUTLET
+      $scope.avgOrderTotal = [];
+      brandService
+        .getAvgOrderValue($scope.dataId)
+        .then(function (res) {
+          $scope.avgOrderTotal = res.data.avgOrderTotal[0];
+          // console.log($scope.avgOrderTotal);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
 
       // GET SALES PER OUTLET
       $scope.salesPerOutlet = [];
@@ -475,7 +448,7 @@ app.controller('brandCtrl', [
         .getSalesPerOutlet(data.brandId, $scope.dataId)
         .then(function (res) {
           $scope.salesPerOutlet = res.data.salesPerOutlet;
-          // console.log($scope.salesPerOutlet);
+          // console.log($scope.salesPerOutlet)
           for (var i = 0; i < $scope.salesPerOutlet.length; i++) {
             dateOutletLabel.push($scope.salesPerOutlet[i]._id.date);
             countOutletDataset.push($scope.salesPerOutlet[i].totalOrders);
@@ -485,7 +458,7 @@ app.controller('brandCtrl', [
             chart.destroy();
           }
           chart = new Chart('myChart', {
-            type: 'bar',
+            type: 'line',
             data: {
               labels: dateOutletLabel,
               datasets: [
@@ -512,7 +485,7 @@ app.controller('brandCtrl', [
               },
               title: {
                 display: true,
-                text: 'Order per Outlet',
+                text: 'Orders per Outlet',
                 position: 'bottom',
               },
             },
@@ -558,7 +531,6 @@ app.controller('brandCtrl', [
             .getRatioPerOutlet(data.brandId, $scope.dataId)
             .then(function (res) {
               $scope.ratioPerOutlet = res.data.ratioPerOutlet;
-              // console.log($scope.ratioPerOutlet);
               for (var i = 0; i < $scope.ratioPerOutlet.length; i++) {
                 statusTypeLabel.push($scope.ratioPerOutlet[i]._id);
                 statusCountDataset.push($scope.ratioPerOutlet[i].count);
@@ -587,12 +559,57 @@ app.controller('brandCtrl', [
                   responsive: true,
                   title: {
                     display: true,
-                    text: 'Revenue per Outlet',
+                    text: 'Orders served/cancelled per Outlet',
                     position: 'bottom',
                   },
                 },
               });
             });
+
+          $scope.orderPerHour = [];
+          var orderTypeLabel = [];
+          var orderCount = [];
+          brandService.getOrderPerHour($scope.dataId).then(function (res) {
+            $scope.orderPerHour = res.data.orderPerHour;
+            // console.log($scope.orderPerHour);
+            for (var i = 0; i < $scope.orderPerHour.length; i++) {
+              orderTypeLabel.push($scope.orderPerHour[i]._id);
+              orderCount.push($scope.orderPerHour[i].count);
+            }
+            chart = new Chart('myChart3', {
+              type: 'line',
+              data: {
+                labels: orderTypeLabel,
+                datasets: [
+                  {
+                    label: 'Number of Orders',
+                    data: orderCount,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                        max: 20,
+                      },
+                    },
+                  ],
+                },
+                title: {
+                  display: true,
+                  text: 'Orders per Hour',
+                  position: 'bottom',
+                },
+              },
+            });
+          });
         })
         .catch(function (err) {
           console.log(err);

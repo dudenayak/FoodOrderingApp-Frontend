@@ -60,8 +60,8 @@
                 <div class="superCard" ng-model="selectedSuperCategory" ng-repeat="super in allSuper"
                     ng-class="addClass(super._id)" ng-click="superTest(super._id)">
                     <div>
-                        <div style="font-size: 1em;" class="numbers"> {{super.superCategoryName}} </div>                        
-                    </div>                  
+                        <div style="font-size: 1em;" class="numbers"> {{super.superCategoryName}} </div>
+                    </div>
                 </div>
             </div>
 
@@ -86,22 +86,64 @@
                             {{item.foodItemName}} :
                             ₹ {{item.foodItemPrice}}
                         </div>
-                        <!-- <div style="font-size: 0.9em;" class="cardNameOutlet"> ₹ {{item.foodItemPrice}}</div> -->
                     </div>
-                    <!-- <div class="iconBox"> -->
-                    <!-- <ion-icon name="fast-food-outline"></ion-icon> -->
-                    <!-- <img ng-src="{{item.foodItemImage}}" alt="img"> -->
-
-                    <!-- </div> -->
-                    <!-- <div class="modal-footer">
-                        <button type="button" class="superButton" ng-click="saveOutletData($event)">Add
-                            Food Item</button>
-                    </div> -->
+                    <div>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#foodAddModal"
+                            ng-click="openFoodItemModal(item)">
+                            <button type="button" class="superButton">Add</button>
+                        </a>
+                    </div>
                 </div>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="superButton" ng-click="saveItem($event)">Add
-                    Food Item</button>
+            <!-- <div class="modal-footer">
+                <a href="" data-bs-toggle="modal" data-bs-target="#foodAddModal" ng-click="openFoodItemModal(item)">
+                    <button type="button" class="superButton">Add Food Item</button>
+                </a>
+            </div> -->
+            <!-- <div>ng-click="saveItem($event)"</div> -->
+
+            <!--Add Food Item Modal -->
+            <div class="modal fade" id="foodAddModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Food</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="outletForm" novalidate autocomplete="off">
+                                <h5>Food Information</h5>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Food
+                                        Name</span>
+                                    <span ng-model="item.foodItemName" class="form-control"
+                                        aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default">{{item.foodItemName}}</span>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Food Item
+                                        Price</span>
+                                    <input type="text" ng-model="item.foodItemPrice" class="form-control"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Food Item
+                                        Tax(GST)</span>
+                                    <input type="text" ng-model="item.foodItemTax" class="form-control"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="superButtonClose" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="superButton" 
+                                ng-click="saveItem($event)">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 </body>

@@ -4,10 +4,12 @@ app.controller('outletEmployeeCtrl', [
   '$scope',
   '$window',
   'outletService',
+  'socketService',
   '$state',
   '$rootScope',
-  function ($scope, $window, outletService, $state, $rootScope) {
+  function ($scope, $window, outletService, socketService, $state, $rootScope) {
     // LOADING OUTLET INFORMATION
+
     var data = JSON.parse(localStorage.getItem('user'));
     $scope.brandData = data;
     $scope.brandUsername = data.username;
@@ -46,11 +48,24 @@ app.controller('outletEmployeeCtrl', [
           .recommendedItems(data._id)
           .then(function (res) {
             $scope.allSpecial = res.data.recommendedItems;
-            console.log($scope.allSpecial);
+            // console.log($scope.allSpecial);
           })
           .catch(function (err) {
             console.log(err);
           });
+
+        // LOADING CONTENT BASED ITEMS
+        // var data = JSON.parse(localStorage.getItem('outletInfo'));
+        // $scope.allContentBasedItems = [];
+        // outletService
+        //   .contentBasedOrders(data._id)
+        //   .then(function (res) {
+        //     $scope.allContentBasedItems = res.data.contentBasedOrders;
+        //     console.log($scope.allContentBasedItems);
+        //   })
+        //   .catch(function (err) {
+        //     console.log(err);
+        //   });
 
         // LOADING ORDERS OF OUTLET
         $scope.pageno = 0;
@@ -94,6 +109,15 @@ app.controller('outletEmployeeCtrl', [
 
         // LOADING PREPARING ORDERS
         $scope.allPrepare = [];
+        socketService.getSocketInstance().on('newOrder', function (socketData) {
+          if (socketData.outlet.outletId == data._id) {
+            $scope.$apply(function () {
+              $scope.allPrepare.push(socketData);
+              // console.log($scope.allPrepare);
+            });
+          }
+          console.log(socketData);
+        });
         outletService
           .getPreparingStatusOrders(data._id)
           .then(function (res) {
@@ -102,9 +126,25 @@ app.controller('outletEmployeeCtrl', [
           .catch(function (err) {
             console.log(err);
           });
+
+        // $scope.allPrepare = [];
+        // $scope.$on('newOrderCreated', function (event, data) {
+        //   $scope.allPrepare.push(data);
+        // });
+
+        // outletService
+        //   .getPreparingStatusOrders(data._id)
+        //   .then(function (res) {
+        //     $scope.allPrepare = res.data.statusPreparing;
+        //   })
+        //   .catch(function (err) {
+        //     console.log(err);
+        //   });
+
         $scope.preparingOrders = function () {
           outletService
             .getPreparingStatusOrders(data._id)
+            // console.log(data._id)
             .then(function (res) {
               $scope.allPrepare = res.data.statusPreparing;
               console.log($scope.allPrepare);
@@ -124,6 +164,7 @@ app.controller('outletEmployeeCtrl', [
       $event.preventDefault();
       localStorage.removeItem('user');
       localStorage.removeItem('outletInfo');
+      localStorage.removeItem('token');
       $state.go('login');
     };
 
@@ -153,21 +194,49 @@ app.controller('outletEmployeeCtrl', [
       $scope.IsVisible = true;
 
       // TOTAL
-      $scope.total;
-      $scope.cgst;
+      $scope.total = 0;
+      $scope.totalTax = 0;
+      $scope.cgst = 0;
+      $scope.taxes = 0;
+      $scope.gst = 0;
+      $scope.finalTax = 0;
+      $scope.finalSum = 0;
+
       $scope.getTotal = function () {
+        // console.log($scope.total);
         $scope.total = 0;
+        // $scope.totalTax = 0;
 
         for (var i = 0; i < $scope.foodList.length; i++) {
           var food = $scope.foodList[i];
           $scope.total +=
             food.foodCategory.foodItemPrice *
             food.foodCategory.foodItemQuantity;
+
+          // $scope.totalTax += food.foodCategory.foodItemTax;
         }
         $scope.cgst = parseInt(($scope.total / 100) * 2.5);
-        $scope.gst = $scope.cgst + $scope.cgst;
+        $scope.gst = $scope.cgst + $scope.taxes;
         return $scope.total;
+        // $scope.taxes = $scope.totalTax;
+        // $scope.gst = $scope.cgst + $scope.taxes;
       };
+
+      $scope.getTotalTaxes = function () {
+        console.log($scope.totalTax);
+        $scope.totalTax = 0;
+        for (var i = 0; i < $scope.foodList.length; i++) {
+          var food = $scope.foodList[i];
+          $scope.totalTax += parseInt(food.foodCategory.foodItemTax);
+        }
+        $scope.taxes = $scope.totalTax;
+        return $scope.totalTax;
+      };
+
+      $scope.getTaxDetails = function () {
+        return $scope.taxes;
+      };
+
       $scope.getCGST = function () {
         return $scope.cgst;
       };
@@ -218,7 +287,50 @@ app.controller('outletEmployeeCtrl', [
             console.log(err);
           });
       };
+      // $scope.socket = function(){
+
+      // }
+      // var socket = io.connect();
+      // socket.on('newOrder', function (order) {
+      //   $scope.allPrepare.push(order);
+      // });
+
+      //   $scope.createOrder = function ($event) {
+      //     $event.preventDefault();
+      //     var newOrder = {
+      //       outletId: $scope.outletId,
+      //       outletName: $scope.outletName,
+      //       brandId: $scope.brandId,
+      //       brandName: $scope.brandName,
+      //       customerName: $scope.customerName,
+      //       customerPhone: $scope.customerPhone,
+      //       orderItems: $scope.foodList,
+      //       orderTotal: $scope.finalSum,
+      //       orderTax: $scope.finalTax,
+      //     };
+      //     outletService
+      //       .createOrderDineIn(newOrder)
+      //       .then(function (res) {
+      //         // Emit a socket event to notify the server about the new order
+      //         socket.emit('newOrder', res.data);
+
+      //         alert('Item added successfully!');
+      //       })
+      //       .catch(function (err) {
+      //         console.log(err);
+      //       });
+      //   };
     };
+
+    // io.on('connection', function (socket) {
+    //   socket.on('newOrder', function (order) {
+    //     // Save the new order to the database
+    //     // ...
+
+    //     // Emit the new order to all connected clients
+    //     io.emit('newOrder', order);
+    //   });
+    // });
 
     // TAKE AWAY
     $scope.testTake = function (res) {
@@ -241,21 +353,49 @@ app.controller('outletEmployeeCtrl', [
       $scope.IsVisible = true;
 
       // TOTAL
-      $scope.total;
-      $scope.cgst;
+      $scope.total = 0;
+      $scope.totalTax = 0;
+      $scope.cgst = 0;
+      $scope.taxes = 0;
+      $scope.gst = 0;
+      $scope.finalTax = 0;
+      $scope.finalSum = 0;
+
       $scope.getTotal = function () {
+        // console.log($scope.total);
         $scope.total = 0;
+        // $scope.totalTax = 0;
 
         for (var i = 0; i < $scope.foodList.length; i++) {
           var food = $scope.foodList[i];
           $scope.total +=
             food.foodCategory.foodItemPrice *
             food.foodCategory.foodItemQuantity;
+
+          // $scope.totalTax += food.foodCategory.foodItemTax;
         }
         $scope.cgst = parseInt(($scope.total / 100) * 2.5);
-        $scope.gst = $scope.cgst + $scope.cgst;
+        $scope.gst = $scope.cgst + $scope.taxes;
         return $scope.total;
+        // $scope.taxes = $scope.totalTax;
+        // $scope.gst = $scope.cgst + $scope.taxes;
       };
+
+      $scope.getTotalTaxes = function () {
+        console.log($scope.totalTax);
+        $scope.totalTax = 0;
+        for (var i = 0; i < $scope.foodList.length; i++) {
+          var food = $scope.foodList[i];
+          $scope.totalTax += parseInt(food.foodCategory.foodItemTax);
+        }
+        $scope.taxes = $scope.totalTax;
+        return $scope.totalTax;
+      };
+
+      $scope.getTaxDetails = function () {
+        return $scope.taxes;
+      };
+
       $scope.getCGST = function () {
         return $scope.cgst;
       };
@@ -394,6 +534,32 @@ app.controller('outletEmployeeCtrl', [
           console.log(err);
         });
     };
+
+    // $scope.statusReadyButton = function (id, orderStatus) {
+    //   var status = orderStatus == 'Preparing' ? 'Ready' : 'Served';
+    //   outletService
+    //     .updateStatus(id, status)
+    //     .then(function (res) {
+    //       console.log(res);
+    //       // Update local $scope object to reflect the updated status
+    //       var index = $scope.allPrepare.findIndex(function (prepare) {
+    //         return prepare._id === id;
+    //       });
+    //       if (index >= 0) {
+    //         $scope.allPrepare[index].orderStatus = status;
+    //       }
+
+    //       // Show success message
+    //       if (orderStatus == 'Preparing') {
+    //         alert('Item ready to serve! Click on READY ORDERS!');
+    //       } else if (orderStatus == 'Ready') {
+    //         alert('Item served!');
+    //       }
+    //     })
+    //     .catch(function (err) {
+    //       console.log(err);
+    //     });
+    // };
 
     // UPDATE ORDER STATUS TO CANCELLED
     $scope.order = [];

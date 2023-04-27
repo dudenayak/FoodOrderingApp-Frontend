@@ -14,9 +14,7 @@ app.controller('superCtrl', [
     $scope.brandUsername = data.username;
 
     // ADD BRAND INFO AND ADMIN INFO
-    $scope.openModal = function () {
-      // $http('#createModal').modal('show');
-    };
+    $scope.openModal = function () {};
 
     $scope.brandUser = {
       brandName: '',
@@ -91,13 +89,11 @@ app.controller('superCtrl', [
     superAdminService
       .getBrands()
       .then(function (res) {
-        // $scope.allBrands = res.data.brandData;
         $scope.allBrands.splice(
           0,
           $scope.allBrands.length,
           ...res.data.brandData
         );
-        // console.log($scope.allBrands.length);
         $scope.loading = false;
       })
       .catch(function (err) {
@@ -111,7 +107,6 @@ app.controller('superCtrl', [
       .getOutlets()
       .then(function (res) {
         $scope.allOutlets = res.data.outletData[0];
-        // console.log($scope.allOutlets);
       })
       .catch(function (err) {
         console.log(err);
@@ -123,7 +118,6 @@ app.controller('superCtrl', [
       .getOrderSum()
       .then(function (res) {
         $scope.orderSum = res.data.orderSum[0];
-        // console.log($scope.orderSum);
       })
       .catch(function (err) {
         console.log(err);
@@ -135,7 +129,6 @@ app.controller('superCtrl', [
       .getProfitableOutlet()
       .then(function (res) {
         $scope.profitableOutlet = res.data.profitableOutlet[0];
-        // console.log($scope.profitableOutlet);
       })
       .catch(function (err) {
         console.log(err);
@@ -157,19 +150,15 @@ app.controller('superCtrl', [
     $scope.pageno = 0;
     $scope.next = function () {
       $scope.loading = true;
-      // cfpLoadingBar.start();
       $scope.allOwners = [];
       superAdminService
         .getBrandOwners(++$scope.pageno)
         .then(function (res) {
           $scope.allOwners = res.data.userData;
-          // cfpLoadingBar.complete();
           $scope.loading = false;
-          // console.log($scope.allOwners);
         })
         .catch(function (err) {
           console.log(err);
-          // cfpLoadingBar.complete();
           $scope.loading = false;
         });
     };
@@ -180,7 +169,6 @@ app.controller('superCtrl', [
         .getBrandOwners(--$scope.pageno)
         .then(function (res) {
           $scope.allOwners = res.data.userData;
-          // console.log($scope.allOwners);
           $scope.loading = false;
         })
         .catch(function (err) {
@@ -195,7 +183,6 @@ app.controller('superCtrl', [
       .then(function (res) {
         $scope.allOwners = res.data.userData;
         $scope.loading = false;
-        // console.log($scope.allOwners);
       })
       .catch(function (err) {
         console.log(err);
@@ -207,11 +194,9 @@ app.controller('superCtrl', [
       $scope.owner = {};
       $scope.owner.username = ownerData.username;
       $scope.owner.brandName = ownerData.brand.brandName;
-      // console.log($scope.owner.brandname);
       $scope.owner.phone = ownerData.phone;
       $scope.owner.email = ownerData.email;
       $scope.owner.id = ownerData._id;
-      // $http.get('#editModalOwner').modal('show');
     };
 
     // UPDATE BRAND OWNER DATA
@@ -222,9 +207,7 @@ app.controller('superCtrl', [
         superAdminService
           .updateOwner($scope.owner.id, $scope.owner)
           .then(function (res) {
-            // console.log(res);
             $window.location.reload();
-            // console.log($scope.owner);
           })
           .catch(function (err) {
             console.log(err);
@@ -243,7 +226,6 @@ app.controller('superCtrl', [
         .catch(function (err) {
           console.log(err);
         });
-      // $http.get('#editModal').modal('show');
     };
 
     // LOGOUT
@@ -281,11 +263,7 @@ app.controller('superCtrl', [
               'http://localhost:5000/api/brand/' + _id + '/false',
               $scope.brand
             )
-            // superAdminService
-            // .updateTrue($scope.brand.id, $scope.brand)
             .then(function (res) {
-              // console.log($scope.brand._id);
-              // console.log(res);
               $window.location.reload();
             })
             .catch(function (err) {
@@ -294,15 +272,12 @@ app.controller('superCtrl', [
         }
       } else if (res == false) {
         if (confirm('Are you sure you want to toggle on?')) {
-          // superAdminService;
-          // .updateFalse($scope.brand._id, $scope.brand)
           $http
             .put(
               'http://localhost:5000/api/brand/' + _id + '/true',
               $scope.brand
             )
             .then(function (res) {
-              // console.log(res);
               $window.location.reload();
             })
             .catch(function (err) {
@@ -318,7 +293,6 @@ app.controller('superCtrl', [
       .getTotalOrderCreated()
       .then(function (res) {
         $scope.totalOrders = res.data.totalOrderCreated[0].totalOrders;
-        // console.log($scope.totalOrders);
       })
       .catch(function (err) {
         console.log(err);
@@ -332,7 +306,6 @@ app.controller('superCtrl', [
       .getUserCreated()
       .then(function (res) {
         $scope.userCreated = res.data.userCreated;
-        // console.log($scope.userCreated);
         for (var i = 0; i < $scope.userCreated.length; i++) {
           dateLabel.push($scope.userCreated[i]._id);
           countDataset.push($scope.userCreated[i].count);
@@ -384,7 +357,6 @@ app.controller('superCtrl', [
       .getBrandCreated()
       .then(function (res) {
         $scope.brandCreated = res.data.brandCreated;
-        // console.log($scope.brandCreated);
         for (var i = 0; i < $scope.brandCreated.length; i++) {
           dateBrandLabel.push($scope.brandCreated[i]._id);
           countBrandDataset.push($scope.brandCreated[i].count);
@@ -401,8 +373,6 @@ app.controller('superCtrl', [
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
-                // fill: false,
-                // tension: 0.5,
               },
             ],
           },
@@ -438,7 +408,6 @@ app.controller('superCtrl', [
       .getOutletCreated()
       .then(function (res) {
         $scope.outletCreated = res.data.outletCreated;
-        // console.log($scope.outletCreated);
         for (var i = 0; i < $scope.outletCreated.length; i++) {
           dateOutletLabel.push($scope.outletCreated[i]._id);
           countOutletDataset.push($scope.outletCreated[i].count);
@@ -490,7 +459,6 @@ app.controller('superCtrl', [
       .getFoodItemCreated()
       .then(function (res) {
         $scope.foodItemCreated = res.data.foodItemCreated;
-        // console.log($scope.foodItemCreated);
         for (var i = 0; i < $scope.foodItemCreated.length; i++) {
           dateFoodItemLabel.push($scope.foodItemCreated[i]._id);
           countFoodItemDataset.push($scope.foodItemCreated[i].count);
@@ -542,7 +510,6 @@ app.controller('superCtrl', [
       .getUserCount()
       .then(function (res) {
         $scope.userCount = res.data.userCount;
-        // console.log($scope.userCount);
         for (var i = 0; i < $scope.userCount.length; i++) {
           userTypeLabel.push($scope.userCount[i]._id);
           userCountDataset.push($scope.userCount[i].count);
