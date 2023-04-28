@@ -26,6 +26,7 @@ app.controller('brandCtrl', [
   '$element',
   '$window',
   '$http',
+  'socketService',
   'brandService',
   'brandFactory',
   '$state',
@@ -34,10 +35,12 @@ app.controller('brandCtrl', [
     $element,
     $window,
     $http,
+    socketService,
     brandService,
     brandFactory,
     $state
   ) {
+    var userData = JSON.parse(localStorage.getItem('user'));
     var chart;
     $scope.showPassword = false;
     // IMAGE TEST
@@ -111,14 +114,13 @@ app.controller('brandCtrl', [
     };
 
     // ADD OUTLET INFO AND OUTLET MANAGER INFO
-    var data = JSON.parse(localStorage.getItem('user'));
-    $scope.brandData = data;
-    $scope.brandUsername = data.username;
+    $scope.brandData = userData;
+    $scope.brandUsername = userData.username;
     $scope.saveOutlet = function ($event) {
       $scope.showPassword = false;
       $event.preventDefault();
-      $scope.outletManager.name = data.brandName;
-      $scope.outletManager.id = data.brandId;
+      $scope.outletManager.name = userData.brandName;
+      $scope.outletManager.id = userData.brandId;
       brandFactory
         .outletManager($scope.outletManager)
         .then(function (res) {
@@ -135,13 +137,12 @@ app.controller('brandCtrl', [
     // ADD SUPER CATEGORY
 
     // formData.append('image2', file2);
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveSuper = function ($event) {
       alert('Super Category Added!');
       $window.location.reload();
       $event.preventDefault();
-      $scope.superFood.brandId = data.brandId;
-      $scope.superFood.brandName = data.brandName;
+      $scope.superFood.brandId = userData.brandId;
+      $scope.superFood.brandName = userData.brandName;
       // console.log($scope.superFood.brandId);
       // console.log($scope.superFood.brandName);
       brandFactory
@@ -178,7 +179,6 @@ app.controller('brandCtrl', [
     };
 
     // ADD FOOD CATEGORY
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.saveFood = function ($event) {
       alert('Item added successfully!');
       console.log($scope.foodItem);
@@ -217,10 +217,9 @@ app.controller('brandCtrl', [
     };
 
     // LOADING SUB
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.allSub = [];
     brandService
-      .getSub(data.brandId)
+      .getSub(userData.brandId)
       .then(function (res) {
         $scope.allSub = res.data.subFood;
         $scope.selectedSubCategory = $scope.allSub[0];
@@ -230,10 +229,9 @@ app.controller('brandCtrl', [
       });
 
     // LOADING SUPER
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.allSuper = [];
     brandService
-      .getSuper(data.brandId)
+      .getSuper(userData.brandId)
       .then(function (res) {
         $scope.allSuper = res.data.superFood;
         $scope.selectedSuperCategory = $scope.allSuper[0];
@@ -243,10 +241,9 @@ app.controller('brandCtrl', [
       });
 
     // LOADING NUMBER OF FOOD ITEMS
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.allFood = [];
     brandService
-      .getFoodBrand(data.brandId)
+      .getFoodBrand(userData.brandId)
       .then(function (res) {
         $scope.allFood = res.data.foodItemBrand;
       })
@@ -255,10 +252,9 @@ app.controller('brandCtrl', [
       });
 
     // LOADING SUM PER BRAND
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.allBrandTotal = [];
     brandService
-      .getOrderSumBrand(data.brandId)
+      .getOrderSumBrand(userData.brandId)
       .then(function (res) {
         $scope.allBrandTotal = res.data.brandRevenue[0];
       })
@@ -267,10 +263,9 @@ app.controller('brandCtrl', [
       });
 
     // LOADING BEST OUTLET PER BRAND
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.profitableOutletBrand = [];
     brandService
-      .getProfitableOutletBrand(data.brandId)
+      .getProfitableOutletBrand(userData.brandId)
       .then(function (res) {
         $scope.profitableOutletBrand = res.data.profitableOutletBrand[0];
       })
@@ -279,10 +274,9 @@ app.controller('brandCtrl', [
       });
 
     // LOADING ORDER CREATED PER BRAND
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.orderCreatedBrand = [];
     brandService
-      .getOrderCreatedBrand(data.brandId)
+      .getOrderCreatedBrand(userData.brandId)
       .then(function (res) {
         $scope.orderCreatedBrand = res.data.orderCreatedBrand[0];
       })
@@ -290,45 +284,41 @@ app.controller('brandCtrl', [
         console.log(err);
       });
 
-    // LOGOUT
-    $scope.logout = function ($event) {
-      $event.preventDefault();
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      $state.go('login');
-    };
-
     // LOADING OUTLETS
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.pageno = 0;
     $scope.next = function () {
       $scope.loading = true;
-      brandFactory.outletInfo(data.brandId, ++$scope.pageno, function (res) {
-        $scope.allOutlets = res;
-      });
+      brandFactory.outletInfo(
+        userData.brandId,
+        ++$scope.pageno,
+        function (res) {
+          $scope.allOutlets = res;
+        }
+      );
       $scope.loading = false;
     };
     $scope.previous = function () {
       $scope.loading = true;
-      brandFactory.outletInfo(data.brandId, --$scope.pageno, function (res) {
-        $scope.allOutlets = res;
-      });
+      brandFactory.outletInfo(
+        userData.brandId,
+        --$scope.pageno,
+        function (res) {
+          $scope.allOutlets = res;
+        }
+      );
       $scope.loading = false;
     };
-
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.loading = true;
     $scope.allOutlets = [];
-    brandFactory.outletInfo(data.brandId, 0, function (res) {
+    brandFactory.outletInfo(userData.brandId, 0, function (res) {
       $scope.allOutlets = res;
     });
 
     // LOADING OUTLET MANAGER
-    var data = JSON.parse(localStorage.getItem('user'));
     $scope.loading = true;
     $scope.allManagers = [];
     brandService
-      .getOutletManagers(data.brandId, $scope.pageno)
+      .getOutletManagers(userData.brandId, $scope.pageno)
       .then(function (res) {
         $scope.allManagers = res.data.userData;
         $scope.loading = false;
@@ -402,6 +392,7 @@ app.controller('brandCtrl', [
     };
 
     // GET SALES BUTTON
+    var data = JSON.parse(localStorage.getItem('user'));
     $scope.getSalesButton = function () {
       $scope.dataId = $scope.selectedOutlet._id;
 
@@ -441,6 +432,15 @@ app.controller('brandCtrl', [
 
       // GET SALES PER OUTLET
       $scope.salesPerOutlet = [];
+      socketService.getSocketInstance().on('newOrder', function (socketData) {
+        if (socketData.outlet.outletId == data._id) {
+          $scope.$apply(function () {
+            $scope.salesPerOutlet.push(socketData);
+            // console.log($scope.allPrepare);
+          });
+        }
+        console.log(socketData);
+      });
       var dateOutletLabel = [];
       var countOutletDataset = [];
       var revenueOutletDataset = [];
@@ -478,7 +478,7 @@ app.controller('brandCtrl', [
                   {
                     ticks: {
                       beginAtZero: true,
-                      max: 20,
+                      // max: 20,
                     },
                   },
                 ],
@@ -490,6 +490,12 @@ app.controller('brandCtrl', [
               },
             },
           });
+          // Dynamically set the maximum value of the y-axis
+          const maxOrders = Math.max(...countOutletDataset);
+          chart.options.scales.yAxes[0].ticks.suggestedMax =
+            maxOrders + maxOrders * 0.1;
+          chart.update();
+
           chart = new Chart('myChart1', {
             type: 'bar',
             data: {
@@ -511,7 +517,10 @@ app.controller('brandCtrl', [
                   {
                     ticks: {
                       beginAtZero: true,
-                      max: 10000,
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Revenue',
                     },
                   },
                 ],
@@ -524,7 +533,24 @@ app.controller('brandCtrl', [
             },
           });
 
+          // Dynamically set the maximum value of the y-axis
+          const maxRevenue = Math.max(...revenueOutletDataset);
+          chart.options.scales.yAxes[0].ticks.suggestedMax =
+            maxRevenue + maxRevenue * 0.1;
+          chart.update();
+
           $scope.ratioPerOutlet = [];
+          socketService
+            .getSocketInstance()
+            .on('newOrder', function (socketData) {
+              if (socketData.outlet.outletId == data._id) {
+                $scope.$apply(function () {
+                  $scope.ratioPerOutlet.push(socketData);
+                  // console.log($scope.allPrepare);
+                });
+              }
+              console.log(socketData);
+            });
           var statusTypeLabel = [];
           var statusCountDataset = [];
           brandService
@@ -597,7 +623,7 @@ app.controller('brandCtrl', [
                     {
                       ticks: {
                         beginAtZero: true,
-                        max: 20,
+                        // max: 20,
                       },
                     },
                   ],
@@ -610,10 +636,24 @@ app.controller('brandCtrl', [
               },
             });
           });
+          // Dynamically set the maximum value of the y-axis
+          const maxOrderPerHour = Math.max(...orderCount);
+          chart.options.scales.yAxes[0].ticks.suggestedMax =
+            maxOrderPerHour + maxOrderPerHour * 0.1;
+          chart.update();
         })
         .catch(function (err) {
           console.log(err);
         });
+    };
+
+    // LOGOUT
+    $scope.logout = function ($event) {
+      $event.preventDefault();
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('outletInfo');
+      $state.go('login');
     };
   },
 ]);

@@ -10,13 +10,13 @@ app.controller('outletCtrl', [
   '$window',
   function ($scope, $element, outletService, $state, $rootScope, $window) {
     // LOADING OUTLET INFORMATION
-    var data = JSON.parse(localStorage.getItem('user'));
-    $scope.brandData = data;
-    $scope.brandUsername = data.username;
-    $scope.brandName = data.brandName;
+    var userData = JSON.parse(localStorage.getItem('user'));
+    $scope.brandData = userData;
+    $scope.brandUsername = userData.username;
+    $scope.brandName = userData.brandName;
     $scope.outletInfo = [];
     outletService
-      .outletInfo(data.id)
+      .outletInfo(userData.id)
       .then(function (res) {
         $rootScope.outletInfo = res.data.outlet;
         $rootScope.outletName = res.data.outlet[0].outletName;
@@ -24,11 +24,11 @@ app.controller('outletCtrl', [
         localStorage.setItem('outletInfo', JSON.stringify(res.data.outlet));
 
         // LOADING FOOD ITEMS OF OUTLET
-        var data = JSON.parse(localStorage.getItem('outletInfo'));
+        var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
         $scope.allItemOutlet = [];
         $scope.loading = true;
         outletService
-          .getOutletItems(data[0]._id, 0)
+          .getOutletItems(outletDataInfo[0]._id, 0)
           .then(function (res) {
             $scope.allItemOutlet = res.data.foodItem;
             $scope.loading = false;
@@ -56,13 +56,12 @@ app.controller('outletCtrl', [
       });
     });
 
-    var data = JSON.parse(localStorage.getItem('outletInfo'));
     $scope.pageno = 0;
     $scope.next = function () {
       $scope.loading = true;
       $scope.allOutlets = [];
       outletService
-        .getOutletItems(data[0]._id, ++$scope.pageno)
+        .getOutletItems(outletDataInfo[0]._id, ++$scope.pageno)
         .then(function (res) {
           $scope.allItemOutlet = res.data.foodItem;
           console.log($scope.allItemOutlet);
@@ -88,21 +87,12 @@ app.controller('outletCtrl', [
         });
     };
 
-    // LOGOUT
-    $scope.logout = function ($event) {
-      $event.preventDefault();
-      localStorage.removeItem('user');
-      localStorage.removeItem('outletInfo');
-      localStorage.removeItem('token');
-      $state.go('login');
-    };
-
     // LOADING SUPER
-    var data = JSON.parse(localStorage.getItem('user'));
+    // var data = JSON.parse(localStorage.getItem('user'));
     $scope.loading = true;
     $scope.allSuper = [];
     outletService
-      .getSuper(data.brandId)
+      .getSuper(userData.brandId)
       .then(function (res) {
         $scope.allSuper = res.data.superFood;
         $scope.loading = false;
@@ -190,12 +180,12 @@ app.controller('outletCtrl', [
     };
 
     // ADD FOOD ITEM PER OUTLET
+    var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
     $scope.saveItem = function ($event) {
-      alert('Are you sure you want to continue with the changes?')
+      alert('Are you sure you want to continue with the changes?');
       $event.preventDefault();
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
-      $scope.outletId = data[0]._id;
-      $scope.outletName = data[0].outletName;
+      $scope.outletId = outletDataInfo[0]._id;
+      $scope.outletName = outletDataInfo[0].outletName;
       $scope.foodDetails.outletId = $scope.outletId;
       $scope.foodDetails.outletName = $scope.outletName;
       $scope.foodDetails.foodItemPrice = $scope.item.foodItemPrice;
@@ -213,16 +203,16 @@ app.controller('outletCtrl', [
     };
 
     // ADD OUTLET EMPLOYEE
-    var data = JSON.parse(localStorage.getItem('outletInfo'));
-    $scope.outletData = data;
+    var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
+    $scope.outletData = outletDataInfo;
     $scope.saveEmployee = function ($event) {
       $scope.showPassword = false;
       $event.preventDefault();
       $scope.outletEmployee = {};
-      $scope.outletEmployee.outletId = data[0]._id;
-      $scope.outletEmployee.outletName = data[0].outletName;
-      $scope.outletEmployee.brandId = data[0].outletBrand.brandId;
-      $scope.outletEmployee.brandName = data[0].outletBrand.brandName;
+      $scope.outletEmployee.outletId = outletDataInfo[0]._id;
+      $scope.outletEmployee.outletName = outletDataInfo[0].outletName;
+      $scope.outletEmployee.brandId = outletDataInfo[0].outletBrand.brandId;
+      $scope.outletEmployee.brandName = outletDataInfo[0].outletBrand.brandName;
       $scope.outletEmployee.username = $scope.brandUser.username;
       $scope.outletEmployee.password = $scope.brandUser.password;
       $scope.outletEmployee.phone = $scope.brandUser.phone;
@@ -238,6 +228,15 @@ app.controller('outletCtrl', [
         .catch(function (err) {
           console.log(err);
         });
+    };
+
+    // LOGOUT
+    $scope.logout = function ($event) {
+      $event.preventDefault();
+      localStorage.removeItem('user');
+      localStorage.removeItem('outletInfo');
+      localStorage.removeItem('token');
+      $state.go('login');
     };
   },
 ]);

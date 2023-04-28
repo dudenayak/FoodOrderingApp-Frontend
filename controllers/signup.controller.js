@@ -48,52 +48,24 @@ app.controller('myCtrl', [
           console.log(err);
         });
     };
-
-    // GET DATA FROM LOCAL STORAGE
-    $scope.loadData = function () {
-      $location.path('/home');
-      if (
-        $scope.users.some((data) => {
-          return (
-            (data.email == $scope.username_login ||
-              data.username == $scope.username_login) &&
-            data.password == $scope.password_login
-          );
-        })
-      ) {
-        let currUser = $scope.users.map((data) => {
-          return (
-            data.username == $scope.username_login ||
-            (data.email == $scope.username_login &&
-              data.password == $scope.username_password)
-          );
-        })[0];
-        console.log($scope.currUser);
-        alert('User logged in successfully!');
-        localStorage.setItem('code', 'secret');
-        $location.path('/home');
-      } else {
-        alert('Login failed! Please try again!');
-      }
-    };
   },
 ]);
 
-app.factory('getLocalStorage', function () {
-  var userList = {};
-  return {
-    list: userList,
-    updateUsers: function (usersArray) {
-      if (window.localStorage && usersArray) {
-        // method used to store data in local storage
-        localStorage.setItem('users', angular.toJson(usersArray));
-      }
-      userList = usersArray;
-    },
-    getUsers: function () {
-      // method used to get data from local storage
-      userList = angular.fromJson(localStorage.getItem('users'));
-      return userList ? userList : [];
-    },
-  };
-});
+// app.factory('getLocalStorage', function () {
+//   var userList = {};
+//   return {
+//     list: userList,
+//     updateUsers: function (usersArray) {
+//       if (window.localStorage && usersArray) {
+//         // method used to store data in local storage
+//         localStorage.setItem('users', angular.toJson(usersArray));
+//       }
+//       userList = usersArray;
+//     },
+//     getUsers: function () {
+//       // method used to get data from local storage
+//       userList = angular.fromJson(localStorage.getItem('users'));
+//       return userList ? userList : [];
+//     },
+//   };
+// });

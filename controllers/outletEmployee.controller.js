@@ -10,14 +10,15 @@ app.controller('outletEmployeeCtrl', [
   function ($scope, $window, outletService, socketService, $state, $rootScope) {
     // LOADING OUTLET INFORMATION
 
-    var data = JSON.parse(localStorage.getItem('user'));
-    $scope.brandData = data;
-    $scope.brandUsername = data.username;
-    $scope.brandName = data.brandName;
-    $scope.brandId = data.brandId;
+    var userData = JSON.parse(localStorage.getItem('user'));
+    // var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
+    $scope.brandData = userData;
+    $scope.brandUsername = userData.username;
+    $scope.brandName = userData.brandName;
+    $scope.brandId = userData.brandId;
     $scope.outletInfo = [];
     outletService
-      .outletInfoEmp(data.outlet.outletId)
+      .outletInfoEmp(userData.outlet.outletId)
       .then(function (res) {
         $rootScope.outletInfo = res.data.outlet;
         $rootScope.outletName = res.data.outlet.outletName;
@@ -25,11 +26,11 @@ app.controller('outletEmployeeCtrl', [
         localStorage.setItem('outletInfo', JSON.stringify(res.data.outlet));
 
         // LOADING FOOD ITEMS OF OUTLET
-        var data = JSON.parse(localStorage.getItem('outletInfo'));
+        var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
         $scope.loading = true;
         $scope.allItemOutlet = [];
         outletService
-          .showOutletItems(data._id)
+          .showOutletItems(outletDataInfo._id)
           // console.log(data._id)
           .then(function (res) {
             // console.log($scope.allItemOutlet);
@@ -42,10 +43,9 @@ app.controller('outletEmployeeCtrl', [
           });
 
         // LOADING RECOMMENENDED ITEMS
-        var data = JSON.parse(localStorage.getItem('outletInfo'));
         $scope.allSpecial = [];
         outletService
-          .recommendedItems(data._id)
+          .recommendedItems(outletDataInfo._id)
           .then(function (res) {
             $scope.allSpecial = res.data.recommendedItems;
             // console.log($scope.allSpecial);
@@ -55,7 +55,6 @@ app.controller('outletEmployeeCtrl', [
           });
 
         // LOADING CONTENT BASED ITEMS
-        // var data = JSON.parse(localStorage.getItem('outletInfo'));
         // $scope.allContentBasedItems = [];
         // outletService
         //   .contentBasedOrders(data._id)
@@ -73,7 +72,7 @@ app.controller('outletEmployeeCtrl', [
           $scope.loading = true;
           $scope.allOrders = [];
           outletService
-            .getOrders(data._id, ++$scope.pageno)
+            .getOrders(outletDataInfo._id, ++$scope.pageno)
             .then(function (res) {
               $scope.allOrders = res.data.order;
               $scope.loading = false;
@@ -87,7 +86,7 @@ app.controller('outletEmployeeCtrl', [
           $scope.loading = true;
           $scope.allOrders = [];
           outletService
-            .getOrders(data._id, --$scope.pageno)
+            .getOrders(outletDataInfo._id, --$scope.pageno)
             .then(function (res) {
               $scope.allOrders = res.data.order;
               $scope.loading = false;
@@ -99,7 +98,7 @@ app.controller('outletEmployeeCtrl', [
         };
         $scope.allOrders = [];
         outletService
-          .getOrders(data._id, 0)
+          .getOrders(outletDataInfo._id, 0)
           .then(function (res) {
             $scope.allOrders = res.data.order;
           })
@@ -110,7 +109,7 @@ app.controller('outletEmployeeCtrl', [
         // LOADING PREPARING ORDERS
         $scope.allPrepare = [];
         socketService.getSocketInstance().on('newOrder', function (socketData) {
-          if (socketData.outlet.outletId == data._id) {
+          if (socketData.outlet.outletId == outletDataInfo._id) {
             $scope.$apply(function () {
               $scope.allPrepare.push(socketData);
               // console.log($scope.allPrepare);
@@ -119,7 +118,7 @@ app.controller('outletEmployeeCtrl', [
           console.log(socketData);
         });
         outletService
-          .getPreparingStatusOrders(data._id)
+          .getPreparingStatusOrders(outletDataInfo._id)
           .then(function (res) {
             $scope.allPrepare = res.data.statusPreparing;
           })
@@ -127,23 +126,9 @@ app.controller('outletEmployeeCtrl', [
             console.log(err);
           });
 
-        // $scope.allPrepare = [];
-        // $scope.$on('newOrderCreated', function (event, data) {
-        //   $scope.allPrepare.push(data);
-        // });
-
-        // outletService
-        //   .getPreparingStatusOrders(data._id)
-        //   .then(function (res) {
-        //     $scope.allPrepare = res.data.statusPreparing;
-        //   })
-        //   .catch(function (err) {
-        //     console.log(err);
-        //   });
-
         $scope.preparingOrders = function () {
           outletService
-            .getPreparingStatusOrders(data._id)
+            .getPreparingStatusOrders(outletDataInfo._id)
             // console.log(data._id)
             .then(function (res) {
               $scope.allPrepare = res.data.statusPreparing;
@@ -158,15 +143,6 @@ app.controller('outletEmployeeCtrl', [
       .catch(function (err) {
         console.log(err);
       });
-
-    // LOGOUT
-    $scope.logout = function ($event) {
-      $event.preventDefault();
-      localStorage.removeItem('user');
-      localStorage.removeItem('outletInfo');
-      localStorage.removeItem('token');
-      $state.go('login');
-    };
 
     $scope.IsVisible = false;
 
@@ -287,50 +263,7 @@ app.controller('outletEmployeeCtrl', [
             console.log(err);
           });
       };
-      // $scope.socket = function(){
-
-      // }
-      // var socket = io.connect();
-      // socket.on('newOrder', function (order) {
-      //   $scope.allPrepare.push(order);
-      // });
-
-      //   $scope.createOrder = function ($event) {
-      //     $event.preventDefault();
-      //     var newOrder = {
-      //       outletId: $scope.outletId,
-      //       outletName: $scope.outletName,
-      //       brandId: $scope.brandId,
-      //       brandName: $scope.brandName,
-      //       customerName: $scope.customerName,
-      //       customerPhone: $scope.customerPhone,
-      //       orderItems: $scope.foodList,
-      //       orderTotal: $scope.finalSum,
-      //       orderTax: $scope.finalTax,
-      //     };
-      //     outletService
-      //       .createOrderDineIn(newOrder)
-      //       .then(function (res) {
-      //         // Emit a socket event to notify the server about the new order
-      //         socket.emit('newOrder', res.data);
-
-      //         alert('Item added successfully!');
-      //       })
-      //       .catch(function (err) {
-      //         console.log(err);
-      //       });
-      //   };
     };
-
-    // io.on('connection', function (socket) {
-    //   socket.on('newOrder', function (order) {
-    //     // Save the new order to the database
-    //     // ...
-
-    //     // Emit the new order to all connected clients
-    //     io.emit('newOrder', order);
-    //   });
-    // });
 
     // TAKE AWAY
     $scope.testTake = function (res) {
@@ -447,11 +380,11 @@ app.controller('outletEmployeeCtrl', [
     };
 
     // LOADING READY ORDERS
+    var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
     $scope.readyOrders = function () {
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
-      console.log(data._id);
+      // console.log(data._id);
       outletService
-        .getReadyStatusOrders(data._id)
+        .getReadyStatusOrders(outletDataInfo._id)
         .then(function (res) {
           $scope.allPrepare = res.data.statusReady;
 
@@ -464,10 +397,9 @@ app.controller('outletEmployeeCtrl', [
 
     $scope.allOutletOrders = function () {
       $scope.loading = true;
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
-      console.log(data);
+      // console.log(data);
       outletService
-        .getOrders(data._id)
+        .getOrders(outletDataInfo._id)
         .then(function (res) {
           $scope.allOrders = res.data.order;
           // console.log($scope.allOrders);
@@ -481,11 +413,10 @@ app.controller('outletEmployeeCtrl', [
 
     // DINE IN ORDERS
     $scope.dineInOrders = function () {
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
       $scope.loading = true;
       // console.log(data)
       outletService
-        .getDineInOrders(data._id)
+        .getDineInOrders(outletDataInfo._id)
         .then(function (res) {
           $scope.allOrders = res.data.dineIn;
           $scope.loading = false;
@@ -500,9 +431,8 @@ app.controller('outletEmployeeCtrl', [
     // TAKE AWAY ORDERS
     $scope.takeAwayOrders = function () {
       $scope.loading = true;
-      var data = JSON.parse(localStorage.getItem('outletInfo'));
       outletService
-        .getTakeAwayOrders(data._id)
+        .getTakeAwayOrders(outletDataInfo._id)
         .then(function (res) {
           $scope.allOrders = res.data.takeAway;
           // console.log($scope.allOrders);
@@ -535,32 +465,6 @@ app.controller('outletEmployeeCtrl', [
         });
     };
 
-    // $scope.statusReadyButton = function (id, orderStatus) {
-    //   var status = orderStatus == 'Preparing' ? 'Ready' : 'Served';
-    //   outletService
-    //     .updateStatus(id, status)
-    //     .then(function (res) {
-    //       console.log(res);
-    //       // Update local $scope object to reflect the updated status
-    //       var index = $scope.allPrepare.findIndex(function (prepare) {
-    //         return prepare._id === id;
-    //       });
-    //       if (index >= 0) {
-    //         $scope.allPrepare[index].orderStatus = status;
-    //       }
-
-    //       // Show success message
-    //       if (orderStatus == 'Preparing') {
-    //         alert('Item ready to serve! Click on READY ORDERS!');
-    //       } else if (orderStatus == 'Ready') {
-    //         alert('Item served!');
-    //       }
-    //     })
-    //     .catch(function (err) {
-    //       console.log(err);
-    //     });
-    // };
-
     // UPDATE ORDER STATUS TO CANCELLED
     $scope.order = [];
     $scope.statusCancelledButton = function (id, order) {
@@ -575,6 +479,15 @@ app.controller('outletEmployeeCtrl', [
         .catch(function (err) {
           console.log(err);
         });
+    };
+
+    // LOGOUT
+    $scope.logout = function ($event) {
+      $event.preventDefault();
+      localStorage.removeItem('user');
+      localStorage.removeItem('outletInfo');
+      localStorage.removeItem('token');
+      $state.go('login');
     };
   },
 ]);

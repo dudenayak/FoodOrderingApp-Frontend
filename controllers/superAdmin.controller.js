@@ -8,10 +8,9 @@ app.controller('superCtrl', [
   '$window',
   'superAdminService',
   function ($scope, $element, $http, $window, superAdminService) {
-    // var token = JSON.parse(localStorage.getItem('user'));
-    var data = JSON.parse(localStorage.getItem('user'));
-    $scope.brandData = data;
-    $scope.brandUsername = data.username;
+    var userData = JSON.parse(localStorage.getItem('user'));
+    $scope.brandData = userData;
+    $scope.brandUsername = userData.username;
 
     // ADD BRAND INFO AND ADMIN INFO
     $scope.openModal = function () {};
@@ -226,15 +225,6 @@ app.controller('superCtrl', [
         .catch(function (err) {
           console.log(err);
         });
-    };
-
-    // LOGOUT
-    $scope.logout = function ($event) {
-      $event.preventDefault();
-      localStorage.removeItem('user');
-      localStorage.removeItem('outletInfo');
-      localStorage.removeItem('token');
-      $state.go('login');
     };
 
     // UPDATE BRAND DATA
@@ -551,5 +541,14 @@ app.controller('superCtrl', [
       .catch(function (err) {
         console.log(err);
       });
+
+    // LOGOUT
+    $scope.logout = function ($event) {
+      $event.preventDefault();
+      localStorage.removeItem('user');
+      localStorage.removeItem('outletInfo');
+      localStorage.removeItem('token');
+      $state.go('login');
+    };
   },
 ]);
