@@ -85,6 +85,17 @@
                         <ion-icon name="flash-outline"></ion-icon>
                     </div>
                 </div>
+                <!-- <div class="superCard">
+                    <div>
+                        <div style="font-size: 1em;" class="numbers">
+                            {{profitableOutletBrand.outletName}} -
+                            ₹{{profitableOutletBrand.totalAmount}}</div>
+                        <div class="cardName">Top Selling Items</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="flash-outline"></ion-icon>
+                    </div>
+                </div> -->
             </div>
 
             <!-- new card -->
@@ -135,8 +146,21 @@
                         <ion-icon name="cash-outline"></ion-icon>
                     </div>
                 </div>
+                <div class="superCard">
+                    <div>
+                        <div style="font-size: 12px;" class="numbers" ng-repeat="item in topItems">
+                            {{item.foodItemName}}
+                        </div>
+                        <div class="cardName">Top Selling Items</div>
+                    </div>
+                    <div class="iconBox">
+                        <ion-icon name="fast-food-outline"></ion-icon>
+                    </div>
+                </div>
+
+
             </div>
-            
+
             <div class="superCardBoxStats">
                 <div class="superCard">
                     <canvas id="myChart" width="400" height="200"></canvas>

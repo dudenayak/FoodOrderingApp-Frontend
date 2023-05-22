@@ -27,10 +27,10 @@
                 </div>
             </div>
             <!-- cards -->
-            <div class="superCardStyle">
+            <div class="superCardStyle" style="overflow-y: auto;">
                 <div style="display: flex; flex-direction:column;">
                     <div style="margin-left: 20px; margin-top: 20px;">
-                        <h4 style="color: var(--red); ">Recommended Items</h4>
+                        <h4 style="color: var(--red); ">Top Selling Items</h4>
                         <div style=" display: flex;">
                             <div class="superCard" ng-repeat="special in allSpecial">
                                 <div style="margin:10px 10px 10px 0px; font-weight: 500; " class="numbers">
@@ -56,20 +56,20 @@
                     </div>
                 </div>
                 <!-- Bill -->
-                <div class="superRecentCustomersDineIn d-flex flex-column justify-content-between  ">
+                <div class="superRecentCustomersDineIn d-flex flex-column justify-content-between" style="position: sticky; top: 0;">
                     <div class="superCardHeader">
-                        <h2> Order</h2>
+                        <h2>Order</h2>
                     </div>
 
-                    <div class="superRecentCustomersDineInTable  p-3 d-flex justify-content-start">
+                    <div class="superRecentCustomersDineInTable p-3 d-flex justify-content-start"
+                        style="max-height: 250px; overflow-y: auto;">
                         <table>
                             <tr ng-show="IsVisible" ng-repeat="food in foodList" ng-model="orderDineIn.orderItems">
                                 <div>
                                     <td>
                                         <h4>{{food.foodCategory.foodItemName}} x
                                             {{food.foodCategory.foodItemQuantity}}<br><span>₹{{food.foodCategory.foodItemPrice
-                                                * food.foodCategory.foodItemQuantity}}</span>
-                                        </h4>
+                                                * food.foodCategory.foodItemQuantity}}</span></h4>
                                     </td>
                                     <td>
                                         <ion-icon name="remove-circle-outline" style="cursor: pointer;"
@@ -82,52 +82,51 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="newNew">
+
+                    <div class="newBox" style="margin-top: 20px;">
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            Sub Total
-                            : <div id="price1">
-                                {{getTotal()}}
-                            </div>
+                            Sub Total:
+                            <div id="price1">{{getTotal()}}</div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            GST : <div id="price2">
-                                <!-- {{getCGST()}} -->
-                                {{getTotalTaxes()}}
-                            </div>
+                            GST:
+                            <div id="price2">{{getTotalTaxes()}}</div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            Service Charge : <div id="price3">
-                                {{getCGST()}}
-                            </div>
+                            Service Charge:
+                            <div id="price3">{{getCGST()}}</div>
                         </div>
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            Total Tax : <div id="price4" ng-model="orderDineIn.orderTax">
-                                {{getTax()}}
-                            </div>
+                            Total Tax:
+                            <div id="price4" ng-model="orderDineIn.orderTax">{{getTax()}}</div>
                         </div>
                         <div class=""
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
-                            Outlet Total :
+                            Outlet Total:
                             <div ng-model="orderDineIn.orderTotal">{{getSum()}}</div>
                         </div>
                     </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
                         <input type="text" ng-model="customerName" class="form-control"
                             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
                         <input type="text" ng-model="customerPhone" class="form-control"
                             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
+
                     <button type="button" class="superButton" style="margin-top: 10px;"
                         ng-click="createOrder($event)">Create Order</button>
                 </div>
+
             </div>
         </div>
     </div>

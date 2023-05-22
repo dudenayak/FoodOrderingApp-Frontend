@@ -27,10 +27,10 @@
                 </div>
             </div>
             <!-- cards -->
-            <div class="superCardStyle">
+            <div class="superCardStyle" style="overflow-y: auto;">
                 <div style="display: flex; flex-direction:column;">
                     <div style="margin-left: 20px; margin-top: 20px;">
-                        <h4 style="color: var(--red); ">Recommended Items</h4>
+                        <h4 style="color: var(--red); ">Top Selling Items</h4>
                         <div style=" display: flex;">
                             <div class="superCard" ng-repeat="special in allSpecial">
                                 <div style="margin:10px 10px 10px 0px; font-weight: 500; " class="numbers">
@@ -58,12 +58,13 @@
                 </div>
 
                 <!-- Bill -->
-                <div class="superRecentCustomersDineIn d-flex flex-column justify-content-between  ">
+                <div class="superRecentCustomersDineIn d-flex flex-column justify-content-between  " style="position: sticky; top: 0;">
                     <div class="superCardHeader">
                         <h2> Order</h2>
                     </div>
                     <!-- <div> -->
-                    <div class="superRecentCustomersDineInTable  p-3 d-flex justify-content-start">
+                    <div class="superRecentCustomersDineInTable  p-3 d-flex justify-content-start "
+                        style="max-height: 250px; overflow-y: auto;">
                         <table>
                             <tr ng-show="IsVisible" ng-repeat="food in foodList" ng-model="orderDineIn.orderItems">
                                 <!-- <td>
@@ -91,7 +92,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="newNew">
+                    <div class="newBox" style="margin-top: 20px;">
                         <div
                             style="font-size: 15px; display: flex; flex-direction: row; justify-content: space-between;">
                             Sub Total

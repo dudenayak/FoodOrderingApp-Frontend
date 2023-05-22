@@ -76,7 +76,7 @@ app.controller('outletCtrl', [
       $scope.loading = true;
       $scope.allOutlets = [];
       outletService
-        .getOutletItems(data[0]._id, --$scope.pageno)
+        .getOutletItems(outletDataInfo[0]._id, --$scope.pageno)
         .then(function (res) {
           $scope.allItemOutlet = res.data.foodItem;
           $scope.loading = false;
@@ -181,6 +181,7 @@ app.controller('outletCtrl', [
 
     // ADD FOOD ITEM PER OUTLET
     var outletDataInfo = JSON.parse(localStorage.getItem('outletInfo'));
+    // console.log(outletDataInfo[0].outletName)
     $scope.saveItem = function ($event) {
       alert('Are you sure you want to continue with the changes?');
       $event.preventDefault();

@@ -28,6 +28,7 @@ app.controller('brandCtrl', [
   '$http',
   'socketService',
   'brandService',
+  'outletService',
   'brandFactory',
   '$state',
   function (
@@ -37,6 +38,7 @@ app.controller('brandCtrl', [
     $http,
     socketService,
     brandService,
+    outletService,
     brandFactory,
     $state
   ) {
@@ -429,6 +431,17 @@ app.controller('brandCtrl', [
         .catch(function (err) {
           console.log(err);
         });
+
+      // LOADING TOP SELLING ITEMS PER OUTLET
+      $scope.topItems = [];
+      outletService.recommendedItems($scope.dataId)
+      .then(function (res) {
+        $scope.topItems = res.data.recommendedItems;
+        console.log($scope.topItems);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
 
       // GET SALES PER OUTLET
       $scope.salesPerOutlet = [];

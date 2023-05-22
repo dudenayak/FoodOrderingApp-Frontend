@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="superCardBoxStatus">
+            <!-- <div class="superCardBoxStatus">
                 <div ng-if="allPrepare.length == 0">
                     No orders at present!
                 </div>
@@ -58,6 +58,32 @@
                             ng-click="statusCancelledButton(prepare._id)">Cancelled</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <div class="superCardBoxStatus">
+                <div ng-if="allPrepare.length == 0">
+                  No orders at present!
+                </div>
+                
+                <div class="superCard" ng-repeat="prepare in allPrepare" style="height: auto;">
+                  <h7>
+                    {{prepare.orderType}}
+                  </h7>
+                  
+                  <div ng-repeat="item in prepare.orderItems">
+                    <div>
+                      <div class="numbers">{{item.foodCategory.foodItemName}} x {{item.foodCategory.foodItemQuantity}}</div>
+                      <div class="cardNameOutlet">{{super.superCategoryDescription}}</div>
+                    </div>
+                  </div>
+                  
+                  <div class="buttonStyle">
+                    <button type="button" class="superButton" style="background-color: #8de02c;" ng-click="statusReadyButton(prepare._id, prepare.orderStatus)">
+                      {{prepare.orderStatus == 'Preparing' ? 'Ready' : 'Served'}}
+                    </button>
+                    <button type="button" class="superButton" ng-click="statusCancelledButton(prepare._id)">Cancelled</button>
+                  </div>
+                </div>
+              </div>
+              
             <!-- </div>ng-class="{'Ready': prepare.orderStatus === 'Ready', 'Served': prepare.orderStatus === 'Served' , 'Preparing' : prepare.orderStatus === 'Preparing'}" -->
 </body>
